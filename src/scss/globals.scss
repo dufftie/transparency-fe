@@ -1,0 +1,77 @@
+@import 'variables';
+@import 'antd-theme';
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  color: $text-color;
+  background-color: $background-color;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+}
+
+code, pre {
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+.layout {
+  min-height: 100vh;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: $primary-color;
+  padding: 0 20px;
+}
+
+.content {
+  padding: 24px;
+  
+  .content-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 24px;
+    background-color: #fff;
+    border-radius: 4px;
+  }
+}
+
+.footer {
+  text-align: center;
+  background-color: $footer-bg;
+  color: $footer-text;
+  padding: 16px;
+}
+
+.home-page {
+  h1 {
+    margin-bottom: 16px;
+  }
+  
+  .description {
+    margin-bottom: 24px;
+    font-size: 16px;
+    color: $text-secondary;
+  }
+  
+  .graph-container {
+    margin: 32px 0;
+  }
+  
+  .pagination-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 24px;
+  }
+}
+
