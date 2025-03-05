@@ -11,13 +11,13 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
   return (
     <AntdRegistry>
       <Layout className="layout">
-        <Header className="header">
-          <div className="logo-container">
-            Läbipaistvus
-          </div>
-        </Header>
+        {/*<Header className="header">*/}
+        {/*  <div className="logo-container">*/}
+        {/*    Läbipaistvus*/}
+        {/*  </div>*/}
+        {/*</Header>*/}
         <Content className="content">
-          <div className="content-container">{ children }</div>
+          { children }
         </Content>
         <Footer className="footer">
         </Footer>

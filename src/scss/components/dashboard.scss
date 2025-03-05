@@ -1,0 +1,23 @@
+@import "../variables";
+
+.dashboard {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, auto);
+  gap: 20px;
+  margin: 20px;
+  padding: 20px;
+  border-radius: 20px;
+  background-color: rgba(255, 255, 255, 0.5);
+
+  &--setting {
+    grid-column: span 4;
+  }
+
+  .proceed-article-graph {
+    grid-column: span 4;
+    height: 300px;
+    border-radius: 20px;
+    background-color: white;
+  }
+}
