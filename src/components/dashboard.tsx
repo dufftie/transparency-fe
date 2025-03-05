@@ -1,49 +1,24 @@
 'use client';
 
-import ProceededArticlesGraph from '@/src/components/graphs/proceeded-article-graph';
-import React, { useState } from 'react';
-import { Select, DatePicker } from 'antd';
+import React, { useState, Suspense } from 'react';
+import dynamic from 'next/dynamic';
+import { Select, DatePicker, Spin } from 'antd';
 import dayjs from 'dayjs';
-import CompareScatterPlot from '@/src/components/graphs/compare-scatter-plot';
+
+// Dynamically import graphs (Lazy Load)
+const ProceededArticlesGraph = dynamic(() => import('@/src/components/graphs/proceeded-article-graph'), { ssr: false });
+const CompareScatterPlot = dynamic(() => import('@/src/components/graphs/compare-scatter-plot'), { ssr: false });
 
 const { RangePicker } = DatePicker;
 
 export const partiesList = [
-  {
-    label: 'Eesti Keskerakond',
-    value: 'Eesti Keskerakond',
-    color: 'green',
-  },
-  {
-    label: 'Eesti Reformierakond',
-    value: 'Eesti Reformierakond',
-    color: 'gold',
-  },
-  {
-    label: 'Erakond Eesti 200',
-    value: 'Erakond Eesti 200',
-    color: 'lightblue',
-  },
-  {
-    label: 'Sotsiaaldemokraatlik Erakond',
-    value: 'Sotsiaaldemokraatlik Erakond',
-    color: 'red',
-  },
-  {
-    label: 'Eesti Konservatiivne Rahvaerakond',
-    value: 'Eesti Konservatiivne Rahvaerakond',
-    color: 'black',
-  },
-  {
-    label: 'Erakond Parempoolsed',
-    value: 'Erakond Parempoolsed',
-    color: 'orange',
-  },
-  {
-    label: 'ISAMAA Erakond',
-    value: 'ISAMAA Erakond',
-    color: 'blue',
-  },
+  { label: 'Eesti Keskerakond', value: 'Eesti Keskerakond', color: 'green' },
+  { label: 'Eesti Reformierakond', value: 'Eesti Reformierakond', color: 'gold' },
+  { label: 'Erakond Eesti 200', value: 'Erakond Eesti 200', color: 'lightblue' },
+  { label: 'Sotsiaaldemokraatlik Erakond', value: 'Sotsiaaldemokraatlik Erakond', color: 'red' },
+  { label: 'Eesti Konservatiivne Rahvaerakond', value: 'Eesti Konservatiivne Rahvaerakond', color: 'black' },
+  { label: 'Erakond Parempoolsed', value: 'Erakond Parempoolsed', color: 'orange' },
+  { label: 'ISAMAA Erakond', value: 'ISAMAA Erakond', color: 'blue' },
 ];
 
 const categories = [
@@ -53,7 +28,10 @@ const categories = [
 
 const Dashboard = (): React.ReactNode => {
   const [category, setCategory] = useState('Мнение');
-  const [dateRange, setDateRange] = useState([dayjs('2024-01-01', 'YYYY-MM-DD'), dayjs('2025-03-01', 'YYYY-MM-DD')]);
+  const [dateRange, setDateRange] = useState([
+    dayjs('2024-01-01', 'YYYY-MM-DD'),
+    dayjs('2025-03-01', 'YYYY-MM-DD'),
+  ]);
 
   const handleDateRangeChange = (dates: any) => {
     setDateRange(dates);
@@ -75,8 +53,15 @@ const Dashboard = (): React.ReactNode => {
           defaultValue={ dateRange }
         />
       </div>
-      <ProceededArticlesGraph category={ category } dateRange={ dateRange } />
-      <CompareScatterPlot category={category} dateRange={dateRange} />
+
+      {/* Async Loaded Graphs */ }
+      <Suspense fallback={ <Spin size="large" /> }>
+        <ProceededArticlesGraph category={ category } dateRange={ dateRange } />
+      </Suspense>
+
+      <Suspense fallback={ <Spin size="large" /> }>
+        <CompareScatterPlot category={ category } dateRange={ dateRange } />
+      </Suspense>
     </div>
   );
 };

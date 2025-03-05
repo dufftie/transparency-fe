@@ -1,6 +1,7 @@
 import { ResponsiveContainer, ScatterChart, Scatter, XAxis, YAxis, Tooltip, CartesianGrid, Legend } from 'recharts';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo, useCallback } from 'react';
 import dayjs from 'dayjs';
+import debounce from 'lodash/debounce';
 import { partiesList } from '@/src/components/dashboard';
 
 interface PartyScatterPlotGraphProps {
@@ -11,34 +12,42 @@ interface PartyScatterPlotGraphProps {
 
 const PartyScatterPlotGraph = ({ category, dateRange, party }: PartyScatterPlotGraphProps) => {
   const [data, setData] = useState<any[]>([]);
+  const [loading, setLoading] = useState(false);
+
+  const fetchData = useCallback(
+    debounce(async () => {
+      if (!category || !party || dateRange.length !== 2) return;
+
+      setLoading(true);
+      const [startDate, endDate] = dateRange;
+      const url = new URL('http://127.0.0.1:8000/sentiments/parties/mentions/');
+      const params = new URLSearchParams({
+        category,
+        start_date: startDate.format('YYYY-MM-DD'),
+        end_date: endDate.format('YYYY-MM-DD'),
+      });
+      params.append('parties', party);
+      url.search = params.toString();
+
+      try {
+        const response = await fetch(url);
+        const result = await response.json();
+        setData(Array.isArray(result) ? result : []);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setData([]);
+      } finally {
+        setLoading(false);
+      }
+    }, 500),
+    [category, dateRange, party]
+  );
 
   useEffect(() => {
-    const [startDate, endDate] = dateRange;
-    const start_date = startDate.format('YYYY-MM-DD');
-    const end_date = endDate.format('YYYY-MM-DD');
+    fetchData();
+  }, [fetchData]);
 
-    const url = new URL('http://127.0.0.1:8000/sentiments/parties/mentions/');
-    const params = new URLSearchParams();
-
-    params.set('category', category);
-    params.set('start_date', start_date);
-    params.set('end_date', end_date);
-    params.append('parties', party);
-
-    url.search = params.toString();
-
-    fetch(url)
-    .then((response) => response.json())
-    .then((result) => {
-      setData(Array.isArray(result) ? result : []);
-    })
-    .catch((error) => {
-      console.error("Error fetching data:", error);
-      setData([]);
-    });
-  }, [category, dateRange, party]);
-
-  const generateCompleteTimeline = () => {
+  const generateCompleteTimeline = useCallback(() => {
     const [startDate, endDate] = dateRange;
     const allDates = [];
     let currentDate = startDate.clone();
@@ -48,25 +57,21 @@ const PartyScatterPlotGraph = ({ category, dateRange, party }: PartyScatterPlotG
       currentDate = currentDate.add(1, 'day');
     }
     return allDates;
-  };
+  }, [dateRange]);
 
-  const processData = () => {
+  const processedData = useMemo(() => {
     const timeline = generateCompleteTimeline();
-    const safeData = Array.isArray(data) ? data : []; // Ensure data is an array
-
-    return timeline.map(date => {
-      const entry = safeData.find(d => d.party === party && d.date === date);
-      return entry ? { date, sentiment_score: entry.sentiment_score } : { date, sentiment_score: null };
+    return timeline.map((date) => {
+      const entry = data?.find((d) => d.party === party && d.date === date);
+      return { date, sentiment_score: entry ? entry.sentiment_score : null };
     });
+  }, [data, party, generateCompleteTimeline]);
+
+  const getPartyColor = (partyName: string) => {
+    return partiesList.find((p) => p.value === partyName)?.color || 'gray';
   };
 
-  const getColorForParty = (partyName: string) => {
-    const partyData = partiesList.find(p => p.value === partyName);
-    return partyData ? partyData.color : 'gray';
-  };
-
-  const processedData = processData();
-  const partyColor = getColorForParty(party);
+  const partyColor = useMemo(() => getPartyColor(party), [party]);
 
   return (
     <div className="graph party-scatter-plot-graph">
@@ -88,21 +93,19 @@ const PartyScatterPlotGraph = ({ category, dateRange, party }: PartyScatterPlotG
             name="Sentiment Score"
             domain={[0, 10]}
           />
-          <Tooltip
-            cursor={{ strokeDasharray: '3 3' }}
-            formatter={(value, name) => {
-              const labelMap = {
-                sentiment_score: 'Sentiment Score',
-              };
-              return [value, labelMap[name] || name];
-            }}
-          />
+          <Tooltip cursor={{ strokeDasharray: '3 3' }} />
           <Legend />
-          <Scatter name={party} data={processedData} fill={partyColor} shape="circle" />
+          <Scatter
+            name={party}
+            data={processedData}
+            fill={partyColor}
+            shape="circle"
+            isPure
+          />
         </ScatterChart>
       </ResponsiveContainer>
     </div>
   );
 };
 
-export default PartyScatterPlotGraph;
+export default React.memo(PartyScatterPlotGraph);
