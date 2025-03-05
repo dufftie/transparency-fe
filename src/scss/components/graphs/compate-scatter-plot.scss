@@ -1,0 +1,16 @@
+.compare-scatter-plot {
+  display: grid;
+  gap: 10px;
+  grid-area: compare-scatter-plot;
+
+  &__graphs {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+    grid-template-rows: auto;
+
+    .party-scatter-plot-graph {
+      height: 500px;
+    }
+  }
+}

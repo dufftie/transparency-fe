@@ -2,22 +2,22 @@
 
 import ProceededArticlesGraph from '@/src/components/graphs/proceeded-article-graph';
 import React, { useState } from 'react';
-import { Checkbox, Select, DatePicker } from 'antd';
-import map from 'lodash/map';
+import { Select, DatePicker } from 'antd';
 import dayjs from 'dayjs';
+import CompareScatterPlot from '@/src/components/graphs/compare-scatter-plot';
 
 const { RangePicker } = DatePicker;
 
-const partiesList = [
+export const partiesList = [
   {
     label: 'Eesti Keskerakond',
     value: 'Eesti Keskerakond',
     color: 'green',
   },
   {
-    label: 'Eest Reformierakond',
-    value: 'Eest Reformierakond',
-    color: 'darkyellow',
+    label: 'Eesti Reformierakond',
+    value: 'Eesti Reformierakond',
+    color: 'gold',
   },
   {
     label: 'Erakond Eesti 200',
@@ -46,26 +46,6 @@ const partiesList = [
   },
 ];
 
-const PartiesSelect = ({ selectedParties, handleChange }: {
-  selectedParties: string[],
-  handleChange: (party: string) => void
-}) => {
-  return (
-    <div style={ { display: 'grid' } }>
-      { map(partiesList, (party) => (
-        <Checkbox
-          key={ party.value }
-          checked={ selectedParties.includes(party.value) }
-          onChange={ () => handleChange(party.value) }
-        >
-          { party.label }
-        </Checkbox>
-      )) }
-    </div>
-  );
-};
-
-
 const categories = [
   { value: 'Мнение', label: 'Мнение' },
   { value: 'Эстония', label: 'Эстония' },
@@ -73,16 +53,7 @@ const categories = [
 
 const Dashboard = (): React.ReactNode => {
   const [category, setCategory] = useState('Мнение');
-  const [parties, setParties] = useState<string[]>(map(partiesList, party => party.value));
-  const [dateRange, setDateRange] = useState([dayjs('2025-02-21', 'YYYY-MM-DD'), dayjs('2025-03-01', 'YYYY-MM-DD')]);
-
-  const handlePartySelect = (party: string) => {
-    setParties((prevParties) =>
-      prevParties.includes(party)
-        ? prevParties.filter((selectedParty) => selectedParty !== party)
-        : [...prevParties, party],
-    );
-  };
+  const [dateRange, setDateRange] = useState([dayjs('2024-01-01', 'YYYY-MM-DD'), dayjs('2025-03-01', 'YYYY-MM-DD')]);
 
   const handleDateRangeChange = (dates: any) => {
     setDateRange(dates);
@@ -91,22 +62,21 @@ const Dashboard = (): React.ReactNode => {
   return (
     <div className="dashboard">
       <div className="dashboard--settings">
-        <div style={ { display: 'flex' } }>
-          <Select
-            options={ categories }
-            defaultValue={ category }
-            onChange={ setCategory }
-          />
-          <RangePicker
-            picker="week"
-            value={ dateRange } // Bind the selected date range
-            onCalendarChange={ handleDateRangeChange } // Update state on date change
-            defaultValue={ [dayjs('2022-01-01', 'YYYY-MM-DD'), dayjs('2025-03-01', 'YYYY-MM-DD')] }
-          />
-        </div>
-        <PartiesSelect selectedParties={ parties } handleChange={ handlePartySelect } />
+        <Select
+          options={ categories }
+          defaultValue={ category }
+          onChange={ setCategory }
+          style={ { width: '100%' } }
+        />
+        <RangePicker
+          picker="week"
+          value={ dateRange }
+          onCalendarChange={ handleDateRangeChange }
+          defaultValue={ dateRange }
+        />
       </div>
-      <ProceededArticlesGraph category={ category } dateRange={dateRange} />
+      <ProceededArticlesGraph category={ category } dateRange={ dateRange } />
+      <CompareScatterPlot category={category} dateRange={dateRange} />
     </div>
   );
 };

@@ -16,7 +16,7 @@ const ProceededArticlesGraph = ({ category, dateRange }: ProceededArticlesGraphP
     const start_date = startDate.format('YYYY-MM-DD');
     const end_date = endDate.format('YYYY-MM-DD');
 
-    const url = `http://127.0.0.1:8000/sentiments/category/${ category }/daily?start_date=${ start_date }&end_date=${ end_date }`;
+    const url = `http://127.0.0.1:8000/sentiments/category/${ category }/?start_date=${ start_date }&end_date=${ end_date }`;
 
     fetch(url)
     .then(response => response.json())
@@ -35,7 +35,7 @@ const ProceededArticlesGraph = ({ category, dateRange }: ProceededArticlesGraphP
   };
 
   return (
-    <div className="proceed-article-graph">
+    <div className="graph proceed-article-graph">
       <ResponsiveContainer width="100%" height="100%">
         <BarChart data={ processData(data) } margin={ { left: 0, right: 20, top: 30, bottom: 0 } }>
           <text x="50%" y="20" textAnchor="middle" fontSize="12px" fontWeight="bold">
