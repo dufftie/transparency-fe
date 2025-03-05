@@ -1,4 +1,6 @@
-import PartiesScatterPlot from '@/src/components/graphs/parties-scatter-plot';
+'use client'
+
+import PartiesScatterPlot from '@/src/components/graphs/party-scatter-plot';
 import React, { useState } from 'react';
 import map from 'lodash/map';
 import { partiesList } from '@/src/components/dashboard';

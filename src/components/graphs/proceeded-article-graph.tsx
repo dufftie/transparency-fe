@@ -1,45 +1,29 @@
-import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, Label } from 'recharts';
-import { useEffect, useState } from 'react';
+import { BarChart, Bar, XAxis, YAxis, Tooltip } from 'recharts';
 import dayjs from 'dayjs';
-import map from 'lodash/map';
+import BaseGraph from '@/src/components/graphs/base-grap';
 
 interface ProceededArticlesGraphProps {
   category: string;
-  dateRange: dayjs[];
+  dateRange: dayjs.Dayjs[];
 }
 
 const ProceededArticlesGraph = ({ category, dateRange }: ProceededArticlesGraphProps) => {
-  const [data, setData] = useState([]);
+  const [startDate, endDate] = dateRange;
+  const fetchUrl = `http://127.0.0.1:8000/sentiments/category/${ category }/?start_date=${ startDate.format('YYYY-MM-DD') }&end_date=${ endDate.format('YYYY-MM-DD') }`;
 
-  useEffect(() => {
-    const [startDate, endDate] = dateRange;
-    const start_date = startDate.format('YYYY-MM-DD');
-    const end_date = endDate.format('YYYY-MM-DD');
-
-    const url = `http://127.0.0.1:8000/sentiments/category/${ category }/?start_date=${ start_date }&end_date=${ end_date }`;
-
-    fetch(url)
-    .then(response => response.json())
-    .then(setData)
-    .catch(console.error);
-  }, [category, dateRange]);
-
-  const processData = (data) => {
-    return map(data, entry => (
-      {
-        ...entry,
-        date: dayjs(entry.date).format('MMM YY'),
-        non_analyzed_articles: entry.articles_count - entry.analysed_count,
-      }
-    ));
-  };
+  const processData = (data: any[]) =>
+    data.map((entry) => ({
+      ...entry,
+      date: dayjs(entry.date).format('MMM YY'),
+      non_analyzed_articles: entry.articles_count - entry.analysed_count,
+    }));
 
   return (
-    <div className="graph proceed-article-graph">
-      <ResponsiveContainer width="100%" height="100%">
-        <BarChart data={ processData(data) } margin={ { left: 0, right: 20, top: 30, bottom: 0 } }>
+    <BaseGraph graphName="proceed-article-graph" fetchUrl={ fetchUrl } processData={ processData }>
+      { (data, loading) => (
+        <BarChart data={ data } margin={ { left: 0, right: 20, top: 30, bottom: 0 } }>
           <text x="50%" y="20" textAnchor="middle" fontSize="12px" fontWeight="bold">
-            { `Chart of processed articles for '${ category }' category` }
+            { `Chart of processed articles for '${ category }'` }
           </text>
           <Tooltip formatter={ (value, name) => {
             const labelMap = {
@@ -49,12 +33,12 @@ const ProceededArticlesGraph = ({ category, dateRange }: ProceededArticlesGraphP
             return [value, labelMap[name] || name];
           } } />
           <XAxis dataKey="date" />
-          <YAxis allowDecimals={false} />
+          <YAxis allowDecimals={ false } />
           <Bar dataKey="analysed_count" fill="blue" stackId="a" />
           <Bar dataKey="non_analyzed_articles" fill="gray" stackId="a" />
         </BarChart>
-      </ResponsiveContainer>
-    </div>
+      ) }
+    </BaseGraph>
   );
 };
 
