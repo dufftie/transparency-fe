@@ -1,4 +1,4 @@
-import GraphSettings from '@/src/components/graphs/graph-settings';
+import GraphSettings, { defaultSortOptions } from '@/src/components/graphs/graph-settings';
 import StackedBarChart from '@/src/components/graphs/stacked-bar-chart';
 import GraphWidget from '@/src/components/graphs/graph-widget';
 import { useState } from 'react';
@@ -12,32 +12,58 @@ const categoryOptions = [
   { value: 'Эстония', label: 'Эстония' },
 ];
 
+// Party selection options
+const partyOptions = partiesList.map(party => ({
+  value: party.value,
+  label: party.label,
+}));
+
 const PartiesMonthlySentimentsBarchart = () => {
   const [barChartCategory, setBarChartCategory] = useState('');
   const [barChartDateRange, setBarChartDateRange] = useState<[dayjs.Dayjs, dayjs.Dayjs]>([
     dayjs('2024-01-01', 'YYYY-MM-DD'),
     dayjs('2025-03-01', 'YYYY-MM-DD'),
   ]);
+  
+  // State for sorting and party filtering
+  const [sortBy, setSortBy] = useState('name');
+  const [selectedParties, setSelectedParties] = useState<string[]>(
+    map(partiesList, party => party.value)
+  );
 
   return (
     <GraphWidget
       title="Sentiment Distribution by Party"
       settings={
         <GraphSettings
+          // Category selection
           category={barChartCategory}
-          dateRange={barChartDateRange}
           categoryOptions={categoryOptions}
           onCategoryChange={setBarChartCategory}
+          
+          // Date range selection
+          dateRange={barChartDateRange}
           onDateRangeChange={setBarChartDateRange}
+          
+          // Multi-party selection
+          selectedParties={selectedParties}
+          multiPartyOptions={partyOptions}
+          onSelectedPartiesChange={setSelectedParties}
+          
+          // Sorting options
+          sortBy={sortBy}
+          sortOptions={defaultSortOptions}
+          onSortChange={setSortBy}
         />
       }
     >
       <StackedBarChart
         category={barChartCategory}
         dateRange={barChartDateRange}
-        showParties={map(partiesList, party => party.value)}
+        showParties={selectedParties}
         positiveThreshold={7}
         negativeThreshold={3}
+        sortBy={sortBy}
       />
     </GraphWidget>
   );

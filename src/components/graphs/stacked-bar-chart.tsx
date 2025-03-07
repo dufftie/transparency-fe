@@ -1,14 +1,6 @@
 'use client';
 
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  Tooltip,
-  CartesianGrid,
-  Legend,
-} from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, Legend } from 'recharts';
 import dayjs from 'dayjs';
 import BaseGraph from '@/src/components/graphs/base-graph';
 import partiesList from '@/src/lib/dictionaries/partiesList';
@@ -18,6 +10,7 @@ interface StackedBarChartProps extends BaseGraphProps {
   showParties?: string[];
   positiveThreshold?: number; // Scores >= this value are considered positive
   negativeThreshold?: number; // Scores <= this value are considered negative
+  sortBy?: 'name' | 'total' | 'positive' | 'negative'; // How to sort the data
 }
 
 const buildUrl = ({
@@ -45,7 +38,8 @@ const StackedBarChart = ({
   dateRange,
   showParties = partiesList.map(p => p.value), // Default to showing all parties
   positiveThreshold = 7, // Default: scores >= 7 are positive
-  negativeThreshold = 3  // Default: scores <= 3 are negative
+  negativeThreshold = 3, // Default: scores <= 3 are negative
+  sortBy = 'name', // Default: sort by name
 }: StackedBarChartProps) => {
   const [startDate, endDate] = dateRange || [
     dayjs('2024-01-01', 'YYYY-MM-DD'),
@@ -58,19 +52,19 @@ const StackedBarChart = ({
   const processData = (data: any[]) => {
     // Filter by requested parties
     const filteredData = data.filter(item => showParties.includes(item.party));
-    
+
     // Calculate sentiment counts based on configurable thresholds
-    return filteredData.map(item => {
+    let processedData = filteredData.map(item => {
       const partyInfo = partiesList.find(p => p.value === item.party);
-      
+
       let positiveCount = 0;
       let neutralCount = 0;
       let negativeCount = 0;
-      
+
       // Iterate through all possible score values (0-10)
       for (let score = 0; score <= 10; score++) {
         const count = parseInt(item[score.toString()]) || 0;
-        
+
         if (score >= positiveThreshold) {
           positiveCount += count;
         } else if (score <= negativeThreshold) {
@@ -79,58 +73,92 @@ const StackedBarChart = ({
           neutralCount += count;
         }
       }
-      
+
+      const totalCount = positiveCount + neutralCount + negativeCount;
+
       return {
         party: item.party,
         partyLabel: partyInfo?.label || item.party,
         positive_count: positiveCount,
         neutral_count: neutralCount,
-        negative_count: negativeCount
+        negative_count: negativeCount,
+        total_count: totalCount,
+        color: partyInfo?.color,
       };
     });
+
+    // Sort the data based on sortBy parameter
+    processedData = processedData.sort((a, b) => {
+      switch (sortBy) {
+        case 'name':
+          return a.partyLabel.localeCompare(b.partyLabel);
+        case 'total':
+          return b.total_count - a.total_count;
+        case 'positive':
+          return b.positive_count - a.positive_count;
+        case 'negative':
+          return b.negative_count - a.negative_count;
+        default:
+          return a.partyLabel.localeCompare(b.partyLabel); // Default to name sort
+      }
+    });
+
+    return processedData;
   };
 
   return (
     <BaseGraph graphName="stacked-bar-chart" fetchUrl={fetchUrl} processData={processData}>
-      {(data, loading) => (
-        <BarChart data={data}>
-          <CartesianGrid strokeDasharray="3 3" vertical={true} horizontal={true} />
-          <XAxis 
-            dataKey="partyLabel"
-            axisLine={false}
-            tickLine={false}
-          />
-          <YAxis
-            type="number"
-            axisLine={false}
-            tickLine={false}
-          />
-          <Tooltip 
-            formatter={(value, name) => [`${value} mentions`, name]}
-            labelFormatter={(label) => ''}
-          />
-          <Legend />
+      {(data, loading) => {
+        // Calculate max value for YAxis domain
+        const maxTotal = Math.max(...data.map(item => item.total_count));
 
-          <Bar
-            dataKey="negative_count"
-            name={`Negative (≤${negativeThreshold})`}
-            stackId="a"
-            fill="#EA5753"
-          />
-          <Bar
-            dataKey="positive_count" 
-            name={`Positive (≥${positiveThreshold})`} 
-            stackId="a" 
-            fill="#8FCC7E"
-          />
-          <Bar 
-            dataKey="neutral_count" 
-            name={`Neutral (${negativeThreshold+1}-${positiveThreshold-1})`} 
-            stackId="a" 
-            fill="#D9D9D9"
-          />
-        </BarChart>
-      )}
+        return (
+          <BarChart data={data}>
+            <CartesianGrid strokeDasharray="3 3" vertical={true} horizontal={true} />
+            <XAxis
+              dataKey="partyLabel"
+              axisLine={false}
+              tickLine={false}
+              angle={-45}
+              textAnchor="end"
+              height={60}
+              interval={0}
+            />
+            <YAxis
+              type="number"
+              axisLine={false}
+              tickLine={false}
+              domain={[0, maxTotal]}
+            />
+            <Tooltip
+              formatter={(value, name) => [`${value} mentions`, name]}
+              labelFormatter={label => label}
+            />
+            <Legend />
+
+            <Bar
+              dataKey="negative_count"
+              name={`Negative (≤${negativeThreshold})`}
+              stackId="a"
+              fill="#EA5753"
+            />
+            <Bar
+              dataKey="positive_count"
+              name={`Positive (≥${positiveThreshold})`}
+              stackId="a"
+              fill="#8FCC7E"
+              opacity="0.8"
+            />
+            <Bar
+              dataKey="neutral_count"
+              name={`Neutral (${negativeThreshold + 1}-${positiveThreshold - 1})`}
+              stackId="a"
+              fill="#D9D9D9"
+              opacity="0.8"
+            />
+          </BarChart>
+        );
+      }}
     </BaseGraph>
   );
 };
