@@ -1,6 +1,6 @@
 import { ScatterChart, Scatter, XAxis, YAxis, Tooltip, CartesianGrid, Legend } from 'recharts';
 import dayjs from 'dayjs';
-import BaseGraph from '@/src/components/graphs/base-grap';
+import BaseGraph from '@/src/components/graphs/base-graph';
 import partiesList from '@/src/lib/dictionaries/partiesList';
 
 interface PartyScatterPlotGraphProps {

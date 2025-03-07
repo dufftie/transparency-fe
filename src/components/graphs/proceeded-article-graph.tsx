@@ -1,6 +1,6 @@
 import { BarChart, Bar, XAxis, YAxis, Tooltip } from 'recharts';
 import dayjs from 'dayjs';
-import BaseGraph from '@/src/components/graphs/base-grap';
+import BaseGraph from '@/src/components/graphs/base-graph';
 
 interface ProceededArticlesGraphProps {
   category: string;
