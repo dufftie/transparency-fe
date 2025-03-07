@@ -6,9 +6,9 @@ import { DatePicker, Form, Select } from 'antd';
 import dayjs from 'dayjs';
 
 const categories = [
+  { value: '', label: 'Все' },
   { value: 'Мнение', label: 'Мнение' },
   { value: 'Эстония', label: 'Эстония' },
-  // { value: 'Всё', label: null },
 ];
 
 const { RangePicker } = DatePicker;
@@ -16,7 +16,7 @@ const { RangePicker } = DatePicker;
 const GraphWidget = (props): JSX.Element => {
   const { title } = props;
 
-  const [category, setCategory] = useState('Мнение');
+  const [category, setCategory] = useState(null);
   const [dateRange, setDateRange] = useState([
     dayjs('2024-01-01', 'YYYY-MM-DD'),
     dayjs('2025-03-01', 'YYYY-MM-DD'),
