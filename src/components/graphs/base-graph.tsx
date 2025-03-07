@@ -57,7 +57,7 @@ const BaseGraph = ({ fetchUrl, processData, children, graphName }: BaseGraphProp
           setLoading(false);
         }, 300);
       }
-    }, 1000),
+    }, 100),
     [fetchUrl, processData]
   );
 

@@ -75,11 +75,13 @@
   row-gap: 20px;
   background-color: white;
   border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 
   width: 100%;
   min-width: 300px;
   height: fit-content;
   padding: 30px 30px 20px;
+  margin-bottom: 30px;
 
   @media (min-width: 300px) {
     padding: 20px;
@@ -89,6 +91,7 @@
     font-weight: 600;
     font-size: 20px;
     font-family: 'Montserrat', sans-serif;
+    margin-bottom: 15px;
   }
 
   &__settings {
@@ -96,23 +99,43 @@
     flex-grow: 1;
     flex-basis: 200px;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
     gap: 20px;
-
     height: fit-content;
-
-    .ant-form-item {
-      margin-bottom: 10px;
-
-      &-label {
-        padding-bottom: 5px !important;
-      }
-    }
   }
 
   &__content {
     flex-grow: 4;
     flex-basis: 600px;
     aspect-ratio: 2/1;
+  }
+}
+
+// Styles for the graph settings component
+.graph-settings {
+  width: 100%;
+  
+  .ant-form-item {
+    margin-bottom: 10px;
+
+    &-label {
+      padding-bottom: 5px !important;
+    }
+  }
+
+  .ant-select, 
+  .ant-picker {
+    width: 100%;
+  }
+
+  @media (max-width: 768px) {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    
+    .ant-form-item {
+      flex: 1 0 200px;
+      margin-bottom: 0;
+    }
   }
 }

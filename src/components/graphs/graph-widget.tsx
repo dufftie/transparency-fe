@@ -1,60 +1,29 @@
 'use client';
 
-import React, { JSX, useState } from 'react';
-import PartyScatterPlotGraph from '@/src/components/graphs/party-scatter-plot';
-import { DatePicker, Form, Select } from 'antd';
-import dayjs from 'dayjs';
+import React, { JSX, ReactNode } from 'react';
 
-const categories = [
-  { value: '', label: 'Все' },
-  { value: 'Мнение', label: 'Мнение' },
-  { value: 'Эстония', label: 'Эстония' },
-];
+/**
+ * GraphWidget component that accepts settings and graph content as props
+ * This allows for more flexible composition where settings and graph components
+ * can be defined outside and passed in
+ */
+interface GraphWidgetProps {
+  title?: string;
+  settings?: ReactNode;
+  children: ReactNode;
+}
 
-const { RangePicker } = DatePicker;
-
-const GraphWidget = (props): JSX.Element => {
-  const { title } = props;
-
-  const [category, setCategory] = useState(null);
-  const [dateRange, setDateRange] = useState([
-    dayjs('2024-01-01', 'YYYY-MM-DD'),
-    dayjs('2025-03-01', 'YYYY-MM-DD'),
-  ]);
-
-  const handleDateRangeChange = (dates: any) => {
-    setDateRange(dates);
-  };
-
+const GraphWidget = ({ title, settings, children }: GraphWidgetProps): JSX.Element => {
   return (
     <div className="graph-widget">
-      <div className="graph-widget__settings">
-        <span className="graph-widget__title">{title}</span>
-        <Form layout="vertical">
-          <Form.Item label="Category">
-            <Select
-              options={categories}
-              defaultValue={category}
-              onChange={setCategory}
-              style={{ width: '100%' }}
-            />
-          </Form.Item>
-          <Form.Item label="Time period">
-            <RangePicker
-              picker="week"
-              value={dateRange}
-              onCalendarChange={handleDateRangeChange}
-              defaultValue={dateRange}
-            />
-          </Form.Item>
-        </Form>
-      </div>
+      {(title || settings) && (
+        <div className="graph-widget__settings">
+          {title && <span className="graph-widget__title">{title}</span>}
+          {settings}
+        </div>
+      )}
       <div className="graph-widget__content">
-        <PartyScatterPlotGraph
-          category={category}
-          dateRange={dateRange}
-          party="Sotsiaaldemokraatlik Erakond"
-        />
+        {children}
       </div>
     </div>
   );
