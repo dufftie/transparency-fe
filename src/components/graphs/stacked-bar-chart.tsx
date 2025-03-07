@@ -7,11 +7,11 @@ import partiesList from '@/src/lib/dictionaries/partiesList';
 import { BaseGraphProps } from '@/src/types/graphs';
 
 interface StackedBarChartProps extends BaseGraphProps {
-  showParties?: string[];
+  showParties: string[];
   positiveThreshold?: number; // Scores >= this value are considered positive
   negativeThreshold?: number; // Scores <= this value are considered negative
   sortBy?: 'name' | 'total' | 'positive' | 'negative'; // How to sort the data
-  visibleSentiments?: string[]; // Which sentiment types to display (positive, neutral, negative)
+  visibleSentiments: string[]; // Which sentiment types to display (positive, neutral, negative)
 }
 
 const buildUrl = ({
@@ -112,34 +112,33 @@ const StackedBarChart = ({
     <BaseGraph graphName="stacked-bar-chart" fetchUrl={fetchUrl} processData={processData}>
       {(data, loading) => {
         // Calculate max value for YAxis domain based on visible sentiments
-        const maxTotal = Math.max(...data.map(item => {
-          let visibleTotal = 0;
-          if (visibleSentiments.includes('positive')) {
-            visibleTotal += item.positive_count;
-          }
-          if (visibleSentiments.includes('neutral')) {
-            visibleTotal += item.neutral_count;
-          }
-          if (visibleSentiments.includes('negative')) {
-            visibleTotal += item.negative_count;
-          }
-          return visibleTotal;
-        }));
+        const maxTotal = Math.max(
+          ...data.map(item => {
+            let visibleTotal = 0;
+            if (visibleSentiments.includes('positive')) {
+              visibleTotal += item.positive_count;
+            }
+            if (visibleSentiments.includes('neutral')) {
+              visibleTotal += item.neutral_count;
+            }
+            if (visibleSentiments.includes('negative')) {
+              visibleTotal += item.negative_count;
+            }
+            return visibleTotal;
+          })
+        );
 
         return (
           <BarChart data={data}>
-            <CartesianGrid strokeDasharray="3 3" vertical={true} horizontal={true} />
-            <XAxis
-              dataKey="partyLabel"
-              axisLine={false}
-              tickLine={false}
-              interval={0}
-            />
+            <CartesianGrid strokeDasharray="3 3" vertical={false} />
+            <XAxis dataKey="partyLabel" axisLine={false} tickLine={false} interval={0} />
             <YAxis
               type="number"
               axisLine={false}
               tickLine={false}
               domain={[0, maxTotal]}
+              tickCount={6}
+              width={50}
             />
             <Tooltip
               formatter={(value, name) => [`${value} mentions`, name]}
@@ -155,7 +154,7 @@ const StackedBarChart = ({
                 fill="#EA5753"
               />
             )}
-            
+
             {visibleSentiments.includes('neutral') && (
               <Bar
                 dataKey="neutral_count"
@@ -165,7 +164,7 @@ const StackedBarChart = ({
                 opacity="0.8"
               />
             )}
-            
+
             {visibleSentiments.includes('positive') && (
               <Bar
                 dataKey="positive_count"

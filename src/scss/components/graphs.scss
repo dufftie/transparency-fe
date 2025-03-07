@@ -145,30 +145,12 @@
   
   // Party checkboxes styling
   .party-checkboxes {
-    background-color: #f9f9f9;
     border: 1px solid #f0f0f0;
     border-radius: 4px;
-    
-    &-header {
-      padding: 8px 12px;
-    }
-    
-    &-list {
-      padding: 0 12px 12px;
-      max-height: 200px;
-      overflow-y: auto;
-      
-      .ant-checkbox-group {
-        display: flex;
-        flex-direction: column;
-        
-        .ant-checkbox-wrapper {
-          margin: 6px 0;
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-        }
-      }
+
+    .ant-checkbox-group {
+      padding: 5px;
+      display: flex;
     }
   }
 

@@ -23,25 +23,25 @@ const GraphSettings = ({
   party,
   partyOptions = null,
   onPartyChange,
-  
+
   // Multi-party selection
   selectedParties,
   multiPartyOptions = null,
   onSelectedPartiesChange,
-  
+
   // Sentiment visibility
   visibleSentiments,
   onVisibleSentimentsChange,
-  
+
   // Category selection
   category,
   categoryOptions = null,
   onCategoryChange,
-  
+
   // Date range
   dateRange,
   onDateRangeChange,
-  
+
   // Sorting options
   sortBy,
   sortOptions = defaultSortOptions,
@@ -61,56 +61,14 @@ const GraphSettings = ({
         </Form.Item>
       )}
 
-      {/* Multi-party selector with checkboxes */}
-      {multiPartyOptions && onSelectedPartiesChange && (
-        <Form.Item label="Select Parties">
-          <div className="party-checkboxes">
-            <div className="party-checkboxes-header">
-              <Checkbox
-                indeterminate={selectedParties.length > 0 && selectedParties.length < multiPartyOptions.length}
-                checked={selectedParties.length === multiPartyOptions.length}
-                onChange={e => {
-                  if (e.target.checked) {
-                    onSelectedPartiesChange(multiPartyOptions.map(option => option.value));
-                  } else {
-                    onSelectedPartiesChange([]);
-                  }
-                }}
-              >
-                Select All
-              </Checkbox>
-            </div>
-            <Divider style={{ margin: '8px 0' }} />
-            <div className="party-checkboxes-list">
-              <CheckboxGroup
-                options={multiPartyOptions}
-                value={selectedParties}
-                onChange={values => {
-                  // Ensure at least one party is always selected
-                  const newValues = values.length > 0 ? values : [multiPartyOptions[0].value];
-                  onSelectedPartiesChange(newValues);
-                }}
-              />
-            </div>
-          </div>
-        </Form.Item>
-      )}
-      
-      {/* Sentiment visibility */}
-      {visibleSentiments && onVisibleSentimentsChange && (
-        <Form.Item label="Show Sentiments">
-          <CheckboxGroup
-            options={[
-              { label: 'Positive', value: 'positive' },
-              { label: 'Neutral', value: 'neutral' },
-              { label: 'Negative', value: 'negative' }
-            ]}
-            value={visibleSentiments}
-            onChange={values => {
-              // Ensure at least one sentiment is always selected
-              const newValues = values.length > 0 ? values : ['positive'];
-              onVisibleSentimentsChange(newValues);
-            }}
+      {/* Date range picker */}
+      {dateRange && onDateRangeChange && (
+        <Form.Item label="Time period">
+          <RangePicker
+            picker="week"
+            value={dateRange}
+            onChange={onDateRangeChange}
+            style={{ width: '100%' }}
           />
         </Form.Item>
       )}
@@ -127,7 +85,7 @@ const GraphSettings = ({
             />
           </Form.Item>
         )}
-        
+
         {sortOptions && onSortChange && (
           <Form.Item label="Sort By" className="form-col">
             <Select
@@ -140,14 +98,38 @@ const GraphSettings = ({
         )}
       </div>
 
-      {/* Date range picker */}
-      {dateRange && onDateRangeChange && (
-        <Form.Item label="Time period">
-          <RangePicker
-            picker="week"
-            value={dateRange}
-            onChange={onDateRangeChange}
-            style={{ width: '100%' }}
+      {/* Multi-party selector with checkboxes */}
+      {multiPartyOptions && onSelectedPartiesChange && (
+        <Form.Item label="Select Parties">
+          <div className="party-checkboxes">
+            <CheckboxGroup
+              options={multiPartyOptions}
+              value={selectedParties}
+              onChange={values => {
+                // Ensure at least one party is always selected
+                const newValues = values.length > 0 ? values : [multiPartyOptions[0].value];
+                onSelectedPartiesChange(newValues);
+              }}
+            />
+          </div>
+        </Form.Item>
+      )}
+
+      {/* Sentiment visibility */}
+      {visibleSentiments && onVisibleSentimentsChange && (
+        <Form.Item>
+          <CheckboxGroup
+            options={[
+              { label: 'Positive', value: 'positive' },
+              { label: 'Neutral', value: 'neutral' },
+              { label: 'Negative', value: 'negative' },
+            ]}
+            value={visibleSentiments}
+            onChange={values => {
+              // Ensure at least one sentiment is always selected
+              const newValues = values.length > 0 ? values : ['positive'];
+              onVisibleSentimentsChange(newValues);
+            }}
           />
         </Form.Item>
       )}
