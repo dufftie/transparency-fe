@@ -11,6 +11,7 @@ interface StackedBarChartProps extends BaseGraphProps {
   positiveThreshold?: number; // Scores >= this value are considered positive
   negativeThreshold?: number; // Scores <= this value are considered negative
   sortBy?: 'name' | 'total' | 'positive' | 'negative'; // How to sort the data
+  visibleSentiments?: string[]; // Which sentiment types to display (positive, neutral, negative)
 }
 
 const buildUrl = ({
@@ -40,6 +41,7 @@ const StackedBarChart = ({
   positiveThreshold = 7, // Default: scores >= 7 are positive
   negativeThreshold = 3, // Default: scores <= 3 are negative
   sortBy = 'name', // Default: sort by name
+  visibleSentiments = ['positive', 'neutral', 'negative'], // Default: show all sentiments
 }: StackedBarChartProps) => {
   const [startDate, endDate] = dateRange || [
     dayjs('2024-01-01', 'YYYY-MM-DD'),
@@ -109,8 +111,20 @@ const StackedBarChart = ({
   return (
     <BaseGraph graphName="stacked-bar-chart" fetchUrl={fetchUrl} processData={processData}>
       {(data, loading) => {
-        // Calculate max value for YAxis domain
-        const maxTotal = Math.max(...data.map(item => item.total_count));
+        // Calculate max value for YAxis domain based on visible sentiments
+        const maxTotal = Math.max(...data.map(item => {
+          let visibleTotal = 0;
+          if (visibleSentiments.includes('positive')) {
+            visibleTotal += item.positive_count;
+          }
+          if (visibleSentiments.includes('neutral')) {
+            visibleTotal += item.neutral_count;
+          }
+          if (visibleSentiments.includes('negative')) {
+            visibleTotal += item.negative_count;
+          }
+          return visibleTotal;
+        }));
 
         return (
           <BarChart data={data}>
@@ -119,9 +133,6 @@ const StackedBarChart = ({
               dataKey="partyLabel"
               axisLine={false}
               tickLine={false}
-              angle={-45}
-              textAnchor="end"
-              height={60}
               interval={0}
             />
             <YAxis
@@ -136,26 +147,34 @@ const StackedBarChart = ({
             />
             <Legend />
 
-            <Bar
-              dataKey="negative_count"
-              name={`Negative (≤${negativeThreshold})`}
-              stackId="a"
-              fill="#EA5753"
-            />
-            <Bar
-              dataKey="positive_count"
-              name={`Positive (≥${positiveThreshold})`}
-              stackId="a"
-              fill="#8FCC7E"
-              opacity="0.8"
-            />
-            <Bar
-              dataKey="neutral_count"
-              name={`Neutral (${negativeThreshold + 1}-${positiveThreshold - 1})`}
-              stackId="a"
-              fill="#D9D9D9"
-              opacity="0.8"
-            />
+            {visibleSentiments.includes('negative') && (
+              <Bar
+                dataKey="negative_count"
+                name={`Negative (≤${negativeThreshold})`}
+                stackId="a"
+                fill="#EA5753"
+              />
+            )}
+            
+            {visibleSentiments.includes('neutral') && (
+              <Bar
+                dataKey="neutral_count"
+                name={`Neutral (${negativeThreshold + 1}-${positiveThreshold - 1})`}
+                stackId="a"
+                fill="#D9D9D9"
+                opacity="0.8"
+              />
+            )}
+            
+            {visibleSentiments.includes('positive') && (
+              <Bar
+                dataKey="positive_count"
+                name={`Positive (≥${positiveThreshold})`}
+                stackId="a"
+                fill="#8FCC7E"
+                opacity="0.8"
+              />
+            )}
           </BarChart>
         );
       }}

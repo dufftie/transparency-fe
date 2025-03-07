@@ -1,9 +1,10 @@
 'use client';
 
 import React from 'react';
-import { Form, Select, DatePicker } from 'antd';
+import { Form, Select, DatePicker, Checkbox, Space, Divider } from 'antd';
 
 const { RangePicker } = DatePicker;
+const { Group: CheckboxGroup } = Checkbox;
 
 // Default sort options that can be used across different graphs
 export const defaultSortOptions = [
@@ -27,6 +28,10 @@ const GraphSettings = ({
   selectedParties,
   multiPartyOptions = null,
   onSelectedPartiesChange,
+  
+  // Sentiment visibility
+  visibleSentiments,
+  onVisibleSentimentsChange,
   
   // Category selection
   category,
@@ -56,33 +61,84 @@ const GraphSettings = ({
         </Form.Item>
       )}
 
-      {/* Multi-party selector */}
+      {/* Multi-party selector with checkboxes */}
       {multiPartyOptions && onSelectedPartiesChange && (
         <Form.Item label="Select Parties">
-          <Select
-            mode="multiple"
-            options={multiPartyOptions}
-            value={selectedParties}
-            onChange={onSelectedPartiesChange}
-            style={{ width: '100%' }}
-            placeholder="Select parties to display"
-            allowClear
-            maxTagCount={3}
+          <div className="party-checkboxes">
+            <div className="party-checkboxes-header">
+              <Checkbox
+                indeterminate={selectedParties.length > 0 && selectedParties.length < multiPartyOptions.length}
+                checked={selectedParties.length === multiPartyOptions.length}
+                onChange={e => {
+                  if (e.target.checked) {
+                    onSelectedPartiesChange(multiPartyOptions.map(option => option.value));
+                  } else {
+                    onSelectedPartiesChange([]);
+                  }
+                }}
+              >
+                Select All
+              </Checkbox>
+            </div>
+            <Divider style={{ margin: '8px 0' }} />
+            <div className="party-checkboxes-list">
+              <CheckboxGroup
+                options={multiPartyOptions}
+                value={selectedParties}
+                onChange={values => {
+                  // Ensure at least one party is always selected
+                  const newValues = values.length > 0 ? values : [multiPartyOptions[0].value];
+                  onSelectedPartiesChange(newValues);
+                }}
+              />
+            </div>
+          </div>
+        </Form.Item>
+      )}
+      
+      {/* Sentiment visibility */}
+      {visibleSentiments && onVisibleSentimentsChange && (
+        <Form.Item label="Show Sentiments">
+          <CheckboxGroup
+            options={[
+              { label: 'Positive', value: 'positive' },
+              { label: 'Neutral', value: 'neutral' },
+              { label: 'Negative', value: 'negative' }
+            ]}
+            value={visibleSentiments}
+            onChange={values => {
+              // Ensure at least one sentiment is always selected
+              const newValues = values.length > 0 ? values : ['positive'];
+              onVisibleSentimentsChange(newValues);
+            }}
           />
         </Form.Item>
       )}
 
-      {/* Category selector */}
-      {categoryOptions && onCategoryChange && (
-        <Form.Item label="Category">
-          <Select
-            options={categoryOptions}
-            value={category}
-            onChange={onCategoryChange}
-            style={{ width: '100%' }}
-          />
-        </Form.Item>
-      )}
+      {/* Category and Sort By in same row */}
+      <div className="form-row">
+        {categoryOptions && onCategoryChange && (
+          <Form.Item label="Category" className="form-col">
+            <Select
+              options={categoryOptions}
+              value={category}
+              onChange={onCategoryChange}
+              style={{ width: '100%' }}
+            />
+          </Form.Item>
+        )}
+        
+        {sortOptions && onSortChange && (
+          <Form.Item label="Sort By" className="form-col">
+            <Select
+              options={sortOptions}
+              value={sortBy}
+              onChange={onSortChange}
+              style={{ width: '100%' }}
+            />
+          </Form.Item>
+        )}
+      </div>
 
       {/* Date range picker */}
       {dateRange && onDateRangeChange && (
@@ -91,18 +147,6 @@ const GraphSettings = ({
             picker="week"
             value={dateRange}
             onChange={onDateRangeChange}
-            style={{ width: '100%' }}
-          />
-        </Form.Item>
-      )}
-      
-      {/* Sort selector */}
-      {sortOptions && onSortChange && (
-        <Form.Item label="Sort By">
-          <Select
-            options={sortOptions}
-            value={sortBy}
-            onChange={onSortChange}
             style={{ width: '100%' }}
           />
         </Form.Item>

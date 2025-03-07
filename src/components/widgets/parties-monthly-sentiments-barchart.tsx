@@ -26,10 +26,15 @@ const PartiesMonthlySentimentsBarchart = () => {
   ]);
   
   // State for sorting and party filtering
-  const [sortBy, setSortBy] = useState('name');
+  const [sortBy, setSortBy] = useState('name'); // Default sort by name
   const [selectedParties, setSelectedParties] = useState<string[]>(
     map(partiesList, party => party.value)
   );
+  
+  // State for sentiment visibility
+  const [visibleSentiments, setVisibleSentiments] = useState<string[]>([
+    'positive', 'neutral', 'negative'
+  ]);
 
   return (
     <GraphWidget
@@ -54,6 +59,10 @@ const PartiesMonthlySentimentsBarchart = () => {
           sortBy={sortBy}
           sortOptions={defaultSortOptions}
           onSortChange={setSortBy}
+          
+          // Sentiment visibility
+          visibleSentiments={visibleSentiments}
+          onVisibleSentimentsChange={setVisibleSentiments}
         />
       }
     >
@@ -64,6 +73,7 @@ const PartiesMonthlySentimentsBarchart = () => {
         positiveThreshold={7}
         negativeThreshold={3}
         sortBy={sortBy}
+        visibleSentiments={visibleSentiments}
       />
     </GraphWidget>
   );

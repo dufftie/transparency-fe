@@ -128,15 +128,58 @@
   .ant-picker {
     width: 100%;
   }
-
-  @media (max-width: 768px) {
+  
+  // Form row layout
+  .form-row {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 16px;
+    margin-bottom: 10px;
     
-    .ant-form-item {
-      flex: 1 0 200px;
+    .form-col {
+      flex: 1;
+      min-width: 200px;
       margin-bottom: 0;
+    }
+  }
+  
+  // Party checkboxes styling
+  .party-checkboxes {
+    background-color: #f9f9f9;
+    border: 1px solid #f0f0f0;
+    border-radius: 4px;
+    
+    &-header {
+      padding: 8px 12px;
+    }
+    
+    &-list {
+      padding: 0 12px 12px;
+      max-height: 200px;
+      overflow-y: auto;
+      
+      .ant-checkbox-group {
+        display: flex;
+        flex-direction: column;
+        
+        .ant-checkbox-wrapper {
+          margin: 6px 0;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    .form-row {
+      flex-direction: column;
+      gap: 10px;
+      
+      .form-col {
+        width: 100%;
+      }
     }
   }
 }
