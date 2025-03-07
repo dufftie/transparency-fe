@@ -1,0 +1,39 @@
+.stacked-bar-chart {
+  .recharts-wrapper {
+    height: 100%;
+    width: 100%;
+  }
+
+  .recharts-bar {
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  .recharts-legend-item {
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+
+  .recharts-tooltip-cursor {
+    opacity: 0.2;
+  }
+  
+  // Styling for X-axis labels (party names)
+  .recharts-xAxis .recharts-cartesian-axis-tick-value {
+    font-weight: 500;
+    font-size: 12px;
+  }
+  
+  // Make sure chart has enough height
+  @media (max-width: 768px) {
+    min-height: 350px;
+  }
+}
