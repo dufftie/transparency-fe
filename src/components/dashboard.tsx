@@ -6,8 +6,13 @@ import { Select, DatePicker, Spin } from 'antd';
 import dayjs from 'dayjs';
 
 // Dynamically import graphs (Lazy Load)
-const ProceededArticlesGraph = dynamic(() => import('@/src/components/graphs/proceeded-article-graph'), { ssr: false });
-const CompareScatterPlot = dynamic(() => import('@/src/components/graphs/compare-scatter-plot'), { ssr: false });
+const ProceededArticlesGraph = dynamic(
+  () => import('@/src/components/graphs/proceeded-article-graph'),
+  { ssr: false }
+);
+const CompareScatterPlot = dynamic(() => import('@/src/components/graphs/compare-scatter-plot'), {
+  ssr: false,
+});
 
 const { RangePicker } = DatePicker;
 
@@ -31,26 +36,26 @@ const Dashboard = (): React.ReactNode => {
     <div className="dashboard">
       <div className="dashboard--settings">
         <Select
-          options={ categories }
-          defaultValue={ category }
-          onChange={ setCategory }
-          style={ { width: '100%' } }
+          options={categories}
+          defaultValue={category}
+          onChange={setCategory}
+          style={{ width: '100%' }}
         />
         <RangePicker
           picker="week"
-          value={ dateRange }
-          onCalendarChange={ handleDateRangeChange }
-          defaultValue={ dateRange }
+          value={dateRange}
+          onCalendarChange={handleDateRangeChange}
+          defaultValue={dateRange}
         />
       </div>
 
-      {/* Async Loaded Graphs */ }
-      <Suspense fallback={ <Spin size="large" /> }>
-        <ProceededArticlesGraph category={ category } dateRange={ dateRange } />
+      {/* Async Loaded Graphs */}
+      <Suspense fallback={<Spin size="large" />}>
+        <ProceededArticlesGraph category={category} dateRange={dateRange} />
       </Suspense>
 
-      <Suspense fallback={ <Spin size="large" /> }>
-        <CompareScatterPlot category={ category } dateRange={ dateRange } />
+      <Suspense fallback={<Spin size="large" />}>
+        <CompareScatterPlot category={category} dateRange={dateRange} />
       </Suspense>
     </div>
   );

@@ -13,11 +13,8 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
     <AntdRegistry>
       <Layout className="layout">
         <Header />
-        <Content className="content">
-          { children }
-        </Content>
+        <Content className="content">{children}</Content>
       </Layout>
     </AntdRegistry>
   );
 }
-

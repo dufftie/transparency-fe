@@ -44,7 +44,9 @@ const BaseGraph = ({ fetchUrl, processData, children, graphName }: BaseGraphProp
       try {
         const endpoint = fetchUrl.startsWith('http')
           ? fetchUrl
-          : fetchUrl.startsWith('/') ? fetchUrl : `/${ fetchUrl }`;
+          : fetchUrl.startsWith('/')
+            ? fetchUrl
+            : `/${fetchUrl}`;
 
         const result = await fetchData<any[]>(endpoint);
         setData(Array.isArray(result) ? processData(result) : []);
@@ -56,7 +58,7 @@ const BaseGraph = ({ fetchUrl, processData, children, graphName }: BaseGraphProp
         }, 300);
       }
     }, 1000),
-    [fetchUrl, processData],
+    [fetchUrl, processData]
   );
 
   useEffect(() => {
@@ -64,12 +66,16 @@ const BaseGraph = ({ fetchUrl, processData, children, graphName }: BaseGraphProp
   }, [loadData]);
 
   return (
-    <div className={ classNames('graph', graphName, { 'loading': loading }) }>
-      <div className={ classNames('graph-loading-spinner', { 'active': showSpinner }) }>
-        <Spin size="large" indicator={ <LoadingOutlined spin /> } className={ classNames({ 'active': showSpinner }) } />
+    <div className={classNames('graph', graphName, { loading: loading })}>
+      <div className={classNames('graph-loading-spinner', { active: showSpinner })}>
+        <Spin
+          size="large"
+          indicator={<LoadingOutlined spin />}
+          className={classNames({ active: showSpinner })}
+        />
       </div>
       <ResponsiveContainer width="100%" height="100%">
-        { children(data, loading) }
+        {children(data, loading)}
       </ResponsiveContainer>
     </div>
   );

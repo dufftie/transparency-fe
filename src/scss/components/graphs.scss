@@ -1,5 +1,5 @@
-@import "./graphs/compate-scatter-plot";
-@import "./graphs/proceed-article-graph";
+@import './graphs/compate-scatter-plot';
+@import './graphs/proceed-article-graph';
 
 .graph {
   width: 100%;
@@ -22,17 +22,22 @@
     z-index: 5;
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out, backdrop-filter 0.4s ease;
+    transition:
+      opacity 0.3s ease-in-out,
+      visibility 0.3s ease-in-out,
+      backdrop-filter 0.4s ease;
 
     &.active {
       opacity: 1;
       visibility: visible;
     }
-    
+
     .ant-spin {
       transform: scale(0.8);
       opacity: 0;
-      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease;
+      transition:
+        transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+        opacity 0.3s ease;
 
       &.active {
         transform: scale(1);
@@ -56,9 +61,11 @@
       }
     }
   }
-  
+
   .recharts-responsive-container {
-    transition: filter 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    transition:
+      filter 0.3s ease-in-out,
+      opacity 0.3s ease-in-out;
   }
 }
 

@@ -13,6 +13,7 @@
     "antd": "^5.24.2",
     "antd-theme": "^0.3.4",
     "class-variance-authority": "^0.7.1",
+    "classnames": "^2.5.1",
     "clsx": "^2.1.1",
     "d3": "^7.9.0",
     "lodash": "^4.17.21",
@@ -24,8 +25,7 @@
     "sass": "^1.85.1",
     "server-only": "^0.0.1",
     "tailwindcss-animate": "^1.0.7",
-    "variables": "^1.0.1",
-    "classnames": "^2.5.1"
+    "variables": "^1.0.1"
   },
   "devDependencies": {
     "@types/d3": "^7.4.3",

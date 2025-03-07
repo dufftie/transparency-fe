@@ -1,9 +1,5 @@
-import Dashboard from '@/src/components/dashboard'
+import Dashboard from '@/src/components/dashboard';
 
 export default async function Home() {
-
-  return (
-    <Dashboard />
-  )
+  return <Dashboard />;
 }
-

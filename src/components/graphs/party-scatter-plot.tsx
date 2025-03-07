@@ -11,7 +11,7 @@ interface PartyScatterPlotGraphProps {
 
 const PartyScatterPlotGraph = ({ category, dateRange, party }: PartyScatterPlotGraphProps) => {
   const [startDate, endDate] = dateRange;
-  const fetchUrl = `sentiments/parties/mentions/?category=${ category }&start_date=${ startDate.format('YYYY-MM-DD') }&end_date=${ endDate.format('YYYY-MM-DD') }&parties=${ party }`;
+  const fetchUrl = `sentiments/parties/mentions/?category=${category}&start_date=${startDate.format('YYYY-MM-DD')}&end_date=${endDate.format('YYYY-MM-DD')}&parties=${party}`;
 
   const processData = (data: any[]) => {
     const timeline = [];
@@ -22,36 +22,42 @@ const PartyScatterPlotGraph = ({ category, dateRange, party }: PartyScatterPlotG
       currentDate = currentDate.add(1, 'day');
     }
 
-    return timeline.map((date) => {
-      const entry = data.find((d) => d.party === party && d.date === date);
+    return timeline.map(date => {
+      const entry = data.find(d => d.party === party && d.date === date);
       return { date, sentiment_score: entry ? entry.sentiment_score : null };
     });
   };
 
-  const partyColor = partiesList.find((p) => p.value === party)?.color || 'gray';
+  const partyColor = partiesList.find(p => p.value === party)?.color || 'gray';
 
   return (
-    <BaseGraph graphName="party-scatter-plot-graph" fetchUrl={ fetchUrl } processData={ processData }>
-      { (data, loading) => (
-        <ScatterChart margin={ { left: 0, right: 0, top: 0, bottom: 0 } }>
+    <BaseGraph graphName="party-scatter-plot-graph" fetchUrl={fetchUrl} processData={processData}>
+      {(data, loading) => (
+        <ScatterChart margin={{ left: 0, right: 0, top: 0, bottom: 0 }}>
           <XAxis
             dataKey="date"
             name="Date"
             type="category"
-            tickFormatter={ (tick) => dayjs(tick).format('MMM YY') }
+            tickFormatter={tick => dayjs(tick).format('MMM YY')}
           />
 
-          <YAxis dataKey="sentiment_score" name="Sentiment Score" domain={ [0, 10] } tickCount={ 10 } scale="linear" />
+          <YAxis
+            dataKey="sentiment_score"
+            name="Sentiment Score"
+            domain={[0, 10]}
+            tickCount={10}
+            scale="linear"
+          />
 
-          <Scatter name={ party } data={ data } fill={ partyColor } shape="circle" />
+          <Scatter name={party} data={data} fill={partyColor} shape="circle" />
 
-          <Tooltip cursor={ { strokeDasharray: '3 3' } } />
+          <Tooltip cursor={{ strokeDasharray: '3 3' }} />
 
-          <CartesianGrid strokeDasharray="3 3" vertical={ false } />
+          <CartesianGrid strokeDasharray="3 3" vertical={false} />
 
           <Legend />
         </ScatterChart>
-      ) }
+      )}
     </BaseGraph>
   );
 };

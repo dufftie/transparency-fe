@@ -29,28 +29,32 @@ const GraphWidget = (props): JSX.Element => {
   return (
     <div className="graph-widget">
       <div className="graph-widget__settings">
-        <span className="graph-widget__title">{ title }</span>
+        <span className="graph-widget__title">{title}</span>
         <Form layout="vertical">
           <Form.Item label="Category">
             <Select
-              options={ categories }
-              defaultValue={ category }
-              onChange={ setCategory }
-              style={ { width: '100%' } }
+              options={categories}
+              defaultValue={category}
+              onChange={setCategory}
+              style={{ width: '100%' }}
             />
           </Form.Item>
           <Form.Item label="Time period">
             <RangePicker
               picker="week"
-              value={ dateRange }
-              onCalendarChange={ handleDateRangeChange }
-              defaultValue={ dateRange }
+              value={dateRange}
+              onCalendarChange={handleDateRangeChange}
+              defaultValue={dateRange}
             />
           </Form.Item>
         </Form>
       </div>
-      <div className='graph-widget__content'>
-        <PartyScatterPlotGraph category={ category } dateRange={ dateRange } party="Sotsiaaldemokraatlik Erakond" />
+      <div className="graph-widget__content">
+        <PartyScatterPlotGraph
+          category={category}
+          dateRange={dateRange}
+          party="Sotsiaaldemokraatlik Erakond"
+        />
       </div>
     </div>
   );

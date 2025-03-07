@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import PartiesScatterPlot from '@/src/components/graphs/party-scatter-plot';
 import React, { useState } from 'react';
@@ -12,17 +12,12 @@ const CompareScatterPlot = ({ category, dateRange }) => {
   return (
     <div className="compare-scatter-plot">
       <div className="compare-scatter-plot__settings">
-        <Select
-          options={ partiesList }
-          onChange={ setParties }
-          defaultValue={ parties }
-          mode="tags"
-        />
+        <Select options={partiesList} onChange={setParties} defaultValue={parties} mode="tags" />
       </div>
       <div className="compare-scatter-plot__graphs">
-        { map(parties, (party, index) => (
-          <PartiesScatterPlot key={ index } category={ category } dateRange={ dateRange } party={ party } />
-        )) }
+        {map(parties, (party, index) => (
+          <PartiesScatterPlot key={index} category={category} dateRange={dateRange} party={party} />
+        ))}
       </div>
     </div>
   );

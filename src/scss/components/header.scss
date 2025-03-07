@@ -12,13 +12,12 @@ header {
   z-index: 999999;
   padding-top: 15px;
   padding-bottom: 50px;
-  transition: .3s;
+  transition: 0.3s;
   backdrop-filter: blur(5px);
 
   mask-image: linear-gradient(to bottom, black 0% 50%, transparent 90% 100%);
 
   .control-island {
-
     .ant-btn {
       border-radius: 0;
 
