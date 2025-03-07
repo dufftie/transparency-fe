@@ -33,6 +33,10 @@ main {
   grid-template-columns: repeat(6, 1fr);
   padding: 0 30px;
   min-height: 100vh !important;
+
+  @media (max-width: 600px) {
+    padding: 0 10px;
+  }
 }
 
 .header {

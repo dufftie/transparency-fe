@@ -11,7 +11,7 @@ interface PartyScatterPlotGraphProps {
 
 const PartyScatterPlotGraph = ({ category, dateRange, party }: PartyScatterPlotGraphProps) => {
   const [startDate, endDate] = dateRange;
-  const fetchUrl = `http://127.0.0.1:8000/sentiments/parties/mentions/?category=${ category }&start_date=${ startDate.format('YYYY-MM-DD') }&end_date=${ endDate.format('YYYY-MM-DD') }&parties=${ party }`;
+  const fetchUrl = `sentiments/parties/mentions/?category=${ category }&start_date=${ startDate.format('YYYY-MM-DD') }&end_date=${ endDate.format('YYYY-MM-DD') }&parties=${ party }`;
 
   const processData = (data: any[]) => {
     const timeline = [];
@@ -34,21 +34,22 @@ const PartyScatterPlotGraph = ({ category, dateRange, party }: PartyScatterPlotG
     <BaseGraph graphName="party-scatter-plot-graph" fetchUrl={ fetchUrl } processData={ processData }>
       { (data, loading) => (
         <ScatterChart margin={ { left: 0, right: 0, top: 0, bottom: 0 } }>
-          <text x="50%" y="20" textAnchor="middle" fontSize="12px" fontWeight="bold">
-            { `Sentiment Scatter Plot for '${ party }'` }
-          </text>
-          <CartesianGrid strokeDasharray="3 3" />
           <XAxis
             dataKey="date"
             name="Date"
             type="category"
-            allowDuplicatedCategory={ false }
-            tickFormatter={ (tick) => dayjs(tick).format('MMM D, YYYY') }
+            tickFormatter={ (tick) => dayjs(tick).format('MMM YY') }
           />
-          <YAxis dataKey="sentiment_score" name="Sentiment Score" domain={ [0, 10] } />
-          <Tooltip cursor={ { strokeDasharray: '3 3' } } />
-          <Legend />
+
+          <YAxis dataKey="sentiment_score" name="Sentiment Score" domain={ [0, 10] } tickCount={ 10 } scale="linear" />
+
           <Scatter name={ party } data={ data } fill={ partyColor } shape="circle" />
+
+          <Tooltip cursor={ { strokeDasharray: '3 3' } } />
+
+          <CartesianGrid strokeDasharray="3 3" vertical={ false } />
+
+          <Legend />
         </ScatterChart>
       ) }
     </BaseGraph>

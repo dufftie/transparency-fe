@@ -4,6 +4,8 @@ import { useEffect, useState, useCallback } from 'react';
 import debounce from 'lodash/debounce';
 import classNames from 'classnames';
 import { ResponsiveContainer } from 'recharts';
+import { Spin } from 'antd';
+import { fetchData } from '@/src/lib/services/api';
 
 interface BaseGraphProps {
   graphName?: string;
@@ -14,19 +16,21 @@ interface BaseGraphProps {
 
 const BaseGraph = ({ fetchUrl, processData, children, graphName }: BaseGraphProps) => {
   const [data, setData] = useState<any[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [hasFetched, setHasFetched] = useState(false); // Track if first fetch is done
+  const [loading, setLoading] = useState(true);
 
-  const fetchData = useCallback(
+  const loadData = useCallback(
     debounce(async () => {
       if (!fetchUrl) return;
 
       setLoading(true);
       try {
-        const response = await fetch(fetchUrl);
-        const result = await response.json();
+        // Normalize the endpoint
+        const endpoint = fetchUrl.startsWith('http')
+          ? fetchUrl
+          : fetchUrl.startsWith('/') ? fetchUrl : `/${ fetchUrl }`;
+
+        const result = await fetchData<any[]>(endpoint);
         setData(Array.isArray(result) ? processData(result) : []);
-        setHasFetched(true); // Mark as fetched once we get data
       } catch (error) {
         console.error('Error fetching data:', error);
       } finally {
@@ -37,11 +41,16 @@ const BaseGraph = ({ fetchUrl, processData, children, graphName }: BaseGraphProp
   );
 
   useEffect(() => {
-    fetchData();
-  }, [fetchData]);
+    loadData();
+  }, [loadData]);
 
   return (
     <div className={ classNames('graph', graphName) }>
+      { loading && (
+        <div className="graph-loading-spinner">
+          <Spin size="large" />
+        </div>
+      ) }
       <ResponsiveContainer width="100%" height="100%">
         { children(data, loading) }
       </ResponsiveContainer>

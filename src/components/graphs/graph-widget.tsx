@@ -28,7 +28,7 @@ const GraphWidget = (props): JSX.Element => {
 
   return (
     <div className="graph-widget">
-      <div className='graph-widget__settings'>
+      <div className="graph-widget__settings">
         <span className="graph-widget__title">{ title }</span>
         <Form layout="vertical">
           <Form.Item label="Category">
@@ -49,7 +49,9 @@ const GraphWidget = (props): JSX.Element => {
           </Form.Item>
         </Form>
       </div>
-      <PartyScatterPlotGraph category={ category } dateRange={ dateRange } party="Sotsiaaldemokraatlik Erakond" />
+      <div className='graph-widget__content'>
+        <PartyScatterPlotGraph category={ category } dateRange={ dateRange } party="Sotsiaaldemokraatlik Erakond" />
+      </div>
     </div>
   );
 };

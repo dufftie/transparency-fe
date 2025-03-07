@@ -1,17 +1,42 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Transparency Platform Frontend
+
+A Next.js 14 application with data visualization for transparency analytics.
+
+## Technology Stack
+
+- **Framework**: Next.js 14 with App Router
+- **Language**: TypeScript
+- **Styling**: SCSS + Tailwind CSS
+- **UI Components**: Ant Design
+- **Data Visualization**: Recharts
+- **Package Manager**: Yarn
+
+## Environment Setup
+
+1. Copy the environment example file:
+
+```bash
+cp .env.example .env.local
+```
+
+2. Configure your environment variables:
+
+```
+NEXT_PUBLIC_API_URL=http://127.0.0.1:8000
+```
 
 ## Getting Started
 
-First, run the development server:
+First, install the dependencies:
 
 ```bash
-npm run dev
-# or
+yarn install
+```
+
+Then, run the development server:
+
+```bash
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
