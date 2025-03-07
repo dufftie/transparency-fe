@@ -21,7 +21,7 @@ const PartySentimentWidget = () => {
 
   return (
     <GraphWidget
-      title={`${party} sentiment`}
+      title={`Scatter plot of all sentiments for ${party}`}
       settings={
         <GraphSettings
           party={party}

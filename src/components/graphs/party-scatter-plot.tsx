@@ -59,6 +59,7 @@ const PartyScatterPlotGraph = ({ category, dateRange, party }: PartyScatterPlotG
             name="Date"
             type="category"
             tickFormatter={tick => dayjs(tick).format('MMM YY')}
+            axisLine={false}
           />
 
           <YAxis
@@ -67,6 +68,8 @@ const PartyScatterPlotGraph = ({ category, dateRange, party }: PartyScatterPlotG
             domain={[0, 10]}
             tickCount={10}
             scale="linear"
+            axisLine={false}
+            tickLine={false}
           />
 
           <Scatter name={party} data={data} fill={partyColor} shape="circle" />
@@ -74,8 +77,6 @@ const PartyScatterPlotGraph = ({ category, dateRange, party }: PartyScatterPlotG
           <Tooltip cursor={{ strokeDasharray: '3 3' }} />
 
           <CartesianGrid strokeDasharray="3 3" vertical={false} />
-
-          <Legend />
         </ScatterChart>
       )}
     </BaseGraph>
