@@ -3,7 +3,7 @@
 import PartiesScatterPlot from '@/src/components/graphs/party-scatter-plot';
 import React, { useState } from 'react';
 import map from 'lodash/map';
-import { partiesList } from '@/src/components/dashboard';
+import partiesList from '@/src/lib/dictionaries/partiesList';
 import { Select } from 'antd';
 
 const CompareScatterPlot = ({ category, dateRange }) => {

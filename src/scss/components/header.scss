@@ -1,13 +1,17 @@
 header {
   position: sticky;
   top: 0;
+
+  grid-column: span 6;
   width: 100%;
+  height: fit-content;
 
   display: inline-flex;
   justify-content: space-between;
 
   z-index: 999999;
-  padding: 15px 25px 50px;
+  padding-top: 15px;
+  padding-bottom: 50px;
   transition: .3s;
   backdrop-filter: blur(5px);
 

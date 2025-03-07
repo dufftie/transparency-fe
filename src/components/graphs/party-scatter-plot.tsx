@@ -1,7 +1,7 @@
 import { ScatterChart, Scatter, XAxis, YAxis, Tooltip, CartesianGrid, Legend } from 'recharts';
 import dayjs from 'dayjs';
-import { partiesList } from '@/src/components/dashboard';
 import BaseGraph from '@/src/components/graphs/base-grap';
+import partiesList from '@/src/lib/dictionaries/partiesList';
 
 interface PartyScatterPlotGraphProps {
   category: string;
@@ -33,7 +33,7 @@ const PartyScatterPlotGraph = ({ category, dateRange, party }: PartyScatterPlotG
   return (
     <BaseGraph graphName="party-scatter-plot-graph" fetchUrl={ fetchUrl } processData={ processData }>
       { (data, loading) => (
-        <ScatterChart margin={ { left: 0, right: 20, top: 30, bottom: 30 } }>
+        <ScatterChart margin={ { left: 0, right: 0, top: 0, bottom: 0 } }>
           <text x="50%" y="20" textAnchor="middle" fontSize="12px" fontWeight="bold">
             { `Sentiment Scatter Plot for '${ party }'` }
           </text>

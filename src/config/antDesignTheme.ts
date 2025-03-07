@@ -2,7 +2,7 @@ import type { ThemeConfig } from 'antd';
 
 const antDesignTheme: ThemeConfig = {
   token: {
-    colorPrimary: 'black',
+    colorPrimary: '#F5D6BB',
     fontFamily: '\'Montserrat\', sans-serif',
   },
   components: {
@@ -11,7 +11,6 @@ const antDesignTheme: ThemeConfig = {
       borderRadius: 10,
       fontFamily: '\'Tektur\', sans-serif',
       borderColor: 'red',
-      colorBgBase: 'black'
     },
   },
 };

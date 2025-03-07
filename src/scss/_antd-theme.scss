@@ -1,7 +1,7 @@
 :root {
-  --ant-primary-color: #000000;
-  --ant-primary-color-hover: #171717;
-  --ant-primary-color-active: #000000;
+  --ant-primary-color: white;
+  --ant-primary-color-hover: white;
+  --ant-primary-color-active: white;
   --ant-primary-color-outline: transparent;
   
   --ant-font-family: 'Montserrat', sans-serif;
@@ -13,4 +13,8 @@
   --ant-heading-color: rgba(0, 0, 0, 0.85);
   --ant-text-color: rgba(0, 0, 0, 0.85);
   --ant-text-color-secondary: rgba(0, 0, 0, 0.45);
+}
+
+.ant-form-item-label {
+  font-family: 'IBM Plex Mono', monospace !important;
 }

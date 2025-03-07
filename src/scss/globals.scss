@@ -22,7 +22,16 @@ code, pre {
   font-family: 'IBM Plex Mono', monospace;
 }
 
-.layout {
+main {
+  grid-column: span 6;
+  display: grid;
+  gap: 20px;
+}
+
+.ant-layout.layout {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  padding: 0 30px;
   min-height: 100vh !important;
 }
 

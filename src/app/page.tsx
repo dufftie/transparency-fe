@@ -1,9 +1,12 @@
-import Dashboard from '@/src/components/dashboard'
+import GraphWidget from '@/src/components/graphs/graph-widget';
 
 export default async function Home() {
 
   return (
-    <Dashboard />
-  )
+    <>
+      <GraphWidget title={ 'Political sentiments per party' } />
+      <GraphWidget title={ 'Political sentiments per party' } />
+    </>
+  );
 }
 
