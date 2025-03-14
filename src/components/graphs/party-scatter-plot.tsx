@@ -2,6 +2,7 @@ import { ScatterChart, Scatter, XAxis, YAxis, Tooltip, CartesianGrid, Legend } f
 import dayjs from 'dayjs';
 import BaseGraph from '@/src/components/graphs/base-graph';
 import partiesList from '@/src/lib/dictionaries/partiesList';
+import ArticleTooltip from '@/src/components/graphs/tooltips/article-tooltip';
 
 interface PartyScatterPlotGraphProps {
   category: string;
@@ -44,7 +45,11 @@ const PartyScatterPlotGraph = ({ category, dateRange, party }: PartyScatterPlotG
 
     return timeline.map(date => {
       const entry = data.find(d => d.party === party && d.date === date);
-      return { date, sentiment_score: entry ? entry.sentiment_score : null };
+      return {
+        date,
+        sentiment_score: entry ? entry.sentiment_score : null,
+        article_id: entry ? entry.article_id : null,
+      };
     });
   };
 
@@ -58,8 +63,7 @@ const PartyScatterPlotGraph = ({ category, dateRange, party }: PartyScatterPlotG
             dataKey="date"
             name="Date"
             type="category"
-            tickFormatter={tick => dayjs(tick).format('MMM YY')}
-            axisLine={false}
+            tickFormatter={tick => dayjs(tick).format('DD MMM, YYYY')}
           />
 
           <YAxis
@@ -74,9 +78,9 @@ const PartyScatterPlotGraph = ({ category, dateRange, party }: PartyScatterPlotG
 
           <Scatter name={party} data={data} fill={partyColor} shape="circle" />
 
-          <Tooltip cursor={{ strokeDasharray: '3 3' }} />
+          <Tooltip content={<ArticleTooltip />} cursor={{ strokeDasharray: '3 3' }} />
 
-          <CartesianGrid strokeDasharray="3 3" vertical={false} />
+          <CartesianGrid strokeDasharray="2" vertical={false} />
         </ScatterChart>
       )}
     </BaseGraph>

@@ -108,7 +108,7 @@
   &__content {
     flex-grow: 4;
     flex-basis: 600px;
-    aspect-ratio: 2/1;
+    min-height: 400px;
   }
 }
 

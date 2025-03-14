@@ -15,6 +15,20 @@
   --ant-text-color-secondary: rgba(0, 0, 0, 0.45);
 }
 
-.ant-form-item-label {
+.ant-form-item-label,
+.ant-descriptions-item{
   font-family: 'IBM Plex Mono', monospace !important;
+}
+
+.ant-descriptions-item {
+
+  &-label {
+    color: var(--ant-heading-color) !important;
+    padding-bottom: 0;
+  }
+
+  &-content {
+    color: #949494 !important;
+    margin-bottom: 12px;
+  }
 }
