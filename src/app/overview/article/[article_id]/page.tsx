@@ -4,46 +4,10 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import { fetchData } from '@/src/lib/services/api';
 import dayjs from 'dayjs';
-import ArticlePreview from '@/src/components/article-preview';
-import { ExportOutlined } from '@ant-design/icons';
+import { ArticleData, SentimentData } from '@/src/types/article';
+import ArticleHeader from '@/src/components/article-detail/article-header';
+import ArticleAnalysis from '@/src/components/article-detail/article-analysis';
 import ArticlePartySentimentBarchart from '@/src/components/graphs/article-party-sentiment-barchart';
-
-interface ArticleData {
-  title: string;
-  url: string;
-  paywall: boolean;
-  category: string;
-  body: string;
-  article_id: string;
-  id: string;
-  media_id: number;
-  date_time: string;
-  authors: string;
-  preview_url: string;
-}
-
-interface PartySentiment {
-  name: string;
-  score: number;
-  explanation: string;
-}
-
-interface SentimentData {
-  model: string;
-  sentiment: {
-    article?: {
-      title: {
-        score: number;
-        explanation: string;
-      };
-      body: {
-        score: number;
-        explanation: string;
-      };
-    };
-    parties?: PartySentiment[];
-  };
-}
 
 export default function ArticleDetailPage() {
   const { article_id } = useParams();
@@ -76,53 +40,33 @@ export default function ArticleDetailPage() {
     getArticleData();
   }, [article_id]);
 
-  if (loading) return <>LOADING</>;
-
+  if (loading) return <div className="loading">Loading article data...</div>;
+  if (error) return <div className="error">{error}</div>;
+  
   const selectedSentiment = sentiments[0];
   const formattedDate = dayjs(article.date_time).format('DD MMMM, YYYY');
   const partyData = selectedSentiment.sentiment.parties || [];
+  
+  // Extract analysis data for easier access
+  const titleAnalysis = selectedSentiment.sentiment.article?.title;
+  const bodyAnalysis = selectedSentiment.sentiment.article?.body;
 
   return (
     <div className="article-detail-page">
       <div className="article-detail-page__details">
-        <a href={article.url} target="_blank">
-          <article className="article">
-            <ExportOutlined className="article-tooltip__icon" />
-            <span className="article__title">{article.title}</span>
-            <ArticlePreview preview_url={article.preview_url} />
-            <span className="article__date">{formattedDate}</span>
-          </article>
-        </a>
+        <ArticleHeader 
+          title={article.title}
+          url={article.url}
+          preview_url={article.preview_url}
+          date={formattedDate}
+        />
 
-        <div style={{ display: 'flex ' }}>
-          <div className="analysis-card">
-            <span className="analysis-card__title">
-              Title analysis
-              <span className="analysis-card__score">
-                {selectedSentiment.sentiment.article?.title.score}
-              </span>
-            </span>
-            <p className="analysis-card__description">
-              {selectedSentiment.sentiment.article?.title.explanation}
-            </p>
-          </div>
-
-          <div className="analysis-card">
-            <span className="analysis-card__title">
-              Article analysis
-              <span className="analysis-card__score">
-                {selectedSentiment.sentiment.article?.body.score}
-              </span>
-            </span>
-            <p className="analysis-card__description">
-              {selectedSentiment.sentiment.article?.body.explanation}
-            </p>
-          </div>
-        </div>
-
-        <div className="model">
-          Analysed by: <b>{selectedSentiment.model}</b>
-        </div>
+        <ArticleAnalysis
+          titleAnalysis={titleAnalysis}
+          bodyAnalysis={bodyAnalysis}
+          model={selectedSentiment.model}
+          partyData={partyData}
+        />
       </div>
       <div className="article-detail-page__analysis">
         {partyData.length > 0 && (

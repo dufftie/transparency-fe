@@ -1,13 +1,13 @@
 .article-detail-page {
   display: grid;
   gap: 50px;
-
   grid-template-columns: 1fr 2fr;
+  padding: 20px 0;
 
   &__details {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 20px;
   }
 
   &__analysis {
@@ -27,14 +27,15 @@
   background-color: white;
   gap: 20px;
   height: fit-content;
-
   padding: 20px;
-  transition: .3s;
-
+  transition: 0.3s;
   color: black;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 
   &:hover {
     transform: scale(1.01);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   }
 
   &__title {
@@ -45,27 +46,36 @@
 
   &__date {
     text-align: end;
+    font-size: 14px;
+    color: #666;
   }
 
   img {
-    width: 500px;
+    width: 100%;
+    max-width: 500px;
     height: auto;
+    align-self: center;
   }
 }
 
 .analysis-card {
   flex: 1 1 300px;
-
   display: flex;
   flex-direction: column;
   gap: 15px;
   height: auto;
+  background-color: #f9f9f9;
+  padding: 15px;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 
   &__title {
     font-family: 'Tektur', monospace !important;
     display: flex;
     justify-content: space-between;
     font-size: 18px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
   }
 
   &__score {
@@ -75,9 +85,34 @@
 
   &__description {
     grid-column: span 2;
+    line-height: 1.5;
   }
 }
 
 .party-analysis {
   width: 100%;
+  margin-top: 20px;
+}
+
+.analysis-cards {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.model {
+  margin-top: 10px;
+  margin-bottom: 5px;
+  font-size: 14px;
+  color: #666;
+}
+
+.loading, .error {
+  padding: 20px;
+  text-align: center;
+  font-size: 18px;
+}
+
+.error {
+  color: #ff4d4f;
 }
