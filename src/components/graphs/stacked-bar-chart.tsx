@@ -2,9 +2,8 @@
 
 import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, Legend } from 'recharts';
 import dayjs from 'dayjs';
-import BaseGraph from '@/src/components/graphs/base-graph';
+import BaseGraph, { BaseGraphProps } from '@/src/components/graphs/base-graph';
 import partiesList from '@/src/lib/dictionaries/partiesList';
-import { BaseGraphProps } from '@/src/types/graphs';
 
 interface StackedBarChartProps extends BaseGraphProps {
   showParties: string[];

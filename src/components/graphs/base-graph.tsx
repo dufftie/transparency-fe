@@ -6,7 +6,7 @@ import { Spin } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
 import { useDataFetching } from '@/src/lib/utils/data-fetching';
 
-interface BaseGraphProps {
+export interface BaseGraphProps {
   graphName?: string;
   fetchUrl: string;
   processData: (data: any[]) => any[];
