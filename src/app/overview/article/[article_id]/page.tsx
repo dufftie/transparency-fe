@@ -8,6 +8,7 @@ import { ArticleData, SentimentData } from '@/src/types/article';
 import ArticleHeader from '@/src/components/article-detail/article-header';
 import ArticleAnalysis from '@/src/components/article-detail/article-analysis';
 import ArticlePartySentimentBarchart from '@/src/components/graphs/article-party-sentiment-barchart';
+import ArticleLoadingSkeleton from '@/src/components/article-detail/loading-skeleton';
 
 export default function ArticleDetailPage() {
   const { article_id } = useParams();
@@ -40,7 +41,7 @@ export default function ArticleDetailPage() {
     getArticleData();
   }, [article_id]);
 
-  if (loading) return <div className="loading">Loading article data...</div>;
+  if (loading) return <ArticleLoadingSkeleton />;
   if (error) return <div className="error">{error}</div>;
   
   const selectedSentiment = sentiments[0];
