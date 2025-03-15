@@ -1,41 +1,31 @@
-import { Descriptions } from 'antd';
 import BaseTooltip from '@/src/components/graphs/tooltips/base-tooltip';
 import { TooltipProps } from 'recharts';
-import isNil from 'lodash/isNil';
+import React from 'react';
+import ArticlePreview from '@/src/components/article-preview';
 import dayjs from 'dayjs';
+import { ExportOutlined } from '@ant-design/icons';
 
 const ArticleTooltip = (props: TooltipProps<any, any>) => {
   const processData = (article: any) => {
-    if (!article) return [];
-
-    return [
-      {
-        label: 'Title',
-        children: article.title,
-      },
-      {
-        label: 'Date',
-        children: dayjs(article.date_time).format("DD MMMM, YYYY (HH:mm)"),
-      },
-      {
-        label: 'Authors',
-        children: article.authors,
-      },
-    ].filter(item => !isNil(item.children));
+    return article;
   };
 
-
   const article_id = props?.payload[0]?.payload?.article_id;
-  const fetchUrl = article_id ? `/articles/${article_id}` : undefined;
+  const fetchUrl = article_id ? `/articles/${article_id}/tooltip` : undefined;
 
   return (
-    <BaseTooltip 
-      fetchUrl={fetchUrl}
-      processData={processData}
-    >
-      {(data) => (
-        <Descriptions size='small' colon={false} items={data} column={1} layout='vertical' />
-      )}
+    <BaseTooltip fetchUrl={fetchUrl} processData={processData}>
+      {article => {
+        return (
+          <div className='article-tooltip'>
+            <ExportOutlined className='article-tooltip__icon' />
+            <div className='article-tooltip__authors'>{ article.authors }</div>
+            <div className='article-tooltip__title'>{ article.title }</div>
+            <ArticlePreview preview_url={article.preview_url} />
+            <div className='article-tooltip__date'>{ dayjs(article.date_time).format("DD MMMM YYYY") }</div>
+          </div>
+        );
+      }}
     </BaseTooltip>
   );
 };

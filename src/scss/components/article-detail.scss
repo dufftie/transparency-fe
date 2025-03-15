@@ -1,0 +1,75 @@
+.article-detail-page {
+  display: grid;
+  gap: 50px;
+
+  grid-template-columns: 1fr 2fr;
+
+  &__details {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  &__analysis {
+    display: flex;
+    gap: 50px;
+  }
+}
+
+.article {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  gap: 20px;
+  height: fit-content;
+
+  padding: 20px;
+  transition: .3s;
+
+  color: black;
+
+  &:hover {
+    transform: scale(1.01);
+  }
+
+  &__title {
+    font-family: 'Tektur', monospace !important;
+    font-weight: 500;
+    font-size: 24px;
+  }
+
+  &__date {
+    text-align: end;
+  }
+
+  img {
+    width: 500px;
+    height: auto;
+  }
+}
+
+.analysis-card {
+  flex: 1 1 300px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  height: fit-content;
+
+
+  &__title {
+    font-family: 'Tektur', monospace !important;
+    display: flex;
+    justify-content: space-between;
+    font-size: 24px;
+  }
+
+  &__score {
+    font-size: 42px;
+    font-weight: bold;
+  }
+
+  &__description {
+    grid-column: span 2;
+  }
+}

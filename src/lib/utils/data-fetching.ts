@@ -18,7 +18,7 @@ export interface UseDataFetchingResult {
 export const useDataFetching = ({
   fetchUrl,
   processData,
-  debounceTime = 300,
+  debounceTime = 100,
 }: UseDataFetchingProps): UseDataFetchingResult => {
   const [data, setData] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);

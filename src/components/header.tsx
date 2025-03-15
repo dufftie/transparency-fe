@@ -1,13 +1,14 @@
+'use client';
+
 import { Button } from 'antd';
+import Link from 'next/link';
 
 const Header = () => {
   return (
     <header>
-      <img src="/logo.svg" alt="Läbipaistvus logotype" className="logo" />
-      {/*<div className="control-island">*/}
-      {/*  <Button>About</Button>*/}
-      {/*  <Button>Lang</Button>*/}
-      {/*</div>*/}
+      <Link href="/">
+        <img src="/logo.svg" alt="Läbipaistvus logotype" className="logo" />
+      </Link>
       <Button>Donate</Button>
     </header>
   );
