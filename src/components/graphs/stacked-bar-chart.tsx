@@ -154,22 +154,22 @@ const StackedBarChart = ({
               />
             )}
 
-            {visibleSentiments.includes('neutral') && (
-              <Bar
-                dataKey="neutral_count"
-                name={`Neutral (${negativeThreshold + 1}-${positiveThreshold - 1})`}
-                stackId="a"
-                fill="#D9D9D9"
-                opacity="0.8"
-              />
-            )}
-
             {visibleSentiments.includes('positive') && (
               <Bar
                 dataKey="positive_count"
                 name={`Positive (≥${positiveThreshold})`}
                 stackId="a"
                 fill="#8FCC7E"
+                opacity="0.8"
+              />
+            )}
+
+            {visibleSentiments.includes('neutral') && (
+              <Bar
+                dataKey="neutral_count"
+                name={`Neutral (${negativeThreshold + 1}-${positiveThreshold - 1})`}
+                stackId="a"
+                fill="#D9D9D9"
                 opacity="0.8"
               />
             )}
