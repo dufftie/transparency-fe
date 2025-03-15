@@ -130,17 +130,12 @@ const StackedBarChart = ({
         );
 
         return (
-          <BarChart data={data}>
-            <CartesianGrid strokeDasharray="3 3" vertical={false} />
-            <XAxis dataKey="partyLabel" axisLine={false} tickLine={false} interval={0} />
-            <YAxis
-              type="number"
-              axisLine={false}
-              tickLine={false}
-              domain={[0, maxTotal]}
-              tickCount={6}
-              width={30}
-            />
+          <BarChart
+            data={data}
+            layout={isMobile ? 'vertical' : 'horizontal'}
+          >
+            <CartesianGrid strokeDasharray="3 3" vertical={isMobile} horizontal={!isMobile} />
+
             <Tooltip
               formatter={(value, name) => [`${value} mentions`, name]}
               labelFormatter={label => label}
@@ -173,6 +168,46 @@ const StackedBarChart = ({
                 stackId="a"
                 fill="#D9D9D9"
                 opacity="0.8"
+              />
+            )}
+
+            {isMobile ? (
+              <YAxis
+                dataKey="partyLabel"
+                type="category"
+                axisLine={false}
+                tickLine={false}
+                width={80}
+                fontSize={10}
+                textAnchor='end'
+                orientation='right'
+                mirror
+              />
+            ) : (
+              <XAxis
+                dataKey="partyLabel"
+                axisLine={false}
+                tickLine={false}
+                interval={0}
+              />
+            )}
+
+            {isMobile ? (
+              <XAxis
+                type="number"
+                axisLine={false}
+                tickLine={false}
+                domain={[0, maxTotal]}
+                tickCount={6}
+              />
+            ) : (
+              <YAxis
+                type="number"
+                axisLine={false}
+                tickLine={false}
+                domain={[0, maxTotal]}
+                tickCount={6}
+                width={30}
               />
             )}
           </BarChart>
