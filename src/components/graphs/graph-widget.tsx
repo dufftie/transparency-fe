@@ -17,14 +17,12 @@ const GraphWidget = ({ title, settings, children }: GraphWidgetProps): JSX.Eleme
   return (
     <div className="graph-widget">
       {(title || settings) && (
-        <div className="graph-widget__settings">
+        <div className="graph-widget__context">
           {title && <span className="graph-widget__title">{title}</span>}
-          {settings}
+          {settings && <div className="graph-widget__settings">{settings}</div>}
         </div>
       )}
-      <div className="graph-widget__content">
-        {children}
-      </div>
+      <div className="graph-widget__content">{children}</div>
     </div>
   );
 };

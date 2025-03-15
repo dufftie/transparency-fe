@@ -77,6 +77,7 @@ const PartyScatterPlotGraph = ({ category, dateRange, party }: PartyScatterPlotG
             scale="linear"
             axisLine={false}
             tickLine={false}
+            width={30}
           />
 
           <Scatter

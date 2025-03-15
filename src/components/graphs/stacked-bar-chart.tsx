@@ -4,6 +4,7 @@ import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, Legend } from 'rec
 import dayjs from 'dayjs';
 import BaseGraph, { BaseGraphProps } from '@/src/components/graphs/base-graph';
 import partiesList from '@/src/lib/dictionaries/partiesList';
+import useIsMobile from '@/src/lib/hooks/isMobile';
 
 interface StackedBarChartProps extends BaseGraphProps {
   showParties: string[];
@@ -42,6 +43,7 @@ const StackedBarChart = ({
   sortBy = 'name', // Default: sort by name
   visibleSentiments = ['positive', 'neutral', 'negative'], // Default: show all sentiments
 }: StackedBarChartProps) => {
+  const isMobile = useIsMobile();
   const [startDate, endDate] = dateRange || [
     dayjs('2024-01-01', 'YYYY-MM-DD'),
     dayjs('2025-03-01', 'YYYY-MM-DD'),
@@ -137,7 +139,7 @@ const StackedBarChart = ({
               tickLine={false}
               domain={[0, maxTotal]}
               tickCount={6}
-              width={50}
+              width={30}
             />
             <Tooltip
               formatter={(value, name) => [`${value} mentions`, name]}

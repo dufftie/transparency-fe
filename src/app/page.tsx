@@ -6,10 +6,10 @@ import PartiesMonthlySentimentsAreaChart from '@/src/components/widgets/parties-
 
 export default function Home() {
   return (
-    <div>
+    <div className='main-layout'>
       <PartiesMonthlySentimentsAreaChart />
-      <PartiesMonthlySentimentsBarchart />
       <PartySentimentWidget />
+      <PartiesMonthlySentimentsBarchart />
     </div>
   );
 }

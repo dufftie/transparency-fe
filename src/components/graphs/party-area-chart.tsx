@@ -93,7 +93,6 @@ const PartyAreaChart = ({
   return (
     <BaseGraph graphName="stacked-bar-chart" fetchUrl={fetchUrl} processData={processData}>
       {(data, loading) => {
-        console.log({ data });
         return (
           <AreaChart data={data}>
             <defs>
@@ -112,7 +111,15 @@ const PartyAreaChart = ({
             </defs>
 
             <CartesianGrid strokeDasharray="3 3" vertical={false} />
-            <XAxis dataKey="date" axisLine={false} tickLine={false} />
+
+            <XAxis
+              dataKey="date"
+              axisLine={false}
+              tickLine={false}
+              height={15}
+              interval={2}
+            />
+
             <YAxis
               type="number"
               axisLine={false}
@@ -120,7 +127,7 @@ const PartyAreaChart = ({
               domain={[0, 100]}
               tickCount={6}
               scale="linear"
-              width={50}
+              width={30}
             />
 
             {/* Custom Tooltip */}

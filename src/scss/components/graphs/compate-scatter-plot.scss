@@ -8,9 +8,5 @@
     gap: 10px;
     grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
     grid-template-rows: auto;
-
-    .party-scatter-plot-graph {
-      height: 500px;
-    }
   }
 }
