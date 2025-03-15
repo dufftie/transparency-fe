@@ -55,6 +55,9 @@ const PartyScatterPlotGraph = ({ category, dateRange, party }: PartyScatterPlotG
 
   const partyColor = partiesList.find(p => p.value === party)?.color || 'gray';
 
+  const openArticle = ({ article_id }) => {
+    window.open(`/overview/article/${article_id}`, '_blank', 'noopener,noreferrer');
+  };
   return (
     <BaseGraph graphName="party-scatter-plot-graph" fetchUrl={fetchUrl} processData={processData}>
       {(data, loading) => (
@@ -76,7 +79,13 @@ const PartyScatterPlotGraph = ({ category, dateRange, party }: PartyScatterPlotG
             tickLine={false}
           />
 
-          <Scatter name={party} data={data} fill={partyColor} shape="circle" />
+          <Scatter
+            name={party}
+            data={data}
+            fill={partyColor}
+            shape="circle"
+            onClick={openArticle}
+          />
 
           <Tooltip content={<ArticleTooltip />} cursor={{ strokeDasharray: '3 3' }} />
 

@@ -107,12 +107,11 @@
 
   &__content {
     flex-grow: 4;
-    flex-basis: 600px;
+    flex-basis: 800px;
     min-height: 400px;
   }
 }
 
-// Styles for the graph settings component
 .graph-settings {
   width: 100%;
   
@@ -129,7 +128,6 @@
     width: 100%;
   }
   
-  // Form row layout
   .form-row {
     display: flex;
     flex-wrap: wrap;
@@ -143,7 +141,6 @@
     }
   }
   
-  // Party checkboxes styling
   .party-checkboxes {
     border: 1px solid #f0f0f0;
     border-radius: 4px;

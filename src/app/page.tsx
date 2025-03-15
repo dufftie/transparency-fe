@@ -6,7 +6,7 @@ import PartiesMonthlySentimentsBarchart from '@/src/components/widgets/parties-m
 export default function Home() {
   return (
     <div>
-      {/*<PartiesMonthlySentimentsBarchart />*/}
+      <PartiesMonthlySentimentsBarchart />
       <PartySentimentWidget />
     </div>
   );
