@@ -1,7 +1,7 @@
 .article-detail-page {
   display: grid;
   gap: 50px;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: 2fr 3fr;
   padding: 20px 0;
 
   &__details {
@@ -15,23 +15,22 @@
     flex-wrap: wrap;
     gap: 30px;
   }
-  
+
   @media (max-width: 960px) {
     grid-template-columns: 1fr;
   }
 }
 
 .article {
+  position: relative;
   display: flex;
   flex-direction: column;
-  background-color: white;
   gap: 20px;
   height: fit-content;
   padding: 20px;
   transition: 0.3s;
   color: black;
-  border-radius: 4px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid gray;
 
   &:hover {
     transform: scale(1.01);
@@ -50,6 +49,12 @@
     color: #666;
   }
 
+  &__link-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }
+
   img {
     width: 100%;
     max-width: 500px;
@@ -59,39 +64,56 @@
 }
 
 .analysis-card {
+  position: relative;
   flex: 1 1 300px;
   display: flex;
   flex-direction: column;
-  gap: 15px;
   height: auto;
-  background-color: #f9f9f9;
-  padding: 15px;
-  border-radius: 4px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+
+  &__title,
+  &__details {
+    display: flex;
+    gap: 10px;
+    font-family: 'Tektur', monospace !important;
+  }
 
   &__title {
-    font-family: 'Tektur', monospace !important;
     display: flex;
     justify-content: space-between;
     font-size: 18px;
-    border-bottom: 1px solid #eee;
     padding-bottom: 10px;
   }
 
-  &__score {
-    font-size: 32px;
-    font-weight: bold;
+  &-hint {
+    &__inner {
+      max-width: 400px !important;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+
+      pre {
+        font-size: 12px;
+        font-weight: lighter;
+      }
+    }
   }
 
-  &__description {
-    grid-column: span 2;
-    line-height: 1.5;
+  &__body,
+  &__details {
+    border: 1px solid gray;
+    padding: 10px;
   }
-}
 
-.party-analysis {
-  width: 100%;
-  margin-top: 20px;
+  &__body {
+  }
+
+  &__details {
+    width: fit-content;
+    align-self: end;
+
+    font-size: 12px;
+    border-top: none;
+  }
 }
 
 .analysis-cards {

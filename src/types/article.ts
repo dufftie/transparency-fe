@@ -17,6 +17,11 @@ export interface PartySentiment {
   score: number;
   explanation: string;
 }
+export interface PoliticianSentiment {
+  name: string;
+  score: number;
+  explanation: string;
+}
 
 export interface SentimentData {
   model: string;
@@ -32,5 +37,6 @@ export interface SentimentData {
       };
     };
     parties?: PartySentiment[];
+    politicians?: PoliticianSentiment[];
   };
 }

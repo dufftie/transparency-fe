@@ -28,6 +28,11 @@ h6 {
 code,
 pre {
   font-family: 'IBM Plex Mono', monospace;
+  white-space: break-spaces;
+}
+
+p {
+  line-height: 1.25rem;
 }
 
 main {

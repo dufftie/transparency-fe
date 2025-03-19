@@ -9,6 +9,7 @@ import ArticleHeader from '@/src/components/article-detail/article-header';
 import ArticleAnalysis from '@/src/components/article-detail/article-analysis';
 import ArticlePartySentimentBarchart from '@/src/components/graphs/article-party-sentiment-barchart';
 import ArticleLoadingSkeleton from '@/src/components/article-detail/loading-skeleton';
+import AnalysisTable from '@/src/components/analysis-table';
 
 export default function ArticleDetailPage() {
   const { article_id } = useParams();
@@ -43,11 +44,13 @@ export default function ArticleDetailPage() {
 
   if (loading) return <ArticleLoadingSkeleton />;
   if (error) return <div className="error">{error}</div>;
-  
+
   const selectedSentiment = sentiments[0];
   const formattedDate = dayjs(article.date_time).format('DD MMMM, YYYY');
+
   const partyData = selectedSentiment.sentiment.parties || [];
-  
+  const politiciansData = selectedSentiment.sentiment.politicians || [];
+
   // Extract analysis data for easier access
   const titleAnalysis = selectedSentiment.sentiment.article?.title;
   const bodyAnalysis = selectedSentiment.sentiment.article?.body;
@@ -55,7 +58,7 @@ export default function ArticleDetailPage() {
   return (
     <div className="article-detail-page">
       <div className="article-detail-page__details">
-        <ArticleHeader 
+        <ArticleHeader
           title={article.title}
           url={article.url}
           preview_url={article.preview_url}
@@ -72,7 +75,8 @@ export default function ArticleDetailPage() {
       <div className="article-detail-page__analysis">
         {partyData.length > 0 && (
           <div className="party-analysis">
-            <ArticlePartySentimentBarchart parties={partyData} />
+            <AnalysisTable title='Parties' data={partyData} />
+            <AnalysisTable title='Politicians' data={politiciansData} />
           </div>
         )}
       </div>
