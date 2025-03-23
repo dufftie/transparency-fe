@@ -1,8 +1,20 @@
 .model-select {
+  display: grid;
   margin-top: 10px;
   margin-bottom: 5px;
-  color: #666;
-  font-family: 'Tektur', monospace !important;
+
+  * {
+    color: #707070;
+    font-family: 'Tektur', monospace !important;
+  }
+
+  &__input {
+    font-size: 16px;
+  }
+
+  &__date {
+    font-size: 12px;
+  }
 
   .ant-select {
     &-selector {
@@ -11,6 +23,7 @@
     }
 
     &-selection-item {
+      font-size: 16px;
       font-weight: bold !important;
     }
   }

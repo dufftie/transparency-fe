@@ -10,7 +10,7 @@ const ArticleTooltip = (props: TooltipProps<any, any>) => {
     return article;
   };
 
-  const article_id = props?.payload[0]?.payload?.article_id;
+  const article_id = props.payload[0]?.payload?.article_id;
   const fetchUrl = article_id ? `/articles/${article_id}/tooltip` : undefined;
 
   return (

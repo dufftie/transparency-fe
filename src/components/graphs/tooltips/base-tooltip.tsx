@@ -7,7 +7,7 @@ interface BaseTooltipProps {
   children: (data: any[]) => JSX.Element;
 }
 
-const BaseTooltip = ({ fetchUrl, processData, children, autoFetch = false }: BaseTooltipProps) => {
+const BaseTooltip = ({ fetchUrl, processData, children }: BaseTooltipProps) => {
   const { data, loading } = useDataFetching({
     fetchUrl,
     processData,

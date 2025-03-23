@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { ArticleData, MediaData } from '@/src/types/article';
+import { ArticleData, MediaData, SentimentData } from '@/src/types/article';
 import Hint from '@/src/components/hint';
 import dayjs from 'dayjs';
 
@@ -22,26 +22,25 @@ const articlePrompt = (
 );
 
 interface ArticleAnalysisProps {
-  titleAnalysis: {
-    score: number;
-    explanation: string;
-  };
-  bodyAnalysis: {
-    score: number;
-    explanation: string;
-  };
+  title_score: number;
+  title_explanation: string;
+  body_score: number;
+  body_explanation: string;
   media: MediaData;
   article: ArticleData;
 }
 
 export default function ArticleAnalysis({
-  titleAnalysis,
-  bodyAnalysis,
+  title_score,
+  title_explanation,
+  body_score,
+  body_explanation,
   media,
   article,
 }: ArticleAnalysisProps) {
   const formateDate = (date: string) => {
-    return dayjs(date).format('DD MMMM YYYY');
+    if (!date) return null;
+    return dayjs(date).format('DD.MM.YYYY, HH:mm:ss');
   };
 
   return (
@@ -85,17 +84,17 @@ export default function ArticleAnalysis({
           <tr>
             <td>
               <b>
-                Title objectivity: {titleAnalysis.score} / 10 <Hint title='AI prompt' content={titlePrompt} />
+                Title objectivity: {title_score} / 10 <Hint title='AI prompt' content={titlePrompt} />
               </b>
-              <p>{titleAnalysis.explanation}</p>
+              <p>{title_explanation}</p>
             </td>
           </tr>
           <tr>
             <td>
               <b>
-                Article objectivity: {bodyAnalysis.score} / 10 <Hint title='AI prompt'  content={articlePrompt} />
+                Article objectivity: {body_score} / 10 <Hint title='AI prompt'  content={articlePrompt} />
               </b>
-              <p>{bodyAnalysis.explanation}</p>
+              <p>{body_explanation}</p>
             </td>
           </tr>
         </tbody>

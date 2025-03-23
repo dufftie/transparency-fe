@@ -28,19 +28,17 @@ export interface PoliticianSentiment {
 export interface SentimentData {
   id: number;
   model: string;
+  analysed_at: string;
   sentiment: {
-    article?: {
-      title: {
-        score: number;
-        explanation: string;
-      };
-      body: {
-        score: number;
-        explanation: string;
-      };
+    article: {
+      id: number,
+      title_score: never,
+      title_explanation: string;
+      body_score: number;
+      body_explanation: string;
     };
-    parties?: PartySentiment[];
-    politicians?: PoliticianSentiment[];
+    parties: PartySentiment[];
+    politicians: PoliticianSentiment[];
   };
 }
 

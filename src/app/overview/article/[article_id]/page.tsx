@@ -17,16 +17,13 @@ export default function ArticleDetailPage() {
   const [article, setArticle] = useState<ArticleData | null>(null);
   const [media, setMedia] = useState<MediaData | null>(null);
   const [sentiments, setSentiments] = useState<SentimentData[]>([]);
-  const [selectedSentimentId, setSelectedSentimentId] = useState<number | null>(null);
+  const [selectedSentiment, setSelectedSentiment] = useState<SentimentData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Get the currently selected sentiment based on ID
-  const selectedSentiment = sentiments.find(s => s.id === selectedSentimentId) || sentiments[0];
-
   // Handle model selection change
-  const handleModelChange = (sentimentId: number) => {
-    setSelectedSentimentId(sentimentId);
+  const handleModelChange = (sentiment: SentimentData) => {
+    setSelectedSentiment(sentiment);
   };
 
   useEffect(() => {
@@ -52,7 +49,7 @@ export default function ArticleDetailPage() {
         setArticle(article);
         setMedia(media);
         setSentiments(sentiments);
-        setSelectedSentimentId(sentiments[0]?.id || null);
+        setSelectedSentiment(sentiments[0] || null);
         setError(null);
       } catch (err) {
         console.error('Error fetching article:', err);
@@ -71,12 +68,14 @@ export default function ArticleDetailPage() {
     return <ArticleError message={error || 'Failed to load article data'} />;
   }
 
+  console.log({sentiments, selectedSentiment});
+
   const partyData = selectedSentiment.sentiment.parties || [];
   const politiciansData = selectedSentiment.sentiment.politicians || [];
   const articleSentiment = selectedSentiment.sentiment.article;
 
   const pageTitle = article.title || 'Article Detail';
-  const pageDescription = articleSentiment?.title?.explanation || 'Article analysis';
+  const pageDescription = articleSentiment.title_explanation || 'Article analysis';
 
   return (
     <>
@@ -96,15 +95,17 @@ export default function ArticleDetailPage() {
 
           {articleSentiment && (
             <ArticleAnalysis
-              titleAnalysis={articleSentiment.title}
-              bodyAnalysis={articleSentiment.body}
+              title_score={articleSentiment.title_score}
+              title_explanation={articleSentiment.title_explanation}
+              body_score={articleSentiment.body_score}
+              body_explanation={articleSentiment.body_explanation}
               media={media}
               article={article}
             />
           )}
 
           <ModelSelect 
-            selectedSentiment={selectedSentimentId || sentiments[0]?.id} 
+            selectedSentiment={selectedSentiment}
             sentiments={sentiments}
             onModelChange={handleModelChange}
           />
@@ -112,7 +113,7 @@ export default function ArticleDetailPage() {
         
         <div className="article-detail-page__analysis">
           <AnalysisTable title="Parties" data={partyData} />
-          <AnalysisTable title="Politicians" data={politiciansData} />
+          <AnalysisTable title="Politicians" data={politiciansData}  />
         </div>
       </div>
     </>

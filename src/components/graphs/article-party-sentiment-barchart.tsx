@@ -41,20 +41,6 @@ const ArticlePartySentimentBarchart = ({ parties }: ArticlePartySentimentBarchar
     });
   };
 
-  const CustomTooltip = ({ active, payload }: any) => {
-    if (active && payload && payload.length) {
-      const data = payload[0].payload;
-      return (
-        <div className="graph-tooltip">
-          <p className="graph-tooltip__name">{data.partyLabel}</p>
-          <p className="graph-tooltip__score">Score: {data.score}</p>
-          <p className="graph-tooltip__explanation">{data.explanation}</p>
-        </div>
-      );
-    }
-    return null;
-  };
-
   const data = processData();
 
   if (data.length === 0) {
