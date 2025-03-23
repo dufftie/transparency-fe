@@ -57,12 +57,14 @@ export default function ArticleAnalysis({
               </h2>
             </td>
 
-            <td>
-              <h6>Author</h6>
-              <h2>
-                <b>{article.authors}</b>
-              </h2>
-            </td>
+            {article.authors && (
+              <td>
+                <h6>Author</h6>
+                <h2>
+                  <b>{article.authors}</b>
+                </h2>
+              </td>
+            )}
           </tr>
 
           <tr>
@@ -84,7 +86,8 @@ export default function ArticleAnalysis({
           <tr>
             <td>
               <b>
-                Title objectivity: {title_score} / 10 <Hint title='AI prompt' content={titlePrompt} />
+                Title objectivity: {title_score} / 10{' '}
+                <Hint title="AI prompt" content={titlePrompt} />
               </b>
               <p>{title_explanation}</p>
             </td>
@@ -92,7 +95,8 @@ export default function ArticleAnalysis({
           <tr>
             <td>
               <b>
-                Article objectivity: {body_score} / 10 <Hint title='AI prompt'  content={articlePrompt} />
+                Article objectivity: {body_score} / 10{' '}
+                <Hint title="AI prompt" content={articlePrompt} />
               </b>
               <p>{body_explanation}</p>
             </td>

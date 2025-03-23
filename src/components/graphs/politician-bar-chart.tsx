@@ -61,7 +61,7 @@ const PoliticianBarChart = ({ politicians }: PoliticianBarChartProps) => {
             axisLine={false}
             tickLine={false}
             fontSize={10}
-            width={150}
+            width={100}
           />
 
           <Bar dataKey="score" maxBarSize={30}>

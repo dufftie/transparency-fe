@@ -68,8 +68,6 @@ const ArticleLayout = (): JSX.Element => {
     return <ArticleError message={error || 'Failed to load article data'} />;
   }
 
-  console.log({sentiments, selectedSentiment});
-
   const partyData = selectedSentiment.sentiment.parties || [];
   const politiciansData = selectedSentiment.sentiment.politicians || [];
   const articleSentiment = selectedSentiment.sentiment.article;
@@ -103,17 +101,16 @@ const ArticleLayout = (): JSX.Element => {
               article={article}
             />
           )}
+        </div>
 
+        <div className="article-detail-page__analysis">
+          <AnalysisTable title="Parties" data={partyData} />
+          <AnalysisTable title="Politicians" data={politiciansData} />
           <ModelSelect
             selectedSentiment={selectedSentiment}
             sentiments={sentiments}
             onModelChange={handleModelChange}
           />
-        </div>
-
-        <div className="article-detail-page__analysis">
-          <AnalysisTable title="Parties" data={partyData} />
-          <AnalysisTable title="Politicians" data={politiciansData}  />
         </div>
       </div>
     </>

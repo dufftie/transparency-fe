@@ -63,6 +63,7 @@ const ArticlePartySentimentBarchart = ({ parties }: ArticlePartySentimentBarchar
             axisLine={false}
             tickLine={false}
             width={20}
+            fontSize={10}
           />
 
           <Bar dataKey="score" maxBarSize={60}>
