@@ -42,13 +42,6 @@ const ArticlePartySentimentBarchart = ({ parties }: ArticlePartySentimentBarchar
   };
 
   const data = processData();
-
-  if (data.length === 0) {
-    return (
-      <div className="article-party-sentiment-barchart">No party sentiment data available</div>
-    );
-  }
-
   return (
     <div className="article-party-sentiment-barchart">
       <ResponsiveContainer width="100%" height={250}>

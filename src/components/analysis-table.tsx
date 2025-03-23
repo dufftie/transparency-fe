@@ -1,6 +1,7 @@
 import React from 'react';
 import map from 'lodash/map';
 import ArticlePartySentimentBarchart from '@/src/components/graphs/article-party-sentiment-barchart';
+import PoliticianRadarChart from '@/src/components/graphs/politician-radar-chart';
 import { Collapse, Empty } from 'antd';
 
 interface AnalysisDataProps {
@@ -17,7 +18,7 @@ interface AnalysisTableProps {
 const AnalysisTable = (props: AnalysisTableProps) => {
   const { data, title } = props;
 
-  if (!data) return <Empty description={`${title} are not present in this article`} />;
+  const isEmpty = !data || data.length === 0;
 
   const collapseItems = [
     {
@@ -39,16 +40,21 @@ const AnalysisTable = (props: AnalysisTableProps) => {
     },
   ];
 
+  const renderChart = () => {
+    if (title === 'Politicians' && data.length > 4) {
+      return <PoliticianRadarChart politicians={data} />;
+    }
+    return <ArticlePartySentimentBarchart parties={data} />;
+  };
+
   return (
     <div className="analysis-table">
       <div style={{ display: 'grid', gap: 30 }}>
         <h2>{title}</h2>
-        <ArticlePartySentimentBarchart parties={data} />
+        {!isEmpty && renderChart()}
+        {isEmpty && `No ${title} found in the article`}
       </div>
-      <Collapse
-        items={collapseItems}
-        bordered={false}
-      />
+      {!isEmpty && <Collapse items={collapseItems} bordered={false} />}
     </div>
   );
 };
