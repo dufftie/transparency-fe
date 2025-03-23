@@ -1,18 +1,18 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { JSX, useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
-import { fetchData } from '@/src/lib/services/api';
 import { ArticleData, MediaData, SentimentData } from '@/src/types/article';
-import ArticleHeader from '@/src/components/article-detail/article-header';
-import ArticleAnalysis from '@/src/components/article-detail/article-analysis';
-import AnalysisTable from '@/src/components/analysis-table';
-import ModelSelect from '@/src/components/model-select';
+import { fetchData } from '@/src/lib/services/api';
 import ArticleLoading from '@/src/components/article-detail/article-loading';
 import ArticleError from '@/src/components/article-detail/article-error';
 import Head from 'next/head';
+import ArticleHeader from '@/src/components/article-detail/article-header';
+import ArticleAnalysis from '@/src/components/article-detail/article-analysis';
+import ModelSelect from '@/src/components/model-select';
+import AnalysisTable from '@/src/components/analysis-table';
 
-export default function ArticleDetailPage() {
+const ArticleLayout = (): JSX.Element => {
   const { article_id } = useParams();
   const [article, setArticle] = useState<ArticleData | null>(null);
   const [media, setMedia] = useState<MediaData | null>(null);
@@ -41,11 +41,11 @@ export default function ArticleDetailPage() {
           sentiments: SentimentData[];
           media: MediaData;
         }>(`/articles/${article_id}`);
-        
+
         if (!article) throw new Error('Article data not found');
         if (!media) throw new Error('Media data not found');
         if (!sentiments || sentiments.length === 0) throw new Error('Sentiment data not found');
-        
+
         setArticle(article);
         setMedia(media);
         setSentiments(sentiments);
@@ -63,7 +63,7 @@ export default function ArticleDetailPage() {
   }, [article_id]);
 
   if (loading) return <ArticleLoading />;
-  
+
   if (error || !article || !media || !selectedSentiment) {
     return <ArticleError message={error || 'Failed to load article data'} />;
   }
@@ -84,13 +84,13 @@ export default function ArticleDetailPage() {
         <meta name="description" content={pageDescription} />
         {article.preview_url && <meta property="og:image" content={article.preview_url} />}
       </Head>
-      
+
       <div className="article-detail-page">
         <div className="article-detail-page__details">
-          <ArticleHeader 
-            title={article.title} 
-            url={article.url} 
-            preview_url={article.preview_url} 
+          <ArticleHeader
+            title={article.title}
+            url={article.url}
+            preview_url={article.preview_url}
           />
 
           {articleSentiment && (
@@ -104,13 +104,13 @@ export default function ArticleDetailPage() {
             />
           )}
 
-          <ModelSelect 
+          <ModelSelect
             selectedSentiment={selectedSentiment}
             sentiments={sentiments}
             onModelChange={handleModelChange}
           />
         </div>
-        
+
         <div className="article-detail-page__analysis">
           <AnalysisTable title="Parties" data={partyData} />
           <AnalysisTable title="Politicians" data={politiciansData}  />
@@ -118,4 +118,6 @@ export default function ArticleDetailPage() {
       </div>
     </>
   );
-}
+};
+
+export default ArticleLayout;

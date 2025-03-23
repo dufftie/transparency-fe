@@ -56,7 +56,7 @@ const PartyScatterPlotGraph = ({ category, dateRange, party }: PartyScatterPlotG
   const partyColor = partiesList.find(p => p.value === party)?.color || 'gray';
 
   const openArticle = ({ article_id }: { article_id: string }) => {
-    window.open(`/overview/article/${article_id}`, '_blank', 'noopener,noreferrer');
+    window.open(`/article/${article_id}`, '_blank', 'noopener,noreferrer');
   };
   return (
     <BaseGraph graphName="party-scatter-plot-graph" fetchUrl={fetchUrl} processData={processData}>
