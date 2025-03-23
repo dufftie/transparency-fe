@@ -1,7 +1,7 @@
 import React from 'react';
 import map from 'lodash/map';
 import ArticlePartySentimentBarchart from '@/src/components/graphs/article-party-sentiment-barchart';
-import PoliticianRadarChart from '@/src/components/graphs/politician-radar-chart';
+import PoliticianBarChart from '@/src/components/graphs/politician-bar-chart';
 import { Collapse, Empty } from 'antd';
 
 interface AnalysisDataProps {
@@ -41,8 +41,8 @@ const AnalysisTable = (props: AnalysisTableProps) => {
   ];
 
   const renderChart = () => {
-    if (title === 'Politicians' && data.length > 4) {
-      return <PoliticianRadarChart politicians={data} />;
+    if (title === 'Politicians') {
+      return <PoliticianBarChart politicians={data} />;
     }
     return <ArticlePartySentimentBarchart parties={data} />;
   };
