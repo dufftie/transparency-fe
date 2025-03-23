@@ -45,12 +45,12 @@ export default function ArticleAnalysis({
   };
 
   return (
-    <div className="article-analysis">
+    <div className="analysis-table">
       <table>
         <tbody>
           <tr>
             <td>
-              <span>Publisher</span>
+              <h6>Publisher</h6>
               <h2>
                 <a href={`/media/${media.id}`}>
                   <b>{media.title}</b>
@@ -59,7 +59,7 @@ export default function ArticleAnalysis({
             </td>
 
             <td>
-              <span>Author</span>
+              <h6>Author</h6>
               <h2>
                 <b>{article.authors}</b>
               </h2>
@@ -85,7 +85,7 @@ export default function ArticleAnalysis({
           <tr>
             <td>
               <b>
-                Title objectivity: {titleAnalysis.score} / 10 <Hint content={titlePrompt} />
+                Title objectivity: {titleAnalysis.score} / 10 <Hint title='AI prompt' content={titlePrompt} />
               </b>
               <p>{titleAnalysis.explanation}</p>
             </td>
@@ -93,7 +93,7 @@ export default function ArticleAnalysis({
           <tr>
             <td>
               <b>
-                Article objectivity: {bodyAnalysis.score} / 10 <Hint content={articlePrompt} />
+                Article objectivity: {bodyAnalysis.score} / 10 <Hint title='AI prompt'  content={articlePrompt} />
               </b>
               <p>{bodyAnalysis.explanation}</p>
             </td>

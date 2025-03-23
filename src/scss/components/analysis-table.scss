@@ -1,28 +1,31 @@
 .analysis-table {
-  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 
-  &__title {
-    font-size: 18px;
-    font-weight: bold;
-    text-transform: uppercase;
-    font-family: 'Tektur', monospace !important;
+  font-size: 14px;
+
+  * {
+    font-family: 'Tektur', monospace;
   }
 
   table {
-    margin-bottom: 50px;
+    border-collapse: collapse;
+  }
 
-    td {
-      border-left: 1px solid #ccc;
-      border-bottom: 1px solid #ccc;
-      padding: 8px;
-    }
+  td {
+    border: 1px solid #949494;
+    padding: 10px;
+  }
 
-    tr td:first-child {
-      border-left: none;
-    }
+  h6 {
+    color: #949494;
+    font-size: 12px;
+    font-weight: normal;
+  }
 
-    tr:last-child td {
-      border-bottom: none;
-    }
+  p {
+    margin-top: 10px;
+    font-size: 12px;
   }
 }

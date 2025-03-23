@@ -48,7 +48,7 @@ export default function ArticleDetailPage() {
   }, [article_id]);
 
   if (loading) return <Spin size="large" indicator={<LoadingOutlined spin />} className="active" />;
-  if (error) return <div className="error">{error}</div>;
+  if (error || !article || !media) return <div className="error">{error}</div>;
 
   const partyData = sentiment.sentiment.parties || [];
   const politiciansData = sentiment.sentiment.politicians || [];
@@ -56,11 +56,7 @@ export default function ArticleDetailPage() {
   return (
     <div className="article-detail-page">
       <div className="article-detail-page__details">
-        <ArticleHeader
-          title={article.title}
-          url={article.url}
-          preview_url={article.preview_url}
-        />
+        <ArticleHeader title={article.title} url={article.url} preview_url={article.preview_url} />
 
         <ArticleAnalysis
           titleAnalysis={sentiment.sentiment.article?.title}

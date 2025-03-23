@@ -5,6 +5,7 @@ import { ConfigProvider } from 'antd';
 import antDesignTheme from '@/src/config/antDesignTheme';
 import MainLayout from '@/src/components/layouts/main-layout';
 import '@/src/scss/main.scss';
+import Head from 'next/head';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -16,12 +17,12 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="ee">
-      <head>
+      <Head>
         <link
           href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Montserrat:wght@400;500;600;700&display=swap"
           rel="stylesheet"
         />
-      </head>
+      </Head>
       <body className={`${inter.className} layout`}>
         <ConfigProvider theme={antDesignTheme}>
           <MainLayout>{children}</MainLayout>
