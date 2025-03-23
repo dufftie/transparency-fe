@@ -8,18 +8,18 @@ interface ArticleHeaderProps {
   title: string;
   url: string;
   preview_url: string;
-  date: string;
 }
 
-export default function ArticleHeader({ title, url, preview_url, date }: ArticleHeaderProps) {
+export default function ArticleHeader({ title, url, preview_url }: ArticleHeaderProps) {
   return (
-    <a href={url} target="_blank" rel="noopener noreferrer">
-      <article className="article">
-        <ExportOutlined className="article__link-icon" />
-        <span className="article__title">{title}</span>
-        <ArticlePreview preview_url={preview_url} />
-        <span className="article__date">{date}</span>
-      </article>
-    </a>
+    <div className="article-header">
+      <a href={url} target="_blank" rel="noopener noreferrer">
+        <article>
+          <ExportOutlined className="article-header__link-icon" />
+          <span className="article-header__title">{title}</span>
+          <ArticlePreview preview_url={preview_url} />
+        </article>
+      </a>
+    </div>
   );
 }

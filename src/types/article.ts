@@ -8,6 +8,7 @@ export interface ArticleData {
   id: string;
   media_id: number;
   date_time: string;
+  created_at: string;
   authors: string;
   preview_url: string;
 }
@@ -17,6 +18,7 @@ export interface PartySentiment {
   score: number;
   explanation: string;
 }
+
 export interface PoliticianSentiment {
   name: string;
   score: number;
@@ -24,6 +26,7 @@ export interface PoliticianSentiment {
 }
 
 export interface SentimentData {
+  id: number;
   model: string;
   sentiment: {
     article?: {
@@ -39,4 +42,16 @@ export interface SentimentData {
     parties?: PartySentiment[];
     politicians?: PoliticianSentiment[];
   };
+}
+
+export interface ChiefEditorData {
+  chief_editor: string;
+}
+
+export interface MediaData {
+  base_url: string;
+  id: number;
+  title: string;
+  chief_editor: ChiefEditorData;
+  description: string;
 }

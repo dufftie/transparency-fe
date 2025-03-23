@@ -3,18 +3,20 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import { fetchData } from '@/src/lib/services/api';
-import dayjs from 'dayjs';
-import { ArticleData, SentimentData } from '@/src/types/article';
+import { ArticleData, MediaData, SentimentData } from '@/src/types/article';
 import ArticleHeader from '@/src/components/article-detail/article-header';
 import ArticleAnalysis from '@/src/components/article-detail/article-analysis';
-import ArticlePartySentimentBarchart from '@/src/components/graphs/article-party-sentiment-barchart';
-import ArticleLoadingSkeleton from '@/src/components/article-detail/loading-skeleton';
 import AnalysisTable from '@/src/components/analysis-table';
+import { LoadingOutlined } from '@ant-design/icons';
+import { Spin } from 'antd';
+import ModelSelect from '@/src/components/model-select';
 
 export default function ArticleDetailPage() {
   const { article_id } = useParams();
-  const [article, setArticle] = useState<ArticleData>(null);
+  const [article, setArticle] = useState<ArticleData | null>(null);
+  const [media, setMedia] = useState<MediaData | null>(null);
   const [sentiments, setSentiments] = useState<SentimentData[]>([]);
+  const [sentiment, setSentiment] = useState<SentimentData>(sentiments[0]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -24,12 +26,15 @@ export default function ArticleDetailPage() {
 
       setLoading(true);
       try {
-        const { article, sentiments } = await fetchData<{
+        const { article, sentiments, media } = await fetchData<{
           article: ArticleData;
           sentiments: SentimentData[];
+          media: MediaData;
         }>(`/articles/${article_id}`);
         setArticle(article);
+        setMedia(media);
         setSentiments(sentiments);
+        setSentiment(sentiments[0]);
         setError(null);
       } catch (err) {
         console.error('Error fetching article:', err);
@@ -42,18 +47,11 @@ export default function ArticleDetailPage() {
     getArticleData();
   }, [article_id]);
 
-  if (loading) return <ArticleLoadingSkeleton />;
+  if (loading) return <Spin size="large" indicator={<LoadingOutlined spin />} className="active" />;
   if (error) return <div className="error">{error}</div>;
 
-  const selectedSentiment = sentiments[0];
-  const formattedDate = dayjs(article.date_time).format('DD MMMM, YYYY');
-
-  const partyData = selectedSentiment.sentiment.parties || [];
-  const politiciansData = selectedSentiment.sentiment.politicians || [];
-
-  // Extract analysis data for easier access
-  const titleAnalysis = selectedSentiment.sentiment.article?.title;
-  const bodyAnalysis = selectedSentiment.sentiment.article?.body;
+  const partyData = sentiment.sentiment.parties || [];
+  const politiciansData = sentiment.sentiment.politicians || [];
 
   return (
     <div className="article-detail-page">
@@ -62,23 +60,21 @@ export default function ArticleDetailPage() {
           title={article.title}
           url={article.url}
           preview_url={article.preview_url}
-          date={formattedDate}
         />
 
         <ArticleAnalysis
-          titleAnalysis={titleAnalysis}
-          bodyAnalysis={bodyAnalysis}
-          model={selectedSentiment.model}
+          titleAnalysis={sentiment.sentiment.article?.title}
+          bodyAnalysis={sentiment.sentiment.article?.body}
           partyData={partyData}
+          media={media}
+          article={article}
         />
+
+        <ModelSelect selectedSentiment={sentiment.id} sentiments={sentiments} />
       </div>
       <div className="article-detail-page__analysis">
-        {partyData.length > 0 && (
-          <div className="party-analysis">
-            <AnalysisTable title='Parties' data={partyData} />
-            <AnalysisTable title='Politicians' data={politiciansData} />
-          </div>
-        )}
+        <AnalysisTable title="Parties" data={partyData} />
+        <AnalysisTable title="Politicians" data={politiciansData} />
       </div>
     </div>
   );

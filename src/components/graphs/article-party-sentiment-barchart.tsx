@@ -63,11 +63,9 @@ const ArticlePartySentimentBarchart = ({ parties }: ArticlePartySentimentBarchar
     );
   }
 
-  const chartHeight = Math.max(data.length * 50 + 50, 200);
-
   return (
     <div className="article-party-sentiment-barchart">
-      <ResponsiveContainer width="100%" height={chartHeight}>
+      <ResponsiveContainer width="100%" height={250}>
         <BarChart data={data}>
           <CartesianGrid strokeDasharray="3 3" vertical={false} />
 

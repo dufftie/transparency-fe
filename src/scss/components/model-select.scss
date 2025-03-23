@@ -1,0 +1,17 @@
+.model-select {
+  margin-top: 10px;
+  margin-bottom: 5px;
+  color: #666;
+  font-family: 'Tektur', monospace !important;
+
+  .ant-select {
+    &-selector {
+      border: none !important;
+      background-color: transparent !important;
+    }
+
+    &-selection-item {
+      font-weight: bold !important;
+    }
+  }
+}

@@ -35,6 +35,14 @@ p {
   line-height: 1.25rem;
 }
 
+a {
+  color: black !important;
+
+  :hover {
+    text-decoration: underline;
+  }
+}
+
 main {
   grid-column: span 6;
   display: grid;
