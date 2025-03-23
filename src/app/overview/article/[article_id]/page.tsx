@@ -7,22 +7,35 @@ import { ArticleData, MediaData, SentimentData } from '@/src/types/article';
 import ArticleHeader from '@/src/components/article-detail/article-header';
 import ArticleAnalysis from '@/src/components/article-detail/article-analysis';
 import AnalysisTable from '@/src/components/analysis-table';
-import { LoadingOutlined } from '@ant-design/icons';
-import { Spin } from 'antd';
 import ModelSelect from '@/src/components/model-select';
+import ArticleLoading from '@/src/components/article-detail/article-loading';
+import ArticleError from '@/src/components/article-detail/article-error';
+import Head from 'next/head';
 
 export default function ArticleDetailPage() {
   const { article_id } = useParams();
   const [article, setArticle] = useState<ArticleData | null>(null);
   const [media, setMedia] = useState<MediaData | null>(null);
   const [sentiments, setSentiments] = useState<SentimentData[]>([]);
-  const [sentiment, setSentiment] = useState<SentimentData>(sentiments[0]);
+  const [selectedSentimentId, setSelectedSentimentId] = useState<number | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  // Get the currently selected sentiment based on ID
+  const selectedSentiment = sentiments.find(s => s.id === selectedSentimentId) || sentiments[0];
+
+  // Handle model selection change
+  const handleModelChange = (sentimentId: number) => {
+    setSelectedSentimentId(sentimentId);
+  };
+
   useEffect(() => {
     const getArticleData = async () => {
-      if (!article_id) return;
+      if (!article_id) {
+        setError('Invalid article ID');
+        setLoading(false);
+        return;
+      }
 
       setLoading(true);
       try {
@@ -31,14 +44,19 @@ export default function ArticleDetailPage() {
           sentiments: SentimentData[];
           media: MediaData;
         }>(`/articles/${article_id}`);
+        
+        if (!article) throw new Error('Article data not found');
+        if (!media) throw new Error('Media data not found');
+        if (!sentiments || sentiments.length === 0) throw new Error('Sentiment data not found');
+        
         setArticle(article);
         setMedia(media);
         setSentiments(sentiments);
-        setSentiment(sentiments[0]);
+        setSelectedSentimentId(sentiments[0]?.id || null);
         setError(null);
       } catch (err) {
         console.error('Error fetching article:', err);
-        setError('Failed to load article data');
+        setError(err instanceof Error ? err.message : 'Failed to load article data');
       } finally {
         setLoading(false);
       }
@@ -47,31 +65,56 @@ export default function ArticleDetailPage() {
     getArticleData();
   }, [article_id]);
 
-  if (loading) return <Spin size="large" indicator={<LoadingOutlined spin />} className="active" />;
-  if (error || !article || !media) return <div className="error">{error}</div>;
+  if (loading) return <ArticleLoading />;
+  
+  if (error || !article || !media || !selectedSentiment) {
+    return <ArticleError message={error || 'Failed to load article data'} />;
+  }
 
-  const partyData = sentiment.sentiment.parties || [];
-  const politiciansData = sentiment.sentiment.politicians || [];
+  const partyData = selectedSentiment.sentiment.parties || [];
+  const politiciansData = selectedSentiment.sentiment.politicians || [];
+  const articleSentiment = selectedSentiment.sentiment.article;
+
+  const pageTitle = article.title || 'Article Detail';
+  const pageDescription = articleSentiment?.title?.explanation || 'Article analysis';
 
   return (
-    <div className="article-detail-page">
-      <div className="article-detail-page__details">
-        <ArticleHeader title={article.title} url={article.url} preview_url={article.preview_url} />
+    <>
+      <Head>
+        <title>{pageTitle}</title>
+        <meta name="description" content={pageDescription} />
+        {article.preview_url && <meta property="og:image" content={article.preview_url} />}
+      </Head>
+      
+      <div className="article-detail-page">
+        <div className="article-detail-page__details">
+          <ArticleHeader 
+            title={article.title} 
+            url={article.url} 
+            preview_url={article.preview_url} 
+          />
 
-        <ArticleAnalysis
-          titleAnalysis={sentiment.sentiment.article?.title}
-          bodyAnalysis={sentiment.sentiment.article?.body}
-          partyData={partyData}
-          media={media}
-          article={article}
-        />
+          {articleSentiment && (
+            <ArticleAnalysis
+              titleAnalysis={articleSentiment.title}
+              bodyAnalysis={articleSentiment.body}
+              media={media}
+              article={article}
+            />
+          )}
 
-        <ModelSelect selectedSentiment={sentiment.id} sentiments={sentiments} />
+          <ModelSelect 
+            selectedSentiment={selectedSentimentId || sentiments[0]?.id} 
+            sentiments={sentiments}
+            onModelChange={handleModelChange}
+          />
+        </div>
+        
+        <div className="article-detail-page__analysis">
+          <AnalysisTable title="Parties" data={partyData} />
+          <AnalysisTable title="Politicians" data={politiciansData} />
+        </div>
       </div>
-      <div className="article-detail-page__analysis">
-        <AnalysisTable title="Parties" data={partyData} />
-        <AnalysisTable title="Politicians" data={politiciansData} />
-      </div>
-    </div>
+    </>
   );
 }

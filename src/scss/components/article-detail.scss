@@ -18,8 +18,21 @@
   }
 
   @media (max-width: 960px) {
-    grid-template-columns: 1fr;
+    flex-direction: column;
   }
+}
+
+.article-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+}
+
+.article-error {
+  padding: 20px;
+  max-width: 800px;
+  margin: 20px auto;
 }
 
 .article-header {
