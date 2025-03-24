@@ -8,9 +8,8 @@
 }
 
 body {
-  font-family: 'Montserrat', sans-serif;
+  font-family: $font-family-base;
   color: $text-color;
-
   min-height: 100vh !important;
   max-width: 1800px;
 }
@@ -21,13 +20,13 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: 'Montserrat', sans-serif;
+  font-family: $font-family-base;
   font-weight: 600;
 }
 
 code,
 pre {
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: $font-family-code;
   white-space: break-spaces;
 }
 
@@ -43,11 +42,11 @@ a {
 main {
   grid-column: span 6;
   display: grid;
-  gap: 20px;
+  gap: $spacing-lg;
 }
 
 .main-layout {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: $spacing-lg;
 }

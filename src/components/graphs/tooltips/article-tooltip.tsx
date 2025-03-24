@@ -21,7 +21,7 @@ const ArticleTooltip = (props: TooltipProps<any, any>) => {
             <ExportOutlined className='article-tooltip__icon' />
             <div className='article-tooltip__authors'>{ article.authors }</div>
             <div className='article-tooltip__title'>{ article.title }</div>
-            <ArticlePreview preview_url={article.preview_url} />
+            <ArticlePreview preview_url={article.preview_url} className="article-tooltip__preview" />
             <div className='article-tooltip__date'>{ dayjs(article.date_time).format("DD MMMM YYYY") }</div>
           </div>
         );

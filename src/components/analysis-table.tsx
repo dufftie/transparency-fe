@@ -29,9 +29,9 @@ const AnalysisTable = (props: AnalysisTableProps) => {
           <tbody>
             {map(data, item => (
               <tr key={item.name}>
-                <td>{item.name}</td>
-                <td>{item.explanation}</td>
-                <td>{item.score}</td>
+                <td className="analysis-table__cell">{item.name}</td>
+                <td className="analysis-table__cell">{item.explanation}</td>
+                <td className="analysis-table__cell">{item.score}</td>
               </tr>
             ))}
           </tbody>
@@ -51,8 +51,11 @@ const AnalysisTable = (props: AnalysisTableProps) => {
     <div className="analysis-table">
       <div style={{ display: 'grid', gap: 30 }}>
         <h2>{title}</h2>
-        {!isEmpty && renderChart()}
-        {isEmpty && `No ${title} found in the article`}
+        {!isEmpty ? (
+          renderChart()
+        ) : (
+          <p className="analysis-table__note">No {title} found in the article</p>
+        )}
       </div>
       {!isEmpty && <Collapse items={collapseItems} bordered={false} />}
     </div>

@@ -138,6 +138,7 @@ const StackedBarChart = ({
           <BarChart
             data={data}
             layout={isMobile ? 'vertical' : 'horizontal'}
+            className="stacked-bar-chart__wrapper"
           >
             <CartesianGrid strokeDasharray="3 3" vertical={isMobile} horizontal={!isMobile} />
 

@@ -74,7 +74,7 @@ const GraphSettings = ({
       )}
 
       {/* Category and Sort By in same row */}
-      <div className="form-row">
+      <div className="graph-settings__form-row">
         {categoryOptions && onCategoryChange && (
           <Form.Item label="Category" className="form-col">
             <Select
@@ -101,7 +101,7 @@ const GraphSettings = ({
       {/* Multi-party selector with checkboxes */}
       {multiPartyOptions && onSelectedPartiesChange && (
         <Form.Item label="Select Parties">
-          <div className="party-checkboxes">
+          <div className="graph-settings__party-checkboxes">
             <CheckboxGroup
               options={multiPartyOptions}
               value={selectedParties}

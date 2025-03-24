@@ -12,7 +12,7 @@ const antDesignTheme: ThemeConfig = {
   },
   components: {
     Button: {
-      fontFamily: "'Tektur', sans-serif",
+      fontFamily: "'Tektur', monospace",
       contentFontSizeLG: 22,
     },
   },

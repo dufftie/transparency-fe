@@ -12,10 +12,10 @@ export default function ArticleHeader({ title, url, preview_url }: ArticleHeader
   return (
     <div className="article-header">
       <a href={url} target="_blank" rel="noopener noreferrer">
-        <article>
+        <article className="article-header__article">
           <ExportOutlined className="article-header__link-icon" />
           <span className="article-header__title">{title}</span>
-          <ArticlePreview preview_url={preview_url} />
+          <ArticlePreview preview_url={preview_url} className="article-header__image" />
         </article>
       </a>
     </div>

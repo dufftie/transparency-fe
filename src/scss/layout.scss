@@ -1,45 +1,33 @@
+@import 'variables';
+
 header {
   position: sticky;
   top: 0;
-
   width: 100%;
   height: fit-content;
-
   display: inline-flex;
   justify-content: space-between;
-
   z-index: 999999;
-  padding-top: 15px;
-  padding-bottom: 50px;
-  padding-inline: 15px;
-  transition: 0.3s;
+  padding-top: $spacing-md;
+  padding-bottom: $spacing-xxl;
+  padding-inline: $spacing-md;
+  transition: $transition-standard;
   backdrop-filter: blur(5px);
-
   mask-image: linear-gradient(to bottom, black 0% 50%, transparent 90% 100%);
-
-  //button.ant-btn {
-  //  font-size: 22px;
-  //  color: white;
-  //  background-color: black;
-  //  height: 42px;
-  //  border: transparent;
-  //}
 }
 
 .content {
-  padding: 0 20px;
+  padding: 0 $spacing-lg;
 
-  @media (max-width: 600px) {
-    padding: 0 10px;
+  @media (max-width: $breakpoint-sm) {
+    padding: 0 $spacing-sm;
   }
 }
 
 footer {
-  margin-top: 50px;
-
+  margin-top: $spacing-xxl;
   grid-column: span 6;
-  border-top: 1px solid gray;
-  padding: 30px 10px;
-
+  border-top: 1px solid $border-color-dark;
+  padding: $spacing-xl $spacing-sm;
   text-align: center;
 }

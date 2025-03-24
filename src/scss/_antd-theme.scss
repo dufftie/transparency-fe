@@ -1,38 +1,39 @@
+@import 'variables';
+
 :root {
   --ant-primary-color: white;
   --ant-primary-color-hover: white;
   --ant-primary-color-active: white;
   --ant-primary-color-outline: transparent;
 
-  --ant-font-family: 'Montserrat', sans-serif;
-  --ant-code-family: 'IBM Plex Mono', monospace;
+  --ant-font-family: #{$font-family-base};
+  --ant-code-family: #{$font-family-code};
 
-  --ant-border-radius-base: 4px;
-  --ant-border-color-base: #d9d9d9;
+  --ant-border-radius-base: #{$border-radius};
+  --ant-border-color-base: #{$border-color};
 
-  --ant-heading-color: rgba(0, 0, 0, 0.85);
-  --ant-text-color: rgba(0, 0, 0, 0.85);
-  --ant-text-color-secondary: rgba(0, 0, 0, 0.45);
+  --ant-heading-color: #{$text-color};
+  --ant-text-color: #{$text-color};
+  --ant-text-color-secondary: #{$text-color-secondary};
 }
 
 .ant-form-item-label,
-.ant-descriptions-item{
-  font-family: 'IBM Plex Mono', monospace !important;
+.ant-descriptions-item {
+  font-family: $font-family-code !important;
 }
 
 .ant-descriptions-item {
-
   &-label {
     color: var(--ant-heading-color) !important;
     padding-bottom: 0;
   }
 
   &-content {
-    color: #949494 !important;
-    margin-bottom: 12px;
+    color: $text-color-light !important;
+    margin-bottom: $spacing-sm;
   }
 }
 
 .ant-popover {
-  font-family: 'Tektur', monospace !important;
+  font-family: $font-family-display !important;
 }

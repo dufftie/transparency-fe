@@ -1,12 +1,14 @@
+@import '../variables';
+
 .article-detail-page {
   display: flex;
-  gap: 50px;
+  gap: $spacing-xxl;
 
   &__details {
     flex: 1 1 300px;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: $spacing-lg;
     max-width: 100%;
   }
 
@@ -14,11 +16,11 @@
     flex: 1 1 600px;
     display: flex;
     flex-direction: column;
-    gap: 50px;
+    gap: $spacing-xxl;
     max-width: 100%;
   }
 
-  @media (max-width: 960px) {
+  @media (max-width: $breakpoint-lg) {
     flex-wrap: wrap;
   }
 }
@@ -31,43 +33,43 @@
 }
 
 .article-error {
-  padding: 20px;
+  padding: $spacing-lg;
   max-width: 800px;
-  margin: 20px auto;
+  margin: $spacing-lg auto;
 }
 
 .article-header {
   position: relative;
-  transition: 0.3s;
+  transition: $transition-standard;
   color: black;
-  border: 1px solid gray;
-  padding: 20px;
+  border: 1px solid $border-color-dark;
+  padding: $spacing-lg;
 
-  article {
+  &__article {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: $spacing-lg;
     height: fit-content;
   }
 
   &:hover {
     transform: scale(1.01);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    box-shadow: $box-shadow;
   }
 
   &__title {
-    font-family: 'Tektur', monospace !important;
+    font-family: $font-family-display !important;
     font-weight: 500;
     font-size: 24px;
   }
 
   &__link-icon {
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: $spacing-sm;
+    right: $spacing-sm;
   }
 
-  img {
+  &__image {
     width: 100%;
     max-width: 500px;
     height: auto;

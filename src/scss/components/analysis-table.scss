@@ -1,31 +1,31 @@
+@import '../variables';
+
 .analysis-table {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-
+  gap: $spacing-sm;
   font-size: 14px;
 
   * {
-    font-family: 'Tektur', monospace;
+    font-family: $font-family-display;
   }
 
   table {
     border-collapse: collapse;
   }
+    td {
+      border: 1px solid $text-color-light;
+      padding: $spacing-sm;
+    }
 
-  td {
-    border: 1px solid #949494;
-    padding: 10px;
-  }
-
-  h6 {
-    color: #949494;
+  &__heading {
+    color: $text-color-light;
     font-size: 12px;
     font-weight: normal;
   }
 
-  p {
-    margin-top: 10px;
+  &__note {
+    margin-top: $spacing-sm;
     font-size: 12px;
   }
 }

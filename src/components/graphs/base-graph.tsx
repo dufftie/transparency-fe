@@ -23,7 +23,7 @@ const BaseGraph = ({ fetchUrl, processData, children, graphName }: BaseGraphProp
 
   return (
     <div className={classNames('graph', graphName, { loading: loading })}>
-      <div className={classNames('graph-loading-spinner', { active: showSpinner })}>
+      <div className={classNames('graph__loading-spinner', { active: showSpinner })}>
         <Spin
           size="large"
           indicator={<LoadingOutlined spin />}

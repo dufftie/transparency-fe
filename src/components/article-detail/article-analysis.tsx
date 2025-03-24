@@ -47,7 +47,7 @@ export default function ArticleAnalysis({
         <tbody>
           <tr>
             <td>
-              <h6>Publisher</h6>
+              <div className='analysis-table__heading'>Publisher</div>
               <h2>
                 <a href={`/media/${media.slug}`}>
                   <b>{media.title}</b>
@@ -57,7 +57,7 @@ export default function ArticleAnalysis({
 
             {article.authors && (
               <td>
-                <h6>Author</h6>
+                <div className='analysis-table__heading'>Author</div>
                 <h2>
                   <b>{article.authors}</b>
                 </h2>

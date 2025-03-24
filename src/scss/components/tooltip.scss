@@ -1,28 +1,30 @@
+@import '../variables';
+
 .tooltip {
-  background-color: #FFF4EA;
+  background-color: $tooltip-bg;
   border-radius: 10px;
-  padding: 16px 12px;
+  padding: $spacing-md $spacing-sm;
   width: 250px;
 }
 
 .article-tooltip {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: $spacing-sm;
 
-  .article-preview {
+  &__preview {
     width: 100%;
     max-height: 150px;
   }
 
   &__icon {
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: $spacing-sm;
+    right: $spacing-sm;
   }
 
   &__title {
-    font-family: 'Tektur', monospace;
+    font-family: $font-family-display;
     font-weight: 600;
   }
 
@@ -32,7 +34,7 @@
   }
 
   &__date {
-    color: gray;
+    color: $text-color-light;
     text-align: end;
   }
 }
