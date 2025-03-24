@@ -10,9 +10,9 @@
 body {
   font-family: 'Montserrat', sans-serif;
   color: $text-color;
-  background-color: $background-color;
-  display: flex;
-  justify-content: center;
+
+  min-height: 100vh !important;
+  max-width: 1800px;
 }
 
 h1,
@@ -37,37 +37,13 @@ p {
 
 a {
   color: black !important;
-
-  :hover {
-    text-decoration: underline;
-  }
+  text-decoration: none;
 }
 
 main {
   grid-column: span 6;
   display: grid;
   gap: 20px;
-}
-
-.ant-layout.layout {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  padding: 0 30px;
-  min-height: 100vh !important;
-  max-width: 1800px;
-  background-color: transparent;
-
-  @media (max-width: 600px) {
-    padding: 0 10px;
-  }
-}
-
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: $primary-color;
-  padding: 0 20px;
 }
 
 .main-layout {

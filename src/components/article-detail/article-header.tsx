@@ -1,5 +1,3 @@
-'use client';
-
 import React from 'react';
 import { ExportOutlined } from '@ant-design/icons';
 import ArticlePreview from '@/src/components/article-preview';

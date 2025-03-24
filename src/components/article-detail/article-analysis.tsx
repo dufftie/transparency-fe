@@ -1,7 +1,5 @@
-'use client';
-
 import React from 'react';
-import { ArticleData, MediaData, SentimentData } from '@/src/types/article';
+import { ArticleData, MediaData } from '@/src/types/article';
 import Hint from '@/src/components/hint';
 import dayjs from 'dayjs';
 

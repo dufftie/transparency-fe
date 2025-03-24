@@ -2,15 +2,18 @@ import type { ThemeConfig } from 'antd';
 
 const antDesignTheme: ThemeConfig = {
   token: {
-    colorPrimary: '#F5D6BB',
+    colorPrimary: '#121111',
+    colorInfo: '#121111',
+    colorPrimaryBg: '#f6e6db',
+    colorPrimaryActive: '#fa541c',
+    colorSuccess: '#8fcc7e',
+    colorError: '#ea5753',
     fontFamily: "'Montserrat', sans-serif",
   },
   components: {
     Button: {
-      colorTextBase: 'white',
-      borderRadius: 10,
       fontFamily: "'Tektur', sans-serif",
-      borderColor: 'red',
+      contentFontSizeLG: 22,
     },
   },
 };

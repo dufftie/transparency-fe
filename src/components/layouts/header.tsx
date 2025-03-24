@@ -9,7 +9,7 @@ const Header = () => {
       <Link href="/">
         <img src="/logo.svg" alt="Läbipaistvus logotype" className="logo" />
       </Link>
-      <Button>Donate</Button>
+      <Button type='primary' size='large'>Donate</Button>
     </header>
   );
 };

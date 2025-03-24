@@ -1,0 +1,45 @@
+header {
+  position: sticky;
+  top: 0;
+
+  width: 100%;
+  height: fit-content;
+
+  display: inline-flex;
+  justify-content: space-between;
+
+  z-index: 999999;
+  padding-top: 15px;
+  padding-bottom: 50px;
+  padding-inline: 15px;
+  transition: 0.3s;
+  backdrop-filter: blur(5px);
+
+  mask-image: linear-gradient(to bottom, black 0% 50%, transparent 90% 100%);
+
+  //button.ant-btn {
+  //  font-size: 22px;
+  //  color: white;
+  //  background-color: black;
+  //  height: 42px;
+  //  border: transparent;
+  //}
+}
+
+.content {
+  padding: 0 20px;
+
+  @media (max-width: 600px) {
+    padding: 0 10px;
+  }
+}
+
+footer {
+  margin-top: 50px;
+
+  grid-column: span 6;
+  border-top: 1px solid gray;
+  padding: 30px 10px;
+
+  text-align: center;
+}

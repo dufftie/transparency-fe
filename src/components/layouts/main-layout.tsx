@@ -1,20 +1,22 @@
-'use client';
-
 import type React from 'react';
 
-import { Layout } from 'antd';
 import { AntdRegistry } from '@ant-design/nextjs-registry';
-import Header from '@/src/components/header';
-
-const { Content, Footer } = Layout;
+import Header from '@/src/components/layouts/header';
+import Footer from '@/src/components/layouts/footer';
+import Content from '@/src/components/layouts/content';
+import { ConfigProvider } from 'antd';
+import antDesignTheme from '@/src/config/antDesignTheme';
 
 export default function MainLayout({ children }: { children: React.ReactNode }) {
   return (
-    <AntdRegistry>
-      <Layout className="layout">
-        <Header />
-        <Content className="content">{children}</Content>
-      </Layout>
-    </AntdRegistry>
+    <body>
+      <ConfigProvider theme={antDesignTheme}>
+        <AntdRegistry>
+          <Header />
+          <Content>{children}</Content>
+          <Footer />
+        </AntdRegistry>
+      </ConfigProvider>
+    </body>
   );
 }

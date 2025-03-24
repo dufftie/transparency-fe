@@ -1,13 +1,8 @@
 import type React from 'react';
-import { Inter } from 'next/font/google';
 import type { Metadata } from 'next';
-import { ConfigProvider } from 'antd';
-import antDesignTheme from '@/src/config/antDesignTheme';
 import MainLayout from '@/src/components/layouts/main-layout';
 import '@/src/scss/main.scss';
 import Head from 'next/head';
-
-const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'Läbipaistvus',
@@ -23,11 +18,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           rel="stylesheet"
         />
       </Head>
-      <body className={`${inter.className} layout`}>
-        <ConfigProvider theme={antDesignTheme}>
-          <MainLayout>{children}</MainLayout>
-        </ConfigProvider>
-      </body>
+      <MainLayout>{children}</MainLayout>
     </html>
   );
 }
