@@ -95,106 +95,102 @@ const PartyAreaChart = ({
 
   return (
     <BaseGraph graphName="stacked-bar-chart" fetchUrl={fetchUrl} processData={processData}>
-      {(data, loading) => {
-        return (
-          <AreaChart data={data}>
-            <defs>
-              <linearGradient id="negative" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="red" stopOpacity={0.8} />
-                <stop offset="100%" stopColor="red" stopOpacity={0} />
-              </linearGradient>
-              <linearGradient id="positive" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="#82ca9d" stopOpacity={0.8} />
-                <stop offset="100%" stopColor="#82ca9d" stopOpacity={0} />
-              </linearGradient>
-              <linearGradient id="neutral" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="black" stopOpacity={0.2} />
-                <stop offset="100%" stopColor="black" stopOpacity={0} />
-              </linearGradient>
-            </defs>
+      {(data, loading) => (
+        <AreaChart data={data} margin={{ left: 0, right: 0, top: 0, bottom: 0 }}>
+          <defs>
+            <linearGradient id="negative" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="5%" stopColor="red" stopOpacity={0.8} />
+              <stop offset="100%" stopColor="red" stopOpacity={0} />
+            </linearGradient>
+            <linearGradient id="positive" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="5%" stopColor="#82ca9d" stopOpacity={0.8} />
+              <stop offset="100%" stopColor="#82ca9d" stopOpacity={0} />
+            </linearGradient>
+            <linearGradient id="neutral" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="5%" stopColor="black" stopOpacity={0.2} />
+              <stop offset="100%" stopColor="black" stopOpacity={0} />
+            </linearGradient>
+          </defs>
 
-            <CartesianGrid strokeDasharray="3 3" vertical={false} />
+          <CartesianGrid strokeDasharray="3 3" vertical={false} />
 
-            <XAxis
-              dataKey="date"
-              axisLine={false}
-              tickLine={false}
-              height={15}
-              interval={2}
+          <XAxis
+            dataKey="date"
+            tickFormatter={tick => dayjs(tick).format('DD MMM, YYYY')}
+            fontSize={10}
+          />
+
+          <YAxis
+            type="number"
+            axisLine={false}
+            tickLine={false}
+            domain={[0, 100]}
+            tickCount={6}
+            scale="linear"
+            width={30}
+            fontSize={10}
+          />
+
+          <Tooltip
+            formatter={(value: any, name: string, props: any) => {
+              if (name === 'Negative') {
+                return [
+                  `Negative: ${props.payload.negative_count} (${props.payload.negative_percentage}%)`,
+                  'Negative',
+                ];
+              }
+              if (name === 'Positive') {
+                return [
+                  `Positive: ${props.payload.positive_count} (${props.payload.positive_percentage}%)`,
+                  'Positive',
+                ];
+              }
+              if (name === 'Neutral') {
+                return [
+                  `Neutral: ${props.payload.neutral_count} (${props.payload.neutral_percentage}%)`,
+                  'Neutral',
+                ];
+              }
+              return [value, name];
+            }}
+            labelFormatter={label => label}
+          />
+
+          {/* Display the Area components with the percentage data */}
+          {visibleSentiments.includes('negative') && (
+            <Area
+              type="monotone"
+              dataKey="negative_percentage"
+              stroke="red"
+              fill="url(#negative)"
+              name="Negative"
+              stackId="a"
             />
+          )}
 
-            <YAxis
-              type="number"
-              axisLine={false}
-              tickLine={false}
-              domain={[0, 100]}
-              tickCount={6}
-              scale="linear"
-              width={30}
+          {visibleSentiments.includes('positive') && (
+            <Area
+              type="monotone"
+              dataKey="positive_percentage"
+              stroke="#82ca9d"
+              fill="url(#positive)"
+              name="Positive"
+              stackId="a"
             />
+          )}
 
-            {/* Custom Tooltip */}
-            <Tooltip
-              formatter={(value: any, name: string, props: any) => {
-                if (name === 'Negative') {
-                  return [
-                    `Negative: ${props.payload.negative_count} (${props.payload.negative_percentage}%)`,
-                    'Negative',
-                  ];
-                }
-                if (name === 'Positive') {
-                  return [
-                    `Positive: ${props.payload.positive_count} (${props.payload.positive_percentage}%)`,
-                    'Positive',
-                  ];
-                }
-                if (name === 'Neutral') {
-                  return [
-                    `Neutral: ${props.payload.neutral_count} (${props.payload.neutral_percentage}%)`,
-                    'Neutral',
-                  ];
-                }
-                return [value, name];
-              }}
-              labelFormatter={label => label}
+          {visibleSentiments.includes('neutral') && (
+            <Area
+              type="monotone"
+              dataKey="neutral_percentage"
+              stroke="#D9D9D9"
+              fill="url(#neutral)"
+              name="Neutral"
+              stackId="a"
             />
-
-            {/* Display the Area components with the percentage data */}
-            {visibleSentiments.includes('negative') && (
-              <Area
-                type="monotone"
-                dataKey="negative_percentage"
-                stroke="red"
-                fill="url(#negative)"
-                name="Negative"
-                stackId="a"
-              />
-            )}
-
-            {visibleSentiments.includes('positive') && (
-              <Area
-                type="monotone"
-                dataKey="positive_percentage"
-                stroke="#82ca9d"
-                fill="url(#positive)"
-                name="Positive"
-                stackId="a"
-              />
-            )}
-
-            {visibleSentiments.includes('neutral') && (
-              <Area
-                type="monotone"
-                dataKey="neutral_percentage"
-                stroke="#D9D9D9"
-                fill="url(#neutral)"
-                name="Neutral"
-                stackId="a"
-              />
-            )}
-          </AreaChart>
-        );
-      }}
+          )}
+        </AreaChart>
+      )}
     </BaseGraph>
   );
 };

@@ -76,6 +76,7 @@ const PartyScatterPlotGraph = ({
             name="Date"
             type="category"
             tickFormatter={tick => dayjs(tick).format('DD MMM, YYYY')}
+            fontSize={10}
           />
 
           <YAxis
@@ -87,6 +88,7 @@ const PartyScatterPlotGraph = ({
             axisLine={false}
             tickLine={false}
             width={30}
+            fontSize={10}
           />
 
           <Scatter

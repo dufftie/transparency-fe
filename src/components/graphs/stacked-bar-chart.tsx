@@ -146,7 +146,6 @@ const StackedBarChart = ({
               formatter={(value, name) => [`${value} mentions`, name]}
               labelFormatter={label => label}
             />
-            <Legend />
 
             {visibleSentiments.includes('negative') && (
               <Bar
@@ -195,6 +194,7 @@ const StackedBarChart = ({
                 axisLine={false}
                 tickLine={false}
                 interval={0}
+                fontSize={10}
               />
             )}
 
@@ -205,6 +205,7 @@ const StackedBarChart = ({
                 tickLine={false}
                 domain={[0, maxTotal]}
                 tickCount={6}
+                fontSize={10}
               />
             ) : (
               <YAxis
@@ -214,6 +215,7 @@ const StackedBarChart = ({
                 domain={[0, maxTotal]}
                 tickCount={6}
                 width={30}
+                fontSize={10}
               />
             )}
           </BarChart>

@@ -45,7 +45,7 @@ const ArticlePartySentimentBarchart = ({ parties }: ArticlePartySentimentBarchar
   return (
     <div className="article-party-sentiment-barchart">
       <ResponsiveContainer width="100%" height={250}>
-        <BarChart data={data}>
+        <BarChart data={data} margin={{ left: 0, right: 0, top: 0, bottom: 0 }}>
           <CartesianGrid strokeDasharray="3 3" vertical={false} />
 
           <XAxis
@@ -59,7 +59,7 @@ const ArticlePartySentimentBarchart = ({ parties }: ArticlePartySentimentBarchar
           <YAxis
             type="number"
             domain={[0, 10]}
-            tickCount={11}
+            scale='linear'
             axisLine={false}
             tickLine={false}
             width={20}

@@ -74,6 +74,11 @@ const ArticleLayout = (): JSX.Element => {
   return (
     <div className="article-detail-page">
       <div className="article-detail-page__details">
+        <ModelSelect
+          selectedSentiment={selectedSentiment}
+          sentiments={sentiments}
+          onModelChange={handleModelChange}
+        />
         <ArticleHeader title={article.title} url={article.url} preview_url={article.preview_url} />
 
         {articleSentiment && (
@@ -91,11 +96,6 @@ const ArticleLayout = (): JSX.Element => {
       <div className="article-detail-page__analysis">
         <AnalysisTable title="Parties" data={partyData} />
         <AnalysisTable title="Politicians" data={politiciansData} />
-        <ModelSelect
-          selectedSentiment={selectedSentiment}
-          sentiments={sentiments}
-          onModelChange={handleModelChange}
-        />
       </div>
     </div>
   );

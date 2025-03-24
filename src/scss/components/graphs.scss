@@ -6,7 +6,7 @@
 .article-party-sentiment-barchart,
 .politician-bar-chart {
   width: 100%;
-  max-width: 800px;
+  max-width: 1000px;
   margin: 0 auto;
 }
 
@@ -86,6 +86,7 @@
   border: 1px solid $border-color-dark;
   height: auto;
   padding: $spacing-xl $spacing-xl $spacing-lg;
+  font-family: $font-family-display;
 
   @media (min-width: 300px) {
     padding: $spacing-lg;
@@ -95,8 +96,8 @@
     display: flex;
     font-weight: 600;
     font-size: 20px;
-    font-family: $font-family-base;
     margin-bottom: $spacing-md;
+    font-family: $font-family-display;
   }
 
   &__context {

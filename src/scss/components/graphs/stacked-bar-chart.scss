@@ -26,12 +26,7 @@
     opacity: 0.2;
   }
   
-  // Styling for X-axis labels (party names)
-  .recharts-xAxis .recharts-cartesian-axis-tick-value {
-    font-weight: 500;
-    font-size: 12px;
-  }
-  
+
   // Make sure chart has enough height
   @media (max-width: $breakpoint-md) {
     min-height: 350px;

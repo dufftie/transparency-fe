@@ -13,10 +13,15 @@
   table {
     border-collapse: collapse;
   }
-    td {
-      border: 1px solid $text-color-light;
-      padding: $spacing-sm;
+
+  td {
+    border: 1px solid $text-color-light;
+    padding: $spacing-sm;
+
+    p {
+      margin-top: 10px;
     }
+  }
 
   &__heading {
     color: $text-color-light;
