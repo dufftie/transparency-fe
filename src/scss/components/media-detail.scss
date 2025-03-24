@@ -1,0 +1,58 @@
+.media-detail-page {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  &__details {
+    flex-direction: column;
+    gap: 20px;
+    max-width: 100%;
+  }
+
+  &__analysis {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    max-width: 100%;
+
+    .graph-widget {
+      flex-basis: 300px;
+    }
+  }
+
+  //@media (max-width: 960px) {
+  //  flex-wrap: wrap;
+  //}
+}
+
+.media-header {
+  position: relative;
+  transition: 0.3s;
+  color: black;
+  border: 1px solid gray;
+  padding: 20px;
+
+  div {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    height: fit-content;
+  }
+
+  &:hover {
+    transform: scale(1.01);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  &__title {
+    font-family: 'Tektur', monospace !important;
+    font-weight: 500;
+    font-size: 24px;
+  }
+
+  &__link-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }
+}

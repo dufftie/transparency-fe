@@ -6,7 +6,6 @@ import { ArticleData, MediaData, SentimentData } from '@/src/types/article';
 import { fetchData } from '@/src/lib/services/api';
 import ArticleLoading from '@/src/components/article-detail/article-loading';
 import ArticleError from '@/src/components/article-detail/article-error';
-import Head from 'next/head';
 import ArticleHeader from '@/src/components/article-detail/article-header';
 import ArticleAnalysis from '@/src/components/article-detail/article-analysis';
 import ModelSelect from '@/src/components/model-select';
@@ -72,48 +71,33 @@ const ArticleLayout = (): JSX.Element => {
   const politiciansData = selectedSentiment.sentiment.politicians || [];
   const articleSentiment = selectedSentiment.sentiment.article;
 
-  const pageTitle = article.title || 'Article Detail';
-  const pageDescription = articleSentiment.title_explanation || 'Article analysis';
-
   return (
-    <>
-      <Head>
-        <title>{pageTitle}</title>
-        <meta name="description" content={pageDescription} />
-        {article.preview_url && <meta property="og:image" content={article.preview_url} />}
-      </Head>
+    <div className="article-detail-page">
+      <div className="article-detail-page__details">
+        <ArticleHeader title={article.title} url={article.url} preview_url={article.preview_url} />
 
-      <div className="article-detail-page">
-        <div className="article-detail-page__details">
-          <ArticleHeader
-            title={article.title}
-            url={article.url}
-            preview_url={article.preview_url}
+        {articleSentiment && (
+          <ArticleAnalysis
+            title_score={articleSentiment.title_score}
+            title_explanation={articleSentiment.title_explanation}
+            body_score={articleSentiment.body_score}
+            body_explanation={articleSentiment.body_explanation}
+            media={media}
+            article={article}
           />
-
-          {articleSentiment && (
-            <ArticleAnalysis
-              title_score={articleSentiment.title_score}
-              title_explanation={articleSentiment.title_explanation}
-              body_score={articleSentiment.body_score}
-              body_explanation={articleSentiment.body_explanation}
-              media={media}
-              article={article}
-            />
-          )}
-        </div>
-
-        <div className="article-detail-page__analysis">
-          <AnalysisTable title="Parties" data={partyData} />
-          <AnalysisTable title="Politicians" data={politiciansData} />
-          <ModelSelect
-            selectedSentiment={selectedSentiment}
-            sentiments={sentiments}
-            onModelChange={handleModelChange}
-          />
-        </div>
+        )}
       </div>
-    </>
+
+      <div className="article-detail-page__analysis">
+        <AnalysisTable title="Parties" data={partyData} />
+        <AnalysisTable title="Politicians" data={politiciansData} />
+        <ModelSelect
+          selectedSentiment={selectedSentiment}
+          sentiments={sentiments}
+          onModelChange={handleModelChange}
+        />
+      </div>
+    </div>
   );
 };
 

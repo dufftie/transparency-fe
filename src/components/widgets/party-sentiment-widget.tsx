@@ -11,7 +11,7 @@ const categoryOptions = [
   { value: 'Эстония', label: 'Эстония' },
 ];
 
-const PartySentimentWidget = () => {
+const PartySentimentWidget = ({ media_id }) => {
   const [party, setParty] = useState(partiesList[0].value);
   const [category, setCategory] = useState('');
   const [dateRange, setDateRange] = useState<[dayjs.Dayjs, dayjs.Dayjs]>([
@@ -36,6 +36,7 @@ const PartySentimentWidget = () => {
       }
     >
       <PartyScatterPlotGraph
+        media_id={media_id}
         category={category}
         dateRange={dateRange}
         party={party}

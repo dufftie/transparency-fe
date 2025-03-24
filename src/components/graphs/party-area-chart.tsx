@@ -14,6 +14,7 @@ interface StackedBarChartProps extends BaseGraphProps {
 }
 
 const buildUrl = ({
+  media_id,
   category,
   startDate,
   endDate,
@@ -25,6 +26,7 @@ const buildUrl = ({
   party: string;
 }) => {
   const params = new URLSearchParams();
+  if (media_id) params.append('media_id', media_id);
   if (category) params.append('category', category);
   if (startDate) params.append('start_date', startDate.format('YYYY-MM-DD'));
   if (endDate) params.append('end_date', endDate.format('YYYY-MM-DD'));
@@ -34,6 +36,7 @@ const buildUrl = ({
 };
 
 const PartyAreaChart = ({
+  media_id,
   category,
   dateRange,
   party, // Default to showing all parties
@@ -42,7 +45,7 @@ const PartyAreaChart = ({
   visibleSentiments = ['positive', 'neutral', 'negative'], // Default: show all sentiments
 }: StackedBarChartProps) => {
   const [startDate, endDate] = dateRange;
-  const fetchUrl = buildUrl({ category, startDate, endDate, party });
+  const fetchUrl = buildUrl({ media_id, category, startDate, endDate, party });
 
   const processData = (data: any[]) => {
     return data.map(item => {

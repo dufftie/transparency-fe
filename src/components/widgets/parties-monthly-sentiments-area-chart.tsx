@@ -1,4 +1,4 @@
-import GraphSettings, { defaultSortOptions } from '@/src/components/graphs/graph-settings';
+import GraphSettings from '@/src/components/graphs/graph-settings';
 import PartyAreaChart from '@/src/components/graphs/party-area-chart';
 import GraphWidget from '@/src/components/graphs/graph-widget';
 import { useState } from 'react';
@@ -11,13 +11,7 @@ const categoryOptions = [
   { value: 'Эстония', label: 'Эстония' },
 ];
 
-// Party selection options
-const partyOptions = partiesList.map(party => ({
-  value: party.value,
-  label: party.label,
-}));
-
-const PartiesMonthlySentimentsAreaChart = () => {
+const PartiesMonthlySentimentsAreaChart = ({ media_id }) => {
   const [party, setParty] = useState(partiesList[0].value);
   const [category, setCategory] = useState('');
   const [dateRange, setDateRange] = useState<[dayjs.Dayjs, dayjs.Dayjs]>([
@@ -51,6 +45,7 @@ const PartiesMonthlySentimentsAreaChart = () => {
       }
     >
       <PartyAreaChart
+        media_id={media_id}
         category={category}
         dateRange={dateRange}
         party={party}

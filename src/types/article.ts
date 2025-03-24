@@ -52,4 +52,5 @@ export interface MediaData {
   title: string;
   chief_editor: ChiefEditorData;
   description: string;
+  slug: string;
 }

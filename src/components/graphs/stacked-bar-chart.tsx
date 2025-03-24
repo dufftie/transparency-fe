@@ -7,6 +7,7 @@ import partiesList from '@/src/lib/dictionaries/partiesList';
 import useIsMobile from '@/src/lib/hooks/isMobile';
 
 interface StackedBarChartProps extends BaseGraphProps {
+  media_id: string;
   showParties: string[];
   positiveThreshold?: number; // Scores >= this value are considered positive
   negativeThreshold?: number; // Scores <= this value are considered negative
@@ -15,17 +16,20 @@ interface StackedBarChartProps extends BaseGraphProps {
 }
 
 const buildUrl = ({
+  media_id,
   category,
   startDate,
   endDate,
   parties,
 }: {
+  media_id: string;
   category: string;
   startDate: dayjs.Dayjs;
   endDate: dayjs.Dayjs;
   parties: string[];
 }) => {
   const params = new URLSearchParams();
+  if (media_id) params.append('media_id', media_id);
   if (category) params.append('category', category);
   if (startDate) params.append('start_date', startDate.format('YYYY-MM-DD'));
   if (endDate) params.append('end_date', endDate.format('YYYY-MM-DD'));
@@ -35,6 +39,7 @@ const buildUrl = ({
 };
 
 const StackedBarChart = ({
+  media_id,
   category,
   dateRange,
   showParties = partiesList.map(p => p.value), // Default to showing all parties
@@ -49,7 +54,7 @@ const StackedBarChart = ({
     dayjs('2025-03-01', 'YYYY-MM-DD'),
   ];
 
-  const fetchUrl = buildUrl({ category, startDate, endDate, parties: showParties });
+  const fetchUrl = buildUrl({ media_id, category, startDate, endDate, parties: showParties });
 
   // Process the data for stacked bar chart
   const processData = (data: any[]) => {

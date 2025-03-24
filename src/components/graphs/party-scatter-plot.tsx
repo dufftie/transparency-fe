@@ -8,6 +8,7 @@ interface PartyScatterPlotGraphProps {
   category: string;
   dateRange: dayjs.Dayjs[];
   party: string;
+  media_id: string;
 }
 
 const buildUrl = ({
@@ -15,13 +16,16 @@ const buildUrl = ({
   startDate,
   endDate,
   party,
+  media_id,
 }: {
   category: string;
   startDate: dayjs.Dayjs;
   endDate: dayjs.Dayjs;
   party: string;
+  media_id: string;
 }) => {
   const params = new URLSearchParams();
+  if (media_id) params.append('media_id', media_id);
   if (category) params.append('category', category);
   if (startDate) params.append('start_date', startDate.format('YYYY-MM-DD'));
   if (endDate) params.append('end_date', endDate.format('YYYY-MM-DD'));
@@ -30,9 +34,14 @@ const buildUrl = ({
   return `sentiments/parties/mentions/?${params.toString()}`;
 };
 
-const PartyScatterPlotGraph = ({ category, dateRange, party }: PartyScatterPlotGraphProps) => {
+const PartyScatterPlotGraph = ({
+  media_id,
+  category,
+  dateRange,
+  party,
+}: PartyScatterPlotGraphProps) => {
   const [startDate, endDate] = dateRange;
-  const fetchUrl = buildUrl({ category, startDate, endDate, party });
+  const fetchUrl = buildUrl({ media_id, category, startDate, endDate, party });
 
   const processData = (data: any[]) => {
     const timeline = [];

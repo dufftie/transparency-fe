@@ -51,7 +51,7 @@ export default function ArticleAnalysis({
             <td>
               <h6>Publisher</h6>
               <h2>
-                <a href={`/media/${media.id}`}>
+                <a href={`/media/${media.slug}`}>
                   <b>{media.title}</b>
                 </a>
               </h2>

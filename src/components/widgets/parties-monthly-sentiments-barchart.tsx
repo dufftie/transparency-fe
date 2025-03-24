@@ -18,7 +18,7 @@ const partyOptions = partiesList.map(party => ({
   label: party.label,
 }));
 
-const PartiesMonthlySentimentsBarchart = () => {
+const PartiesMonthlySentimentsBarchart = ({ media_id }) => {
   const [barChartCategory, setBarChartCategory] = useState('');
   const [barChartDateRange, setBarChartDateRange] = useState<[dayjs.Dayjs, dayjs.Dayjs]>([
     dayjs('2024-01-01', 'YYYY-MM-DD'),
@@ -67,6 +67,7 @@ const PartiesMonthlySentimentsBarchart = () => {
       }
     >
       <StackedBarChart
+        media_id={media_id}
         category={barChartCategory}
         dateRange={barChartDateRange}
         showParties={selectedParties}
