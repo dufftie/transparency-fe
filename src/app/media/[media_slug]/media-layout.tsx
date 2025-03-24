@@ -54,14 +54,14 @@ const MediaLayout = (): JSX.Element => {
       <div className="media-detail-page__details">
         <MediaHeader
           title={media.title}
-          url={media.url}
+          url={media.base_url}
           description={media.description}
         />
       </div>
       <div className="media-detail-page__analysis">
+        <PartiesMonthlySentimentsBarchart media_id={media.id} />
         <PartiesMonthlySentimentsAreaChart media_id={media.id} />
         <PartySentimentWidget media_id={media.id} />
-        <PartiesMonthlySentimentsBarchart media_id={media.id} />
       </div>
     </div>
   );

@@ -32,12 +32,10 @@
   border: 1px solid gray;
   padding: 20px;
 
-  div {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    height: fit-content;
-  }
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  height: fit-content;
 
   &:hover {
     transform: scale(1.01);
