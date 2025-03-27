@@ -12,6 +12,7 @@ body {
   color: $text-color;
   min-height: 100vh !important;
   max-width: 1800px;
+  background-color: $background-color;
 }
 
 h1,
@@ -28,10 +29,6 @@ code,
 pre {
   font-family: $font-family-code;
   white-space: break-spaces;
-}
-
-p {
-  line-height: 1.25rem;
 }
 
 a {

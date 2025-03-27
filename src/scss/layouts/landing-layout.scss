@@ -1,0 +1,31 @@
+@import '../variables';
+
+.landing-layout {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+
+  &__background {
+    position: static;
+    width: 100vw;
+    height: 100vh;
+
+    img {
+      width: 800vw;
+    }
+  }
+
+  h1 {
+    font-size: 4.5rem;
+    font-family: $font-family-display;
+  }
+
+  p {
+    font-family: $font-family-base;
+    font-size: 1.25rem;
+    width: 50vw;
+  }
+}
