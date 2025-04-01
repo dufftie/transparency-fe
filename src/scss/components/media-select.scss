@@ -8,18 +8,7 @@
   min-height: 50vh;
 
   &__title {
-    font-size: 1.5rem;
-  }
-
-  &__options {
-    display: flex;
-    flex-direction: column;
     font-size: 2rem;
-
-    a:hover {
-      font-weight: bold;
-      text-decoration: underline;
-    }
   }
 
   &__details {
@@ -30,6 +19,38 @@
     &__description {
       padding: 20px;
       border: 1px solid black;
+    }
+  }
+
+  &__options {
+    display: flex;
+    flex-direction: column;
+    row-gap: 50px;
+  }
+
+  &-option-group {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+
+    &__title {
+      font-size: 1rem;
+      color: gray;
+      margin-bottom: 6px;
+    }
+  }
+
+  &-option {
+    font-size: 2rem;
+
+    &:not(&--disabled):hover {
+      font-weight: bold;
+      text-decoration: underline;
+    }
+
+    &--disabled {
+      cursor: crosshair;
+      color: gray !important;
     }
   }
 
