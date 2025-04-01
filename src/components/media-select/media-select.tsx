@@ -10,7 +10,7 @@ import map from 'lodash/map';
 
 const MediaSelect = ({ medias }): JSX.Element => {
   const scopeRef = useRef(null);
-  const [activeMedia, setActiveMedia] = useState(null);
+  const [activeMedia, setActiveMedia] = useState(undefined);
 
   useGSAP(
     () => {

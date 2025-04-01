@@ -16,18 +16,33 @@ header {
   mask-image: linear-gradient(to bottom, black 0% 50%, transparent 90% 100%);
 }
 
+.footer,
 .content {
-  padding: 0 $spacing-lg;
+  padding: 0 $spacing-xxl;
 
   @media (max-width: $breakpoint-sm) {
     padding: 0 $spacing-sm;
   }
 }
 
-footer {
-  margin-top: $spacing-xxl;
-  grid-column: span 6;
-  border-top: 1px solid $border-color-dark;
-  padding: $spacing-xl $spacing-sm;
-  text-align: center;
+.footer {
+  display: flex;
+  justify-content: space-between;
+  padding: $spacing-xxxl $spacing-lg $spacing-lg;
+  align-items: flex-end;
+
+  &__menu {
+    display: flex;
+    flex-direction: column;
+    text-align: end;
+    font-family: $font-family-code;
+  }
+
+  &__logo {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    font-family: $font-family-display;
+    font-size: 1.5rem;
+  }
 }

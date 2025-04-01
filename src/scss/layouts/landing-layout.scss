@@ -3,7 +3,7 @@
 .landing-layout {
   display: flex;
   flex-direction: column;
-  gap: 150px;
+  gap: $spacing-xxxl;
 
   &__background {
     position: fixed;

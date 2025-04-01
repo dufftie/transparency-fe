@@ -1,8 +1,10 @@
+@import "../variables";
+
 .articles-count {
   display: flex;
   flex-wrap: wrap;
-  column-gap: 24px;
-  row-gap: 12px;
+  column-gap: $spacing-lg;
+  row-gap: $spacing-md;
   margin-top: 12px;
 
   &__label {
