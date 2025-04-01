@@ -33,4 +33,8 @@ pre {
 a {
   color: black !important;
   text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
 }

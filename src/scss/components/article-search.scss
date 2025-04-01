@@ -25,6 +25,14 @@
     flex: 1 1 100%;
   }
 
+  &__link {
+    display: block;
+    margin-top: 24px;
+    text-align: center;
+    color: gray;
+    margin-inline: auto;
+  }
+
   &__input {
     position: sticky;
     top: 100px;

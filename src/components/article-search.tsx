@@ -4,12 +4,14 @@ import { Input } from 'antd';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { fetchData } from '@/lib/services/api';
 import debounce from 'lodash/debounce';
-import { useGSAP } from '@gsap/react';
 import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import classNames from 'classnames';
 import ArticlesCount from './articles-count';
+import { isEmpty } from 'lodash';
 
 const { Search } = Input;
+gsap.registerPlugin(ScrollTrigger);
 
 const ArticleSearch = ({ total_articles, total_sentiments }) => {
   const [searchValue, setSearchValue] = useState('');
@@ -32,16 +34,30 @@ const ArticleSearch = ({ total_articles, total_sentiments }) => {
     requestArticles(searchValue);
   }, [searchValue, requestArticles]);
 
-  useGSAP(
-    () => {
-      gsap.fromTo(
-        'a',
-        { opacity: 0, y: 50 },
-        { opacity: 1, y: 0, duration: 0.05, stagger: 0.05, ease: 'power2.inOut' }
-      );
-    },
-    { scope: scopeRef, dependencies: [articles] }
-  );
+  useEffect(() => {
+    if (articles.length > 0) {
+      articles.forEach(article => {
+        const articleElement = document.getElementById(`article-${article.id}`);
+
+        gsap.fromTo(
+          articleElement,
+          { opacity: 0.2, y: 10 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.2,
+            ease: 'power2.in',
+            scrollTrigger: {
+              trigger: articleElement,
+              start: 'top 90%',
+              toggleActions: 'play none none reverse',
+              markers: false,
+            },
+          }
+        );
+      });
+    }
+  }, [articles]);
 
   return (
     <div className="article-search">
@@ -62,11 +78,21 @@ const ArticleSearch = ({ total_articles, total_sentiments }) => {
         />
         <div className="article-search__results" ref={scopeRef}>
           {articles.map(article => (
-            <a key={article.id} href={`/article/${article.id}`} className="article-search__result">
+            <a
+              key={article.id}
+              id={`article-${article.id}`}
+              href={`/articles/${article.id}`}
+              className="article-search__result"
+            >
               <h3>{article.title}</h3>
             </a>
           ))}
         </div>
+        {!isEmpty(articles) && (
+          <a href={`/articles?search=${searchValue}`} className="article-search__link">
+            Open articles
+          </a>
+        )}
       </div>
     </div>
   );

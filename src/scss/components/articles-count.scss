@@ -1,7 +1,8 @@
 .articles-count {
   display: flex;
   flex-wrap: wrap;
-  gap: 25px;
+  column-gap: 24px;
+  row-gap: 12px;
   margin-top: 12px;
 
   &__label {

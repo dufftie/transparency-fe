@@ -1,6 +1,6 @@
 import React from 'react';
 import { fetchData } from '@/src/lib/services/api';
-import ArticleLayout from '@/src/app/article/[article_id]/article-layout';
+import ArticleLayout from '@/app/articles/[article_id]/article-layout';
 import { ArticleData } from '@/src/types/article';
 import { Metadata } from 'next';
 
