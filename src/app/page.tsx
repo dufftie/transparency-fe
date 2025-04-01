@@ -20,7 +20,7 @@ export default async function Home() {
         </p>
       </div>
 
-      <ArticleSearch {...stats} />
+      <ArticleSearch {...stats} isWidget />
 
       <MediaSelect medias={media} />
     </div>

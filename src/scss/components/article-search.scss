@@ -69,10 +69,12 @@
   background-color: white;
   z-index: 100;
   padding: 10px;
+  cursor: pointer;
 
   &:hover {
     transform: scale(1.02) !important;
     box-shadow: 0 0 10px gray;
+    text-decoration: none !important;
   }
 
   &__title {

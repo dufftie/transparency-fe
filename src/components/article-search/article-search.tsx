@@ -14,8 +14,8 @@ import ArticleSearchResult from '@/components/article-search/article-search-resu
 const { Search } = Input;
 gsap.registerPlugin(ScrollTrigger);
 
-const ArticleSearch = ({ total_articles, total_sentiments }) => {
-  const [searchValue, setSearchValue] = useState('');
+const ArticleSearch = ({ total_articles, total_sentiments, defaultValue, limit = 20, isWidget = false }) => {
+  const [searchValue, setSearchValue] = useState(defaultValue);
   const [isLoading, setIsLoading] = useState(false);
   const [articles, setArticles] = useState([]);
   const scopeRef = useRef(null);
@@ -28,7 +28,7 @@ const ArticleSearch = ({ total_articles, total_sentiments }) => {
         setIsLoading(false);
         return;
       }
-      const { articles } = await fetchData('/articles/search', { value });
+      const { articles } = await fetchData('/articles/search', { value, limit });
       setArticles(articles);
       setIsLoading(false);
     }, 300),
@@ -74,6 +74,7 @@ const ArticleSearch = ({ total_articles, total_sentiments }) => {
       </div>
       <div className="article-search__content">
         <Search
+          defaultValue={searchValue}
           rootClassName={classNames('article-search__input', {
             'article-search__input--focused': searchValue,
           })}
@@ -81,13 +82,14 @@ const ArticleSearch = ({ total_articles, total_sentiments }) => {
           onChange={e => setSearchValue(e.target.value)}
           size="large"
           loading={isLoading}
+
         />
         <div className="article-search__results" ref={scopeRef}>
           {articles.map(article => (
             <ArticleSearchResult key={article.id} article={article} />
           ))}
         </div>
-        {!isEmpty(articles) && (
+        {(!isEmpty(articles) && isWidget) && (
           <a href={`/articles?search=${searchValue}`} className="article-search__link">
             Open articles
           </a>

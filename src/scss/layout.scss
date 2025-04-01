@@ -28,7 +28,8 @@ header {
 .footer {
   display: flex;
   justify-content: space-between;
-  padding: $spacing-xxxl $spacing-lg $spacing-lg;
+  padding-top: $spacing-xxxl;
+  padding-bottom: $spacing-xl;
   align-items: flex-end;
 
   &__menu {

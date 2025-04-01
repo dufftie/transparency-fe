@@ -23,8 +23,20 @@ const MediaSelect = ({ medias }): JSX.Element => {
     { scope: scopeRef, dependencies: [activeMedia] }
   );
 
+  useGSAP(
+    () => {
+      gsap.fromTo(
+        '.media-select-option',
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.3, stagger: 0.2, ease: 'power2.out' }
+      );
+    },
+    { scope: scopeRef }
+  );
+
   const fullMediasList = [
     ...medias,
+    // MEDIA CHANNELS THAT WEREN'T YET ANALYSED
     { disabled: true, title: 'Delfi', language_code: 'et' },
     { disabled: true, title: 'rus.Delfi', language_code: 'ru' },
     { disabled: true, title: 'ERR', language_code: 'et' },
@@ -42,7 +54,7 @@ const MediaSelect = ({ medias }): JSX.Element => {
   );
 
   return (
-    <div className="media-select">
+    <div className="media-select" ref={scopeRef}>
       <div className="media-select__title">Medias</div>
       <div className="media-select__options">
         {orderedLists.map((list, index) => (
@@ -54,7 +66,7 @@ const MediaSelect = ({ medias }): JSX.Element => {
           </div>
         ))}
       </div>
-      <div className="media-select__details" ref={scopeRef}>
+      <div className="media-select__details">
         {isNull(activeMedia) && (
           <div className="media-select-detail">
             <p className="media-select-detail__description">
