@@ -1,23 +1,34 @@
 import type React from 'react';
 import type { Metadata } from 'next';
-import MainLayout from '@/src/components/layouts/main-layout';
 import '@/src/scss/main.scss';
-import Head from 'next/head';
+import classNames from 'classnames';
+import { Mulish, Tektur, IBM_Plex_Mono, Montserrat } from 'next/font/google';
+import MainLayout from '@/components/layouts/main-layout/main-layout';
+
+const mulish = Mulish({
+  subsets: ['latin', 'cyrillic'],
+});
+const montserrat = Montserrat({
+  subsets: ['latin', 'cyrillic'],
+});
+const tektur = Tektur({
+  subsets: ['latin', 'cyrillic'],
+});
+const ibmPlexMono = IBM_Plex_Mono({
+  subsets: ['latin', 'cyrillic'],
+  weight: ['400', '700'],
+});
+
+const fonts = [montserrat.className, mulish.className, tektur.className, ibmPlexMono.className];
 
 export const metadata: Metadata = {
-  title: 'Läbipaistvus',
+  title: 'MTÜ Läbipaistvus',
   description: 'Läbipaistvus projekt',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="ee">
-      <Head>
-        <link
-          href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@100;400;500;600&family=Montserrat:wght@400;500;600;700&display=swap"
-          rel="stylesheet"
-        />
-      </Head>
+    <html lang="ee" className={classNames(fonts)}>
       <MainLayout>{children}</MainLayout>
     </html>
   );

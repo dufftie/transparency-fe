@@ -1,0 +1,64 @@
+@import "../variables";
+
+.article-search {
+  display: flex;
+  row-gap: 12px;
+  column-gap: 100px;
+  justify-content: space-between;
+  font-family: $font-family-code;
+
+  &__header {
+    flex: 1 1 150px;
+
+    &__inner {
+      position: sticky;
+      top: 100px;
+      z-index: 1000;
+    }
+  }
+
+  &__title {
+    font-size: 2rem;
+  }
+
+  &__content {
+    flex: 1 1 100%;
+  }
+
+  &__input {
+    position: sticky;
+    top: 100px;
+    z-index: 1000;
+
+    border-radius: 10px;
+    transition: 1s ease-out;
+    box-shadow: 0 0 0 $accent-color;
+
+    &--focused {
+      box-shadow: 0 0 100px $accent-color;
+    }
+  }
+
+  &__results {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 12px;
+    gap: 5px;
+  }
+
+  &__result {
+    z-index: 100;
+    flex: 1 1 400px;
+    display: grid;
+    border: 1px solid $border-color-dark;
+    padding: 10px;
+    transition: 0.3s;
+    gap: 12px;
+    background-color: white;
+
+    &:hover {
+      transform: scale(1.02) !important;
+      box-shadow: 0 0 10px gray;
+    }
+  }
+}

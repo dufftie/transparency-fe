@@ -12,7 +12,6 @@ body {
   color: $text-color;
   min-height: 100vh !important;
   max-width: 1800px;
-  background-color: $background-color;
 }
 
 h1,
@@ -34,16 +33,4 @@ pre {
 a {
   color: black !important;
   text-decoration: none;
-}
-
-main {
-  grid-column: span 6;
-  display: grid;
-  gap: $spacing-lg;
-}
-
-.main-layout {
-  display: flex;
-  flex-wrap: wrap;
-  gap: $spacing-lg;
 }

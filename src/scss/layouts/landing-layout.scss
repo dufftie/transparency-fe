@@ -3,29 +3,32 @@
 .landing-layout {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-content: center;
-  align-items: center;
-  flex-wrap: wrap;
+  gap: 150px;
 
   &__background {
-    position: static;
+    position: fixed;
+    inset: 0;
     width: 100vw;
     height: 100vh;
+    z-index: -1;
 
     img {
-      width: 800vw;
+      width: 80vw;
     }
   }
 
-  h1 {
-    font-size: 4.5rem;
-    font-family: $font-family-display;
-  }
+  &__header {
+    width: min-content;
 
-  p {
-    font-family: $font-family-base;
-    font-size: 1.25rem;
-    width: 50vw;
+    h1 {
+      font-size: 5.75rem;
+      font-family: $font-family-display;
+    }
+
+    p {
+      font-family: $font-family-code;
+      font-size: 1.12rem;
+      font-weight: 500;
+    }
   }
 }

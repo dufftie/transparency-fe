@@ -1,0 +1,14 @@
+.articles-count {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 25px;
+  margin-top: 12px;
+
+  &__label {
+    color: gray;
+  }
+
+  &__value {
+    font-size: 12px;
+  }
+}

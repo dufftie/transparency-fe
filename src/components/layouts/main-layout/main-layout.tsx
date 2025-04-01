@@ -1,13 +1,13 @@
-import type React from 'react';
+import React, { JSX } from 'react';
 
 import { AntdRegistry } from '@ant-design/nextjs-registry';
-import Header from '@/src/components/layouts/header';
-import Footer from '@/src/components/layouts/footer';
-import Content from '@/src/components/layouts/content';
 import { ConfigProvider } from 'antd';
 import antDesignTheme from '@/src/config/antDesignTheme';
+import Content from './content';
+import Header from './header';
+import Footer from './footer';
 
-export default function MainLayout({ children }: { children: React.ReactNode }) {
+const MainLayout = ({ children }: { children: React.ReactNode }): JSX.Element => {
   return (
     <body>
       <ConfigProvider theme={antDesignTheme}>
@@ -19,4 +19,6 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
       </ConfigProvider>
     </body>
   );
-}
+};
+
+export default MainLayout;
