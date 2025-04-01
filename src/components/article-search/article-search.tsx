@@ -7,25 +7,30 @@ import debounce from 'lodash/debounce';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import classNames from 'classnames';
-import ArticlesCount from './articles-count';
+import ArticlesCount from '@/components/articles-count';
 import { isEmpty } from 'lodash';
+import ArticleSearchResult from '@/components/article-search/article-search-result';
 
 const { Search } = Input;
 gsap.registerPlugin(ScrollTrigger);
 
 const ArticleSearch = ({ total_articles, total_sentiments }) => {
   const [searchValue, setSearchValue] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const [articles, setArticles] = useState([]);
   const scopeRef = useRef(null);
 
   const requestArticles = useCallback(
     debounce(async value => {
+      setIsLoading(true);
       if (!value || value?.length < 3) {
         setArticles([]);
+        setIsLoading(false);
         return;
       }
       const { articles } = await fetchData('/articles/search', { value });
       setArticles(articles);
+      setIsLoading(false);
     }, 300),
     []
   );
@@ -75,17 +80,11 @@ const ArticleSearch = ({ total_articles, total_sentiments }) => {
           placeholder="Search for title"
           onChange={e => setSearchValue(e.target.value)}
           size="large"
+          loading={isLoading}
         />
         <div className="article-search__results" ref={scopeRef}>
           {articles.map(article => (
-            <a
-              key={article.id}
-              id={`article-${article.id}`}
-              href={`/articles/${article.id}`}
-              className="article-search__result"
-            >
-              <h3>{article.title}</h3>
-            </a>
+            <ArticleSearchResult key={article.id} article={article} />
           ))}
         </div>
         {!isEmpty(articles) && (

@@ -1,7 +1,7 @@
 import React from 'react';
 import { ArticleData, MediaData } from '@/src/types/article';
 import Hint from '@/src/components/hint';
-import dayjs from 'dayjs';
+import { formatDate } from '@/lib/utils/helpers';
 
 const titlePrompt = (
   <pre>
@@ -36,11 +36,6 @@ export default function ArticleAnalysis({
   media,
   article,
 }: ArticleAnalysisProps) {
-  const formateDate = (date: string) => {
-    if (!date) return null;
-    return dayjs(date).format('DD.MM.YYYY, HH:mm:ss');
-  };
-
   return (
     <div className="analysis-table">
       <table>
@@ -67,13 +62,13 @@ export default function ArticleAnalysis({
 
           <tr>
             <td colSpan={2}>
-              <b>Original publish date:</b> {formateDate(article.date_time)}
+              <b>Original publish date:</b> {formatDate(article.date_time)}
             </td>
           </tr>
 
           <tr>
             <td colSpan={2}>
-              <b>Article scanned:</b> {formateDate(article.created_at)}
+              <b>Article scanned:</b> {formatDate(article.created_at)}
             </td>
           </tr>
         </tbody>

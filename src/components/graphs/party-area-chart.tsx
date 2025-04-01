@@ -4,6 +4,7 @@ import { Area, AreaChart, CartesianGrid, Tooltip, XAxis, YAxis } from 'recharts'
 import dayjs from 'dayjs';
 import BaseGraph, { BaseGraphProps } from '@/src/components/graphs/base-graph';
 import round from 'lodash/round';
+import { formatDate } from '@/lib/utils/helpers';
 
 interface StackedBarChartProps extends BaseGraphProps {
   showParties: string[];
@@ -116,7 +117,7 @@ const PartyAreaChart = ({
 
           <XAxis
             dataKey="date"
-            tickFormatter={tick => dayjs(tick).format('DD MMM, YYYY')}
+            tickFormatter={tick => formatDate(tick, 'DD MMM, YYYY')}
             fontSize={10}
           />
 

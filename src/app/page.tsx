@@ -1,4 +1,4 @@
-import ArticleSearch from '@/components/article-search';
+import ArticleSearch from '@/components/article-search/article-search';
 import MediaSelect from '@/components/media-select';
 import { fetchData } from '@/lib/services/api';
 import { MediaData } from '@/types/article';
