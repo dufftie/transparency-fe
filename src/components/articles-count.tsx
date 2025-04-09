@@ -52,11 +52,11 @@ const ArticlesCount = ({ total_count, analyzed_count }) => {
   return (
     <div className="articles-count" ref={scopeRef}>
       <div className="articles-count__value">
-        <div className="articles-count__label">Articles scanned</div>
+        <div className="articles-count__label">Scanned</div>
         <span ref={totalCountRef}>{total_count.toLocaleString()}</span>
       </div>
       <div className="articles-count__value">
-        <div className="articles-count__label">Articles analysed</div>
+        <div className="articles-count__label">Analysed</div>
         <span ref={analyzedCountRef}>{analyzed_count.toLocaleString()}</span>
       </div>
     </div>

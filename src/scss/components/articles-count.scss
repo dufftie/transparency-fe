@@ -3,15 +3,14 @@
 .articles-count {
   display: flex;
   flex-wrap: wrap;
-  column-gap: $spacing-lg;
-  row-gap: $spacing-md;
-  margin-top: 12px;
+  gap: $spacing-lg;
 
   &__label {
-    color: gray;
+    color: $text-color-light;
   }
 
   &__value {
-    font-size: 12px;
+    font-size: 14px;
+    flex: 1 0 100px
   }
 }

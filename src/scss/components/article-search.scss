@@ -6,19 +6,26 @@
   column-gap: 100px;
   justify-content: space-between;
   font-family: $font-family-display;
+  min-height: 50vh;
 
   &__header {
     flex: 1 1 150px;
 
     &__inner {
       position: sticky;
-      top: 100px;
+      top: 130px;
       z-index: 1000;
+
+      display: flex;
+      flex-direction: column;
+      gap: $spacing-lg;
     }
   }
 
   &__title {
     font-size: 2rem;
+    font-family: $font-family-display;
+    font-weight: bold;
   }
 
   &__content {
@@ -35,7 +42,7 @@
 
   &__input {
     position: sticky;
-    top: 100px;
+    top: 130px;
     z-index: 1000;
 
     border-radius: 10px;
@@ -62,14 +69,15 @@
   flex-wrap: wrap;
   justify-content: space-between;
   align-content: space-between;
-  gap: $spacing-md;
+  gap: $spacing-lg;
 
   border: 1px solid $border-color-dark;
   transition: 0.3s;
   background-color: white;
   z-index: 100;
-  padding: 10px;
+  padding: $spacing-md;
   cursor: pointer;
+  border-radius: 15px;
 
   &:hover {
     transform: scale(1.02) !important;
@@ -83,11 +91,11 @@
     font-size: 1.25rem;
   }
 
-  &__content {
+  &__meta {
     display: flex;
     width: 100%;
     justify-content: space-between;
-    font-size: 12px;
-    color: gray;
+    font-size: 14px;
+    color: $text-color-light;
   }
 }
