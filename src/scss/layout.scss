@@ -43,6 +43,11 @@ body {
 .content {
   width: 100%;
   max-width: 1200px;
+  padding: 0 $spacing-xxl;
+
+  @media (max-width: $breakpoint-sm) {
+    padding: 0 $spacing-sm;
+  }
 }
 
 .footer {
