@@ -1,70 +1,28 @@
 'use client';
 
-import React, { JSX, useEffect, useState } from 'react';
-import { useParams } from 'next/navigation';
+import React, { JSX, useState } from 'react';
 import { ArticleData, MediaData, SentimentData } from '@/src/types/article';
-import { fetchData } from '@/src/lib/services/api';
-import ArticleLoading from '@/src/components/article-detail/article-loading';
-import ArticleError from '@/src/components/article-detail/article-error';
 import ArticleHeader from '@/src/components/article-detail/article-header';
 import ArticleAnalysis from '@/src/components/article-detail/article-analysis';
 import ModelSelect from '@/src/components/model-select';
 import AnalysisTable from '@/src/components/analysis-table';
 
-const ArticleLayout = (): JSX.Element => {
-  const { article_id } = useParams();
-  const [article, setArticle] = useState<ArticleData | null>(null);
-  const [media, setMedia] = useState<MediaData | null>(null);
-  const [sentiments, setSentiments] = useState<SentimentData[]>([]);
-  const [selectedSentiment, setSelectedSentiment] = useState<SentimentData | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+interface ArticleLayoutProps {
+  article: ArticleData;
+  media: MediaData;
+  sentiments: SentimentData[];
+}
+
+const ArticleLayout = ({ article, media, sentiments }: ArticleLayoutProps): JSX.Element => {
+  const [selectedSentiment, setSelectedSentiment] = useState<SentimentData>(sentiments[0] || null);
 
   // Handle model selection change
   const handleModelChange = (sentiment: SentimentData) => {
     setSelectedSentiment(sentiment);
   };
 
-  useEffect(() => {
-    const getArticleData = async () => {
-      if (!article_id) {
-        setError('Invalid article ID');
-        setLoading(false);
-        return;
-      }
-
-      setLoading(true);
-      try {
-        const { article, sentiments, media } = await fetchData<{
-          article: ArticleData;
-          sentiments: SentimentData[];
-          media: MediaData;
-        }>(`/articles/${article_id}`);
-
-        if (!article) throw new Error('Article data not found');
-        if (!media) throw new Error('Media data not found');
-        if (!sentiments || sentiments.length === 0) throw new Error('Sentiment data not found');
-
-        setArticle(article);
-        setMedia(media);
-        setSentiments(sentiments);
-        setSelectedSentiment(sentiments[0] || null);
-        setError(null);
-      } catch (err) {
-        console.error('Error fetching article:', err);
-        setError(err instanceof Error ? err.message : 'Failed to load article data');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    getArticleData();
-  }, [article_id]);
-
-  if (loading) return <ArticleLoading />;
-
-  if (error || !article || !media || !selectedSentiment) {
-    return <ArticleError message={error || 'Failed to load article data'} />;
+  if (!article || !media || !selectedSentiment) {
+    return <div>Article data not available</div>;
   }
 
   const partyData = selectedSentiment.sentiment.parties || [];
@@ -74,28 +32,35 @@ const ArticleLayout = (): JSX.Element => {
   return (
     <div className="article-detail-page">
       <div className="article-detail-page__details">
+        <ArticleHeader
+          title={article.title}
+          url={article.url}
+          paywall={article.paywall}
+          category={article.category}
+          date={article.date_time}
+          authors={article.authors}
+          media={media}
+        />
+      </div>
+      <div className="article-detail-page__analysis">
         <ModelSelect
-          selectedSentiment={selectedSentiment}
           sentiments={sentiments}
+          selectedSentiment={selectedSentiment}
           onModelChange={handleModelChange}
         />
-        <ArticleHeader title={article.title} url={article.url} preview_url={article.preview_url} />
-
-        {articleSentiment && (
-          <ArticleAnalysis
-            title_score={articleSentiment.title_score}
-            title_explanation={articleSentiment.title_explanation}
-            body_score={articleSentiment.body_score}
-            body_explanation={articleSentiment.body_explanation}
-            media={media}
-            article={article}
-          />
-        )}
-      </div>
-
-      <div className="article-detail-page__analysis">
-        <AnalysisTable title="Parties" data={partyData} />
-        <AnalysisTable title="Politicians" data={politiciansData} />
+        <ArticleAnalysis
+          title_score={articleSentiment.title_score}
+          title_explanation={articleSentiment.title_explanation}
+          body_score={articleSentiment.body_score}
+          body_explanation={articleSentiment.body_explanation}
+          media={media}
+          article={article}
+        />
+        <AnalysisTable
+          partyData={partyData}
+          politiciansData={politiciansData}
+          article={article}
+        />
       </div>
     </div>
   );

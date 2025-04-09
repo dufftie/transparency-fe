@@ -4,7 +4,6 @@ import { MediaData } from '@/src/types/article';
 import { Metadata } from 'next';
 import MediaLayout from '@/src/app/media/[media_slug]/media-layout';
 
-
 const getMediaData = cache(async (media_slug: string) => {
   return fetchData<{ media: MediaData }>(
     `/media/${media_slug}`,
