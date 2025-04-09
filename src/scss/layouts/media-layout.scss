@@ -4,4 +4,18 @@
   display: flex;
   flex-direction: column;
   gap: $spacing-layout;
+
+  &__meta {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-layout;
+
+    .card {
+      padding-bottom: $spacing-sm;
+    }
+
+    .graph {
+      height: 75px;
+    }
+  }
 }

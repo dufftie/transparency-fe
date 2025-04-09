@@ -1,16 +1,16 @@
 // Colors
 $accent-color: #BBDBF5;
-//$accent-color: #FF7700;
-//$accent-color: #FF7700;
+$color-red: #EA2525;
+$color-gray: #B8B8B8;
 
 $background-color: white;
 
 $text-color: black;
 $text-color-secondary: #00000073;
-$text-color-light: #B8B8B8;
+$text-color-light: $color-gray;
 
 $border-color-dark: black;
-$border-color: #B8B8B8;
+$border-color: $color-gray;
 
 $footer-bg: #001529;
 $footer-text: #ffffff;
@@ -37,7 +37,7 @@ $spacing-xxl: 48px;
 $spacing-layout: 100px;
 
 // Borders and effects
-$border-radius: 4px;
+$border-radius: 16px;
 $box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 $box-shadow-light: 0 4px 12px rgba(0, 0, 0, 0.05);
 
