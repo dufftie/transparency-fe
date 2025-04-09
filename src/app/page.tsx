@@ -15,7 +15,7 @@ export default async function Home() {
       <div className="landing-layout__header">
         <h1>Läbipaistvus</h1>
         <p>
-          an independent non-commercial organization focused on making media biases in Estonia
+          an independent non-profit organization focused on making media biases in Estonia
           transparent.
         </p>
       </div>
