@@ -4,7 +4,11 @@
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000';
 
-export async function fetchData<T>(endpoint: string, params?: Record<string, string>): Promise<T> {
+export async function fetchData<T>(
+  endpoint: string, 
+  params?: Record<string, string>,
+  fetchOptions?: RequestInit
+): Promise<T> {
   let url = `${API_URL}${endpoint}`;
 
   if (params) {
@@ -23,6 +27,7 @@ export async function fetchData<T>(endpoint: string, params?: Record<string, str
     headers: {
       'Content-Type': 'application/json',
     },
+    ...fetchOptions,
   });
 
   if (!response.ok) {
