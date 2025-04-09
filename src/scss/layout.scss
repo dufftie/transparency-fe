@@ -1,19 +1,38 @@
 @import 'variables';
 
-header {
+.header {
   position: sticky;
-  top: 0;
   width: 100%;
-  height: fit-content;
-  display: inline-flex;
-  justify-content: space-between;
+  top: $spacing-lg;
+  padding-inline: $spacing-xxl;
   z-index: 999999;
-  padding-top: $spacing-md;
-  padding-bottom: $spacing-xxl;
-  padding-inline: $spacing-md;
-  transition: $transition-standard;
-  backdrop-filter: blur(5px);
-  mask-image: linear-gradient(to bottom, black 0% 50%, transparent 90% 100%);
+
+  &__inner {
+    width: 100%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+
+    backdrop-filter: blur(50px);
+    border: 1px solid $border-color;
+    border-radius: 15px;
+    padding: $spacing-sm;
+  }
+
+  &__logo {
+    font-size: 42px;
+    line-height: 42px;
+    font-weight: bold;
+    margin-left: 10px;
+  }
+
+  &__menu {
+
+    .ant-btn {
+      font-size: 24px;
+      text-transform: uppercase;
+    }
+  }
 }
 
 .footer,
@@ -36,7 +55,7 @@ header {
     display: flex;
     flex-direction: column;
     text-align: end;
-    font-family: $font-family-code;
+    font-family: $font-family-display;
   }
 
   &__logo {

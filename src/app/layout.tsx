@@ -11,15 +11,12 @@ const mulish = Mulish({
 const montserrat = Montserrat({
   subsets: ['latin', 'cyrillic'],
 });
-const tektur = Tektur({
-  subsets: ['latin', 'cyrillic'],
-});
 const ibmPlexMono = IBM_Plex_Mono({
   subsets: ['latin', 'cyrillic'],
   weight: ['400', '700'],
 });
 
-const fonts = [montserrat.className, mulish.className, tektur.className, ibmPlexMono.className];
+const fonts = [montserrat.className, mulish.className, ibmPlexMono.className];
 
 export const metadata: Metadata = {
   title: 'MTÜ Läbipaistvus',

@@ -1,15 +1,27 @@
-'use client';
-
-import { Button } from 'antd';
 import Link from 'next/link';
+import SupportButton from '@/components/support-button';
+import { Button } from 'antd';
 
 const Header = () => {
   return (
-    <header>
-      <Link href="/">
-        <img src="/logo.svg" alt="Läbipaistvus logotype" className="logo" />
-      </Link>
-      <Button type='primary' size='large'>Donate</Button>
+    <header className='header'>
+      <div className='header__inner'>
+        <Link href="/" className='header__logo'>
+          Ä
+        </Link>
+        <div className='header__menu'>
+          <Button type='text'>
+            Articles
+          </Button>
+          <Button type='text'>
+            Media
+          </Button>
+          <Button type='text'>
+            About
+          </Button>
+        </div>
+        <SupportButton />
+      </div>
     </header>
   );
 };

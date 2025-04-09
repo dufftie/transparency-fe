@@ -7,7 +7,7 @@ const MediaSelectOption = ({ media, setActiveMedia }) => {
   return (
     <a
       key={media.id}
-      href={disabled ? `/donate?from=${media.title}` : '/media/' + media.slug}
+      href={disabled ? `/support?from=${media.title}` : '/media/' + media.slug}
       onMouseOver={() => disabled ? setActiveMedia(null) : setActiveMedia(media)}
       onMouseLeave={() => setActiveMedia(undefined)}
       className={classNames('media-select-option', {

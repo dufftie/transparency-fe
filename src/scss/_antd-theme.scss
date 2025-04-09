@@ -7,7 +7,7 @@
   --ant-primary-color-outline: transparent;
 
   --ant-font-family: #{$font-family-base};
-  --ant-code-family: #{$font-family-code};
+  --ant-code-family: #{$font-family-display};
 
   --ant-border-radius-base: #{$border-radius};
   --ant-border-color-base: #{$border-color};
@@ -19,7 +19,7 @@
 
 .ant-form-item-label,
 .ant-descriptions-item {
-  font-family: $font-family-code !important;
+  font-family: $font-family-display !important;
 }
 
 .ant-descriptions-item {
@@ -36,4 +36,16 @@
 
 .ant-popover {
   font-family: $font-family-display !important;
+}
+
+.ant-btn {
+  &-lg {
+    padding: 16px !important;
+    height: auto !important;
+
+    span {
+      font-size: 24px !important;
+      line-height: 24px !important;
+    }
+  }
 }

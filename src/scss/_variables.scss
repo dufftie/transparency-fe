@@ -1,7 +1,7 @@
 // Colors
-//$accent-color: #3899EF;
-//$accent-color: #F5D6BB;
-$accent-color: #FF7700;
+$accent-color: #BBDBF5;
+//$accent-color: #FF7700;
+//$accent-color: #FF7700;
 
 $background-color: white;
 
@@ -9,7 +9,7 @@ $text-color: black;
 $text-color-secondary: #00000073;
 $text-color-light: #949494;
 
-$border-color: #d9d9d9;
+$border-color: black;
 $border-color-dark: gray;
 
 $footer-bg: #001529;
@@ -19,8 +19,7 @@ $tooltip-bg: #FFF4EA;
 
 // Typography
 $font-family-base: 'Mulish', sans-serif;
-$font-family-code: 'IBM Plex Mono', monospace;
-$font-family-display: 'Tektur', monospace;
+$font-family-display: 'IBM Plex Mono', monospace;
 
 // Breakpoints
 $breakpoint-sm: 576px;

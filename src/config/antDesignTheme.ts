@@ -8,12 +8,12 @@ const antDesignTheme: ThemeConfig = {
     colorPrimaryActive: '#fa541c',
     colorSuccess: '#8fcc7e',
     colorError: '#ea5753',
-    fontFamily: "'Montserrat', sans-serif",
+    fontFamily: "'Mulish', sans-serif",
   },
   components: {
     Button: {
-      fontFamily: "'Tektur', monospace",
-      contentFontSizeLG: 22,
+      fontFamily: "'IBM Plex Mono', monospace",
+      contentFontSizeLG: 24,
     },
   },
 };
