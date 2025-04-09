@@ -69,7 +69,7 @@ const ArticleSearch = ({ total_articles, total_sentiments, defaultValue, limit =
       <div className="article-search__header">
         <div className="article-search__header__inner">
           <div className="article-search__title">Articles</div>
-          <ArticlesCount total_count={total_articles} analyzed_count={total_sentiments} />
+          <ArticlesCount total_count={total_articles} analyzed_count={total_sentiments} layout='vertical' />
         </div>
       </div>
       <div className="article-search__content">

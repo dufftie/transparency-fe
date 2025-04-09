@@ -7,6 +7,7 @@ import { gsap } from 'gsap';
 import MediaSelectOption from '@/components/media-select/media-select-option';
 import { groupBy, indexOf, isNull, sortBy } from 'lodash';
 import map from 'lodash/map';
+import MediaSelectDetail from '@/components/media-select/media-select-detail';
 
 const MediaSelect = ({ medias }): JSX.Element => {
   const scopeRef = useRef(null);
@@ -67,23 +68,7 @@ const MediaSelect = ({ medias }): JSX.Element => {
         ))}
       </div>
       <div className="media-select__details">
-        {isNull(activeMedia) && (
-          <div className="media-select-detail">
-            <p className="media-select-detail__description">
-              Unfortunately this media was not yet analysed. Please consider supporting the project
-              in order to cover more media.
-            </p>
-          </div>
-        )}
-        {activeMedia && (
-          <div className="media-select-detail">
-            <p className="media-select-detail__description">{activeMedia.description}</p>
-            <ArticlesCount
-              analyzed_count={activeMedia.analyzed_count}
-              total_count={activeMedia.total_count}
-            />
-          </div>
-        )}
+        <MediaSelectDetail media={activeMedia} />
       </div>
     </div>
   );

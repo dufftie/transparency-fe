@@ -1,0 +1,13 @@
+@import "../variables";
+
+.card {
+  &__label {
+    font-size: 14px;
+    font-family: $font-family-display;
+    color: $text-color-light;
+  }
+
+  &__content {
+
+  }
+}

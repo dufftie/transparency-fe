@@ -7,10 +7,14 @@
 
   &__label {
     color: $text-color-light;
+    margin-bottom: $spacing-xs;
   }
 
   &__value {
     font-size: 14px;
-    flex: 1 0 100px
+  }
+
+  &--vertical {
+    flex-direction: column;
   }
 }

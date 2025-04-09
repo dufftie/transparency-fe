@@ -3,8 +3,9 @@
 import { useGSAP } from '@gsap/react';
 import { gsap } from 'gsap';
 import { useRef } from 'react';
+import classNames from 'classnames';
 
-const ArticlesCount = ({ total_count, analyzed_count }) => {
+const ArticlesCount = ({ total_count, analyzed_count, layout = 'horizontal' }) => {
   const scopeRef = useRef(null);
   const totalCountRef = useRef(null);
   const analyzedCountRef = useRef(null);
@@ -28,11 +29,11 @@ const ArticlesCount = ({ total_count, analyzed_count }) => {
             modifiers: {
               innerText: function (innerText) {
                 return gsap.utils
-                .snap(1, innerText)
-                .toString()
-                .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-              }
-            }
+                  .snap(1, innerText)
+                  .toString()
+                  .replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+              },
+            },
           }
         );
 
@@ -50,7 +51,7 @@ const ArticlesCount = ({ total_count, analyzed_count }) => {
   );
 
   return (
-    <div className="articles-count" ref={scopeRef}>
+    <div className={classNames('articles-count', `articles-count--${layout}`)} ref={scopeRef}>
       <div className="articles-count__value">
         <div className="articles-count__label">Scanned</div>
         <span ref={totalCountRef}>{total_count.toLocaleString()}</span>
