@@ -1,3 +1,5 @@
+@import '../variables';
+
 .media-detail-page {
   display: flex;
   flex-direction: column;
@@ -22,31 +24,18 @@
 }
 
 .media-header {
+  max-width: 750px;
   position: relative;
-  transition: 0.3s;
-  color: black;
-  border: 1px solid gray;
-  padding: 20px;
-
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: $spacing-xxl;
   height: fit-content;
 
-  &:hover {
-    transform: scale(1.01);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  }
-
   &__title {
-    font-family: 'Tektur', monospace !important;
-    font-weight: 500;
-    font-size: 24px;
-  }
-
-  &__link-icon {
-    position: absolute;
-    top: 10px;
-    right: 10px;
+    display: block;
+    font-family: $font-family-display;
+    font-weight: bold;
+    font-size: 3rem;
+    margin-bottom: $spacing-lg;
   }
 }

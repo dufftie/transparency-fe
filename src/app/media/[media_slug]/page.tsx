@@ -34,13 +34,14 @@ export default async function MediaDetailPage({ params }: { params: { media_slug
   const { media_slug } = params;
   
   try {
-    const { media } = await getMediaData(media_slug);
+    const response = await getMediaData(media_slug);
+    console.log({response});
     
-    if (!media) {
+    if (!response) {
       return <div>Media not found</div>;
     }
     
-    return <MediaLayout media={media} />;
+    return <MediaLayout {...response} />;
   } catch (error) {
     console.error('Error fetching media data:', error);
     return <div>Failed to load media data</div>;
