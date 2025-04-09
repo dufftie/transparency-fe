@@ -3,11 +3,10 @@ import dayjs from 'dayjs';
 import BaseGraph from '@/src/components/graphs/base-graph';
 
 interface ProceededArticlesGraphProps {
-  category: string;
   dateRange: dayjs.Dayjs[];
 }
 
-const ProceededArticlesGraph = ({ category, dateRange }: ProceededArticlesGraphProps) => {
+const ProceededArticlesGraph = ({ dateRange }: ProceededArticlesGraphProps) => {
   const [startDate, endDate] = dateRange;
   const fetchUrl = `http://127.0.0.1:8000/sentiments/category/${category}/?start_date=${startDate.format('YYYY-MM-DD')}&end_date=${endDate.format('YYYY-MM-DD')}`;
 
@@ -22,9 +21,6 @@ const ProceededArticlesGraph = ({ category, dateRange }: ProceededArticlesGraphP
     <BaseGraph graphName="proceed-article-graph" fetchUrl={fetchUrl} processData={processData}>
       {(data, loading) => (
         <BarChart data={data} margin={{ left: 0, right: 20, top: 30, bottom: 0 }}>
-          <text x="50%" y="20" textAnchor="middle" fontSize="12px" fontWeight="bold">
-            {`Chart of processed articles for '${category}'`}
-          </text>
           <Tooltip
             formatter={(value, name) => {
               const labelMap = {
