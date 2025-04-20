@@ -1,12 +1,4 @@
-@import '../variables';
-
-.tooltip {
-  backdrop-filter: blur(25px);
-  border: 1px solid $border-color;
-  border-radius: $border-radius;
-  padding: $spacing-lg;
-  width: 350px;
-}
+@import '../../variables';
 
 .article-tooltip {
   display: flex;
@@ -38,4 +30,4 @@
     color: $text-color-light;
     text-align: end;
   }
-}
+} 

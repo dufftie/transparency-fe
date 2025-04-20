@@ -7,8 +7,7 @@ import isSameOrBefore from 'dayjs/plugin/isSameOrBefore';
 import BaseGraph from '@/src/components/graphs/base-graph';
 import { useDateRange } from '@/src/contexts/date-range-context';
 import { useMemo, useCallback } from 'react';
-import ProceededArticleTooltip from './tooltips/proceeded-article-tooltip';
-import '@/src/styles/components/graphs/tooltips/proceeded-article-tooltip.scss';
+import ProceededArticleTooltip from '@/src/components/graphs/tooltips/proceeded-article-tooltip';
 
 // Extend dayjs with the required plugins
 dayjs.extend(isSameOrAfter);

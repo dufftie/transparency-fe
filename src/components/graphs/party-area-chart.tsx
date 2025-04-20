@@ -2,11 +2,17 @@
 
 import { Area, AreaChart, CartesianGrid, Tooltip, XAxis, YAxis } from 'recharts';
 import dayjs from 'dayjs';
+import isSameOrAfter from 'dayjs/plugin/isSameOrAfter';
+import isSameOrBefore from 'dayjs/plugin/isSameOrBefore';
 import BaseGraph, { BaseGraphProps } from '@/src/components/graphs/base-graph';
 import round from 'lodash/round';
-import { formatDate } from '@/lib/utils/helpers';
 import { useDateRange } from '@/src/contexts/date-range-context';
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
+import PartyAreaTooltip from './tooltips/party-area-tooltip';
+
+// Extend dayjs with the required plugins
+dayjs.extend(isSameOrAfter);
+dayjs.extend(isSameOrBefore);
 
 interface PartyAreaChartProps {
   media_id?: string;
@@ -52,9 +58,45 @@ const PartyAreaChart = ({
     'neutral',
     'negative',
   ]);
-  const { formattedRequestDateRange } = useDateRange();
+  const { formattedRequestDateRange, formattedDomainDateRange } = useDateRange();
   const [startDate, endDate] = formattedRequestDateRange;
   const fetchUrl = buildUrl({ media_id, category, startDate, endDate, party });
+
+  // Memoize the format function for X-axis
+  const formatXAxis = useCallback((timestamp: number) => {
+    const date = dayjs(timestamp);
+    
+    // Calculate the total duration to determine the appropriate format
+    const [domainStart, domainEnd] = formattedDomainDateRange;
+    const startDate = dayjs(domainStart);
+    const endDate = dayjs(domainEnd);
+    const totalDuration = endDate.diff(startDate, 'day');
+    
+    // For ranges less than 1 year, show month and day
+    if (totalDuration < 365) {
+      return date.format('MMM D');
+    }
+    
+    // For ranges between 1-3 years, show month and year
+    if (totalDuration < 365 * 3) {
+      return date.format('MMM YYYY');
+    }
+    
+    // For ranges over 3 years, show just the year
+    return date.format('YYYY');
+  }, [formattedDomainDateRange]);
+
+  // Memoize the ticks calculation
+  const calculateTicks = useCallback((startTimestamp: number, endTimestamp: number) => {
+    return [
+      startTimestamp,
+      startTimestamp + (endTimestamp - startTimestamp) * 0.2,
+      startTimestamp + (endTimestamp - startTimestamp) * 0.4,
+      startTimestamp + (endTimestamp - startTimestamp) * 0.6,
+      startTimestamp + (endTimestamp - startTimestamp) * 0.8,
+      endTimestamp,
+    ];
+  }, []);
 
   const handleSentimentToggle = (sentiment: string) => {
     setVisibleSentiments(prev => {
@@ -100,6 +142,7 @@ const PartyAreaChart = ({
 
       return {
         date: item.date,
+        timestamp: dayjs(item.date).valueOf(),
         positive_count: sentimentCounts.positive,
         neutral_count: sentimentCounts.neutral,
         negative_count: sentimentCounts.negative,
@@ -113,78 +156,95 @@ const PartyAreaChart = ({
 
   return (
     <BaseGraph graphName="stacked-bar-chart" fetchUrl={fetchUrl} processData={processData}>
-      {(data, loading) => (
-        <AreaChart data={data} margin={{ left: 0, right: 0, top: 0, bottom: 0 }}>
-          <defs>
-            <linearGradient id="negative" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="10%" stopColor="#EA2525" stopOpacity={1} />
-              <stop offset="80%" stopColor="#EA2525" stopOpacity={0.5} />
-            </linearGradient>
-            <linearGradient id="positive" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="10%" stopColor="#13BA00" stopOpacity={1} />
-              <stop offset="100%" stopColor="#13BA00" stopOpacity={0.5} />
-            </linearGradient>
-            <linearGradient id="neutral" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#D9D9D9" stopOpacity={0.5} />
-              <stop offset="100%" stopColor="#D9D9D9" stopOpacity={0} />
-            </linearGradient>
-          </defs>
+      {(data, loading) => {
+        // Calculate domain for even distribution
+        const [domainStart, domainEnd] = formattedDomainDateRange;
+        const startTimestamp = dayjs(domainStart).valueOf();
+        const endTimestamp = dayjs(domainEnd).valueOf();
+        const ticks = calculateTicks(startTimestamp, endTimestamp);
 
-          <CartesianGrid strokeDasharray="3 3" vertical={false} />
+        return (
+          <AreaChart data={data} margin={{ left: 0, right: 0, top: 0, bottom: 0 }}>
+            <defs>
+              <linearGradient id="negative" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="10%" stopColor="#EA2525" stopOpacity={1} />
+                <stop offset="80%" stopColor="#EA2525" stopOpacity={0.5} />
+              </linearGradient>
+              <linearGradient id="positive" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="10%" stopColor="#13BA00" stopOpacity={1} />
+                <stop offset="100%" stopColor="#13BA00" stopOpacity={0.5} />
+              </linearGradient>
+              <linearGradient id="neutral" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="#D9D9D9" stopOpacity={0.5} />
+                <stop offset="100%" stopColor="#D9D9D9" stopOpacity={0} />
+              </linearGradient>
+            </defs>
 
-          <XAxis
-            dataKey="date"
-            tickFormatter={tick => formatDate(tick, 'DD MMM, YYYY') || ''}
-            fontSize={10}
-          />
+            <CartesianGrid strokeDasharray="3 3" vertical={false} />
 
-          <YAxis
-            type="number"
-            axisLine={false}
-            tickLine={false}
-            domain={[0, 100]}
-            scale="linear"
-            tickCount={10}
-            width={30}
-            fontSize={10}
-            tickFormatter={value => `${value}%`}
-          />
-
-          {/* Display the Area components with the percentage data */}
-          {visibleSentiments.includes('negative') && (
-            <Area
-              type="monotone"
-              stroke="none"
-              dataKey="negative_percentage"
-              fill="url(#negative)"
-              name="Negative"
-              stackId="a"
+            <XAxis
+              dataKey="timestamp"
+              type="number"
+              scale="time"
+              domain={[startTimestamp, endTimestamp]}
+              tickFormatter={formatXAxis}
+              ticks={ticks}
+              tickSize={15}
+              tickMargin={5}
+              padding={{ left: 30, right: 30 }}
+              minTickGap={50}
+              fontSize={10}
             />
-          )}
 
-          {visibleSentiments.includes('positive') && (
-            <Area
-              type="monotone"
-              stroke="none"
-              dataKey="positive_percentage"
-              fill="url(#positive)"
-              name="Positive"
-              stackId="a"
+            <YAxis
+              type="number"
+              axisLine={false}
+              tickLine={false}
+              domain={[0, 100]}
+              scale="linear"
+              tickCount={10}
+              width={30}
+              fontSize={10}
+              tickFormatter={value => `${value}%`}
             />
-          )}
 
-          {visibleSentiments.includes('neutral') && (
-            <Area
-              type="monotone"
-              dataKey="neutral_percentage"
-              stroke="none"
-              fill="url(#neutral)"
-              name="Neutral"
-              stackId="a"
-            />
-          )}
-        </AreaChart>
-      )}
+            <Tooltip content={<PartyAreaTooltip />} />
+
+            {visibleSentiments.includes('negative') && (
+              <Area
+                type="monotone"
+                stroke="none"
+                dataKey="negative_percentage"
+                fill="url(#negative)"
+                name="Negative"
+                stackId="a"
+              />
+            )}
+
+            {visibleSentiments.includes('positive') && (
+              <Area
+                type="monotone"
+                stroke="none"
+                dataKey="positive_percentage"
+                fill="url(#positive)"
+                name="Positive"
+                stackId="a"
+              />
+            )}
+
+            {visibleSentiments.includes('neutral') && (
+              <Area
+                type="monotone"
+                dataKey="neutral_percentage"
+                stroke="none"
+                fill="url(#neutral)"
+                name="Neutral"
+                stackId="a"
+              />
+            )}
+          </AreaChart>
+        );
+      }}
     </BaseGraph>
   );
 };

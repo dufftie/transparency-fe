@@ -12,8 +12,12 @@
 @import 'components/party-select';
 @import 'components/range-date-select';
 @import 'components/support-button';
-@import 'components/tooltip';
 @import 'components/media-select';
+
+@import 'components/tooltips/tooltip';
+@import 'components/tooltips/article-tooltip';
+@import 'components/tooltips/party-area-tooltip';
+@import 'components/tooltips/proceeded-article-tooltip';
 
 @import 'layouts/landing-layout';
 @import 'layouts/medias-layout';

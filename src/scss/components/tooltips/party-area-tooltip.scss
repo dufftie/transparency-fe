@@ -1,0 +1,35 @@
+.party-area-tooltip {
+  background: white;
+  border: 1px solid #e8e8e8;
+  border-radius: 4px;
+  padding: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  min-width: 200px;
+
+  &__date {
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: #333;
+  }
+
+  &__stats {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  &__stat {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__label {
+    color: #666;
+  }
+
+  &__value {
+    font-weight: 500;
+    color: #333;
+  }
+} 
