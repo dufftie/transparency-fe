@@ -5,15 +5,11 @@
   flex-direction: column;
   gap: $spacing-layout;
 
-  &__meta {
+  &__content {
     display: flex;
+    flex-direction: column;
     gap: $spacing-lg;
-
-    .card {
-      flex: 1 1 500px;
-      padding-bottom: $spacing-sm;
-    }
-
+    
     .graph {
       height: 75px;
     }
