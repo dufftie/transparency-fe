@@ -48,7 +48,7 @@ export interface ChiefEditorData {
 
 export interface MediaData {
   base_url: string;
-  id: number;
+  id: string;
   title: string;
   chief_editor: ChiefEditorData;
   description: string;

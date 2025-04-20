@@ -37,7 +37,7 @@ const MediaLayout = ({
         <div className="media-layout__content">
           <div className="media-layout__meta">
             <Card label="Analysis progress" primary hint={hintText}>
-              <ProceededArticlesGraph mediaId={media.id} />
+              <ProceededArticlesGraph media_id={media.id} />
             </Card>
             <RangeDateSelect />
           </div>

@@ -13,17 +13,17 @@ dayjs.extend(isSameOrAfter);
 dayjs.extend(isSameOrBefore);
 
 interface ProceededArticlesGraphProps {
-  mediaId: number;
+  media_id: string;
 }
 
-const ProceededArticlesGraph = ({ mediaId }: ProceededArticlesGraphProps) => {
+const ProceededArticlesGraph = ({ media_id }: ProceededArticlesGraphProps) => {
   const { formattedRequestDateRange, formattedDomainDateRange } = useDateRange();
   const [startDate, endDate] = formattedRequestDateRange;
   
   // Memoize the fetchUrl so it only changes when request range changes
   const fetchUrl = useMemo(() => 
-    `/sentiments/daily-stats/media/${mediaId}/?start_date=${startDate}&end_date=${endDate}`,
-    [mediaId, startDate, endDate]
+    `/sentiments/daily-stats/media/${media_id}/?start_date=${startDate}&end_date=${endDate}`,
+    [media_id, startDate, endDate]
   );
 
   // Memoize the base data processing function that doesn't depend on domain range
