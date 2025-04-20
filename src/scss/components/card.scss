@@ -8,7 +8,7 @@
   &__header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     width: 100%;
   }
 
@@ -20,9 +20,14 @@
 
   &--no-border {
     border: none;
+    padding: 0;
   }
 
   &--primary {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-md;
+
     .card__label {
       font-size: 1.5rem;
       color: $text-color;

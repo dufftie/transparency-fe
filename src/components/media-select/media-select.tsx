@@ -8,8 +8,9 @@ import MediaSelectOption from '@/components/media-select/media-select-option';
 import { groupBy, indexOf, isNull, sortBy } from 'lodash';
 import map from 'lodash/map';
 import MediaSelectDetail from '@/components/media-select/media-select-detail';
+import classNames from 'classnames';
 
-const MediaSelect = ({ medias }): JSX.Element => {
+const MediaSelect = ({ medias, primary = false }): JSX.Element => {
   const scopeRef = useRef(null);
   const [activeMedia, setActiveMedia] = useState(undefined);
 
@@ -55,7 +56,7 @@ const MediaSelect = ({ medias }): JSX.Element => {
   );
 
   return (
-    <div className="media-select" ref={scopeRef}>
+    <div className={classNames('media-select', { 'media-select--primary': primary })} ref={scopeRef}>
       <div className="media-select__title">Medias</div>
       <div className="media-select__options">
         {orderedLists.map((list, index) => (

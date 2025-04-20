@@ -7,5 +7,9 @@ export default async function Home() {
     medias: MediaData[];
   }>(`/media`);
 
-  return <MediaSelect medias={media} />;
+  return (
+    <div className='medias-layout'>
+      <MediaSelect medias={media} primary />
+    </div>
+  );
 }

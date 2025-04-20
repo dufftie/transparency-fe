@@ -4,15 +4,35 @@ import MediaHeader from '@/src/components/media-detail/media-header';
 import ProceededArticlesGraph from '@/src/components/graphs/proceeded-article-graph';
 import dayjs from 'dayjs';
 import Card from '@/src/components/card';
+
+interface ChiefEditor {
+  id: number;
+  media_id: number;
+  name: string;
+  start_date: string | null;
+  end_date: string | null;
+}
+
 interface MediaLayoutProps {
   media: MediaData;
   analyzed_count: number;
   total_count: number;
+  chief_editors: ChiefEditor[];
 }
 
-const MediaLayout = ({ media, analyzed_count, total_count }: MediaLayoutProps): JSX.Element => {
+const MediaLayout = ({
+  media,
+  chief_editors,
+  analyzed_count,
+  total_count,
+}: MediaLayoutProps): JSX.Element => {
   // ToDo: Replace with actual hint text
   const hintText = `The number of articles analyzed for the selected period`;
+
+  const dateRange =[
+    dayjs().subtract(2, 'year').format('YYYY-MM-DD'),
+    dayjs().format('YYYY-MM-DD'),
+  ];
 
   return (
     <div className="media-layout">
@@ -24,12 +44,11 @@ const MediaLayout = ({ media, analyzed_count, total_count }: MediaLayoutProps): 
         total_count={total_count}
       />
 
-      <div className='media-layout__meta'>
-        <Card label='Analysis progress' primary hint={hintText}>
-          <ProceededArticlesGraph mediaId={media.id} dateRange={[
-            dayjs().subtract(2, 'year').format('YYYY-MM-DD'),
-            dayjs().format('YYYY-MM-DD')
-          ]}
+      <div className="media-layout__meta">
+        <Card label="Analysis progress" primary hint={hintText}>
+          <ProceededArticlesGraph
+            mediaId={media.id}
+            dateRange={dateRange}
           />
         </Card>
       </div>

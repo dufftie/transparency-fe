@@ -7,10 +7,10 @@
 
   &__meta {
     display: flex;
-    flex-direction: column;
-    gap: $spacing-layout;
+    gap: $spacing-lg;
 
     .card {
+      flex: 1 1 500px;
       padding-bottom: $spacing-sm;
     }
 

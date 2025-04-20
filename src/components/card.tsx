@@ -17,7 +17,7 @@ const Card = ({ label, children, primary, noBorder, hint }: CardProps) => {
     })}>
       <div className='card__header'>
         <div className='card__label'>{label}</div>
-        <Hint title={hint} />
+        {hint && <Hint title={hint} />}
       </div>
       {children}
     </div>

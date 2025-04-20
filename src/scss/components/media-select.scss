@@ -10,6 +10,21 @@
   background: radial-gradient(31.5% 31.5% at 37.5% 52.61%, #BBDBF5 39.9%, rgba(187, 219, 245, 0) 100%);
 
 
+  &--primary {
+    row-gap: $spacing-lg;
+
+    .media-select {
+      &__title {
+        display: none;
+      }
+
+      &__options {
+        flex-direction: row;
+        gap: $spacing-layout;
+      }
+    }
+  }
+
   &__title {
     font-size: 2rem;
     font-family: $font-family-display;
@@ -23,7 +38,7 @@
   &__options {
     display: flex;
     flex-direction: column;
-    row-gap: 50px;
+    gap: $spacing-lg;
   }
 
   &-option-group {
