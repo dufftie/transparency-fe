@@ -2,9 +2,10 @@
 
 import { DatePicker, Slider } from "antd";
 import Card from "@/src/components/card";
-import { useState, useEffect } from "react";
-import dayjs, { Dayjs } from "dayjs";
+import { useEffect } from "react";
+import dayjs from "dayjs";
 import type { RangePickerProps } from 'antd/es/date-picker';
+import { useDateRange } from "@/src/contexts/DateRangeContext";
 
 const { RangePicker } = DatePicker;
 
@@ -12,14 +13,19 @@ const DEFAULT_START_DATE = dayjs('2022-01-01').startOf('day');
 const DEFAULT_END_DATE = dayjs().endOf('day');
 
 const RangeDateSelect = () => {
-  const [mainDateRange, setMainDateRange] = useState<RangePickerProps['value']>([DEFAULT_START_DATE, DEFAULT_END_DATE]);
-  const [secondaryDateRange, setSecondaryDateRange] = useState<RangePickerProps['value']>(mainDateRange);
-  const [sliderValue, setSliderValue] = useState<[number, number]>([0, 100]);
+  const {
+    mainDateRange,
+    setMainDateRange,
+    secondaryDateRange,
+    setSecondaryDateRange,
+    sliderValue,
+    setSliderValue
+  } = useDateRange();
 
   useEffect(() => {
     // If main date range was changed, reset secondary date range to match
     setSecondaryDateRange([mainDateRange![0], mainDateRange![1]]);
-  }, [mainDateRange]);
+  }, [mainDateRange, setSecondaryDateRange]);
 
   const handleDateRangeChange = (dates: RangePickerProps['value']) => {
     setMainDateRange(dates);
@@ -36,15 +42,11 @@ const RangeDateSelect = () => {
     
     const startDuration = Math.floor((rangeValue[0] / 100) * totalDuration);
     const endDuration = Math.floor((rangeValue[1] / 100) * totalDuration);
-    
-    console.log({ startDuration, endDuration });
 
     const newStartDate = start!.add(startDuration, 'day');
     const newEndDate = start!.add(endDuration, 'day');
 
     setSecondaryDateRange([newStartDate, newEndDate]);
-
-    console.log({ mainDateRange, secondaryDateRange });
   };
 
   return (

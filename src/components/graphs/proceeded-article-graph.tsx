@@ -3,14 +3,15 @@
 import { BarChart, Bar, XAxis, YAxis, Tooltip } from 'recharts';
 import dayjs from 'dayjs';
 import BaseGraph from '@/src/components/graphs/base-graph';
+import { useDateRange } from '@/src/contexts/DateRangeContext';
 
 interface ProceededArticlesGraphProps {
-  dateRange: string[];
   mediaId: number;
 }
 
-const ProceededArticlesGraph = ({ dateRange, mediaId }: ProceededArticlesGraphProps) => {
-  const [startDate, endDate] = dateRange;
+const ProceededArticlesGraph = ({ mediaId }: ProceededArticlesGraphProps) => {
+  const { formattedMainDateRange } = useDateRange();
+  const [startDate, endDate] = formattedMainDateRange;
   const fetchUrl = `/sentiments/daily-stats/media/${mediaId}/?start_date=${startDate}&end_date=${endDate}`;
 
   const processData = (data: any[]) =>
