@@ -9,19 +9,19 @@ import React, { JSX, ReactNode } from 'react';
  */
 interface GraphWidgetProps {
   title?: string;
-  settings?: ReactNode;
+  description?: string;
+  extra?: ReactNode;
   children: ReactNode;
 }
 
-const GraphWidget = ({ title, settings, children }: GraphWidgetProps): JSX.Element => {
+const GraphWidget = ({ title, description, extra, children }: GraphWidgetProps): JSX.Element => {
   return (
     <div className="graph-widget">
-      {(title || settings) && (
-        <div className="graph-widget__context">
-          {title && <span className="graph-widget__title">{title}</span>}
-          {settings && <div className="graph-widget__settings">{settings}</div>}
-        </div>
-      )}
+      <div className="graph-widget__context">
+        {title && <h3 className="graph-widget__title">{title}</h3>}
+        {description && <span className="graph-widget__description">{description}</span>}
+        {extra && <div className="graph-widget__extra">{extra}</div>}
+      </div>
       <div className="graph-widget__content">{children}</div>
     </div>
   );

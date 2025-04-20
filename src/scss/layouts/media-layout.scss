@@ -5,7 +5,7 @@
   flex-direction: column;
   gap: $spacing-layout;
 
-  &__content {
+  &__meta {
     display: flex;
     flex-direction: column;
     gap: $spacing-lg;
@@ -13,5 +13,17 @@
     .graph {
       height: 75px;
     }
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-layout;
+  }
+
+  &__graphs {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-layout;
   }
 }

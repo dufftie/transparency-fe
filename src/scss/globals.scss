@@ -13,14 +13,26 @@ body {
   min-height: 100vh !important;
 }
 
-h1,
+h1 {
+  font-family: $font-family-base;
+  font-size: 96px;
+}
+
 h2,
 h3,
 h4,
 h5,
 h6 {
-  font-family: $font-family-base;
+  font-family: $font-family-display;
   font-weight: 600;
+}
+
+h2 {
+  font-size: 32px;
+}
+
+h3 {
+  font-size: 24px;
 }
 
 code,

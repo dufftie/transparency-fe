@@ -1,3 +1,5 @@
+'use client';
+
 import React, { JSX } from 'react';
 import { MediaData } from '@/src/types/article';
 import MediaHeader from '@/src/components/media-detail/media-header';
@@ -5,6 +7,7 @@ import ProceededArticlesGraph from '@/src/components/graphs/proceeded-article-gr
 import Card from '@/src/components/card';
 import RangeDateSelect from '@/src/components/range-date-select';
 import { DateRangeProvider } from '@/src/contexts/date-range-context';
+import PartySentimentWidget from '@/src/components/widgets/party-sentiment-widget';
 
 interface MediaLayoutProps {
   media: MediaData;
@@ -32,13 +35,16 @@ const MediaLayout = ({
         />
 
         <div className="media-layout__content">
-          <Card label="Analysis progress" primary hint={hintText}>
-            <ProceededArticlesGraph
-              mediaId={media.id}
-            />
-          </Card>
+          <div className="media-layout__meta">
+            <Card label="Analysis progress" primary hint={hintText}>
+              <ProceededArticlesGraph mediaId={media.id} />
+            </Card>
+            <RangeDateSelect />
+          </div>
 
-          <RangeDateSelect /> 
+          <div className="media-layout__graphs">
+            <PartySentimentWidget media_id={media.id} />
+          </div>
         </div>
       </div>
     </DateRangeProvider>
