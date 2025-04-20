@@ -6,24 +6,15 @@ import dayjs from 'dayjs';
 import Card from '@/src/components/card';
 import RangeDateSelect from '@/src/components/range-date-select';
 
-interface ChiefEditor {
-  id: number;
-  media_id: number;
-  name: string;
-  start_date: string | null;
-  end_date: string | null;
-}
 
 interface MediaLayoutProps {
   media: MediaData;
   analyzed_count: number;
   total_count: number;
-  chief_editors: ChiefEditor[];
 }
 
 const MediaLayout = ({
   media,
-  chief_editors,
   analyzed_count,
   total_count,
 }: MediaLayoutProps): JSX.Element => {
