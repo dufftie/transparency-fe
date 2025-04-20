@@ -1,16 +1,17 @@
 @import '../variables';
 
 .tooltip {
-  background-color: $tooltip-bg;
-  border-radius: 10px;
-  padding: $spacing-md $spacing-sm;
-  width: 250px;
+  backdrop-filter: blur(25px);
+  border: 1px solid $border-color;
+  border-radius: $border-radius;
+  padding: $spacing-lg;
+  width: 350px;
 }
 
 .article-tooltip {
   display: flex;
   flex-direction: column;
-  gap: $spacing-sm;
+  gap: $spacing-md;
 
   &__preview {
     width: 100%;
@@ -24,7 +25,7 @@
   }
 
   &__title {
-    font-family: $font-family-display;
+    font-size: 16px;
     font-weight: 600;
   }
 
