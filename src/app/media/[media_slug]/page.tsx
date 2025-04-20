@@ -5,18 +5,22 @@ import { Metadata } from 'next';
 import MediaLayout from '@/src/app/media/[media_slug]/media-layout';
 
 const getMediaData = cache(async (media_slug: string) => {
-  return fetchData<{ media: MediaData }>(`/media/${media_slug}`, undefined, {
+  return fetchData<{
+    media: MediaData;
+    analyzed_count: number;
+    total_count: number;
+  }>(`/media/${media_slug}`, undefined, {
     next: { revalidate: 3600 },
   });
 });
 
-export async function generateMetadata(props: {
-  params: { media_slug: string };
+export async function generateMetadata({ params }: {
+  params: Promise<{ media_slug: string }>;
 }): Promise<Metadata> {
-  const { media_slug } = props.params;
-
+  const resolvedParams = await params;
+  
   try {
-    const { media } = await getMediaData(media_slug);
+    const { media } = await getMediaData(resolvedParams.media_slug);
     if (!media) return {};
 
     return {
@@ -28,11 +32,11 @@ export async function generateMetadata(props: {
   }
 }
 
-export default async function MediaDetailPage({ params }: { params: { media_slug: string } }) {
-  const { media_slug } = params;
+export default async function MediaDetailPage({ params }: { params: Promise<{ media_slug: string }> }) {
+  const resolvedParams = await params;
 
   try {
-    const response = await getMediaData(media_slug);
+    const response = await getMediaData(resolvedParams.media_slug);
 
     if (!response) {
       return <div>Media not found</div>;
