@@ -6,7 +6,7 @@ import isSameOrAfter from 'dayjs/plugin/isSameOrAfter';
 import isSameOrBefore from 'dayjs/plugin/isSameOrBefore';
 import BaseGraph from '@/src/components/graphs/base-graph';
 import { useDateRange } from '@/src/contexts/date-range-context';
-import { useMemo } from 'react';
+import { useMemo, useCallback } from 'react';
 
 // Extend dayjs with the required plugins
 dayjs.extend(isSameOrAfter);
@@ -37,114 +37,21 @@ const ProceededArticlesGraph = ({ mediaId }: ProceededArticlesGraphProps) => {
     }));
   }, []); // No dependencies as it doesn't use any external values
 
-  // Filter and aggregate data based on the number of data points
-  const filterAndAggregateData = (data: any[]) => {
+  // Memoize the filter function
+  const filterDataToDomainRange = useCallback((data: any[]) => {
     const [domainStart, domainEnd] = formattedDomainDateRange;
     const domainStartDate = dayjs(domainStart);
     const domainEndDate = dayjs(domainEnd);
 
     // Filter data to domain range
-    const filteredData = data.filter(entry => {
+    return data.filter(entry => {
       const entryDate = dayjs(entry.date);
       return entryDate.isSameOrAfter(domainStartDate) && entryDate.isSameOrBefore(domainEndDate);
     });
+  }, [formattedDomainDateRange]);
 
-    // If we have 500 or fewer data points, return all of them
-    if (filteredData.length <= 500) {
-      return filteredData;
-    }
-
-    // Determine aggregation period based on the number of data points
-    let aggregationPeriod: 'day' | 'week';
-    
-    // Calculate how many data points we'd have with each aggregation level
-    const uniqueDays = new Set(filteredData.map(entry => dayjs(entry.date).format('YYYY-MM-DD'))).size;
-    const uniqueWeeks = new Set(filteredData.map(entry => dayjs(entry.date).startOf('week').format('YYYY-MM-DD'))).size;
-    
-    // Choose the smallest aggregation period that gives us 500 or fewer data points
-    if (uniqueWeeks <= 500) {
-      aggregationPeriod = 'week';
-    } else {
-      aggregationPeriod = 'day';
-    }
-
-    // Group data by aggregation period
-    const aggregatedData: Record<string, any> = {};
-
-    filteredData.forEach(entry => {
-      let key: string;
-      
-      if (aggregationPeriod === 'day') {
-        key = dayjs(entry.date).format('YYYY-MM-DD');
-      } else {
-        // Week
-        key = dayjs(entry.date).startOf('week').format('YYYY-MM-DD');
-      }
-
-      if (!aggregatedData[key]) {
-        aggregatedData[key] = {
-          date: entry.date,
-          timestamp: dayjs(key).valueOf(),
-          displayDate: dayjs(key).format('YYYY'),
-          analysed_count: 0,
-          non_analyzed_articles: 0,
-          articles_count: 0
-        };
-      }
-
-      aggregatedData[key].analysed_count += entry.analysed_count;
-      aggregatedData[key].non_analyzed_articles += entry.non_analyzed_articles;
-      aggregatedData[key].articles_count += entry.articles_count;
-    });
-
-    // Convert aggregated data to array and sort by date
-    const sortedData = Object.values(aggregatedData).sort((a, b) => a.timestamp - b.timestamp);
-    
-    // Fill in missing dates with zero values to avoid gaps
-    const filledData: any[] = [];
-    
-    if (sortedData.length > 0) {
-      const startTimestamp = sortedData[0].timestamp;
-      const endTimestamp = sortedData[sortedData.length - 1].timestamp;
-      
-      let currentTimestamp = startTimestamp;
-      
-      while (currentTimestamp <= endTimestamp) {
-        const currentDate = dayjs(currentTimestamp);
-        const currentKey = aggregationPeriod === 'day' 
-          ? currentDate.format('YYYY-MM-DD')
-          : currentDate.startOf('week').format('YYYY-MM-DD');
-        
-        // Find if we have data for this date
-        const existingData = sortedData.find(item => 
-          dayjs(item.timestamp).format('YYYY-MM-DD') === currentKey
-        );
-        
-        if (existingData) {
-          filledData.push(existingData);
-        } else {
-          // Add a zero-value entry for this date
-          filledData.push({
-            date: currentKey,
-            timestamp: currentTimestamp,
-            displayDate: currentDate.format('YYYY'),
-            analysed_count: 0,
-            non_analyzed_articles: 0,
-            articles_count: 0
-          });
-        }
-        
-        // Move to next date
-        currentTimestamp = aggregationPeriod === 'day'
-          ? currentTimestamp + 24 * 60 * 60 * 1000 // Add one day
-          : currentTimestamp + 7 * 24 * 60 * 60 * 1000; // Add one week
-      }
-    }
-    
-    return filledData;
-  };
-
-  const formatXAxis = (timestamp: number) => {
+  // Memoize the format function
+  const formatXAxis = useCallback((timestamp: number) => {
     const date = dayjs(timestamp);
     
     // Calculate the total duration to determine the appropriate format
@@ -165,21 +72,41 @@ const ProceededArticlesGraph = ({ mediaId }: ProceededArticlesGraphProps) => {
     
     // For ranges over 3 years, show just the year
     return date.format('YYYY');
-  };
+  }, [formattedDomainDateRange]);
+
+  // Memoize the ticks calculation
+  const calculateTicks = useCallback((startTimestamp: number, endTimestamp: number) => {
+    return [
+      startTimestamp,
+      startTimestamp + (endTimestamp - startTimestamp) * 0.2,
+      startTimestamp + (endTimestamp - startTimestamp) * 0.4,
+      startTimestamp + (endTimestamp - startTimestamp) * 0.6,
+      startTimestamp + (endTimestamp - startTimestamp) * 0.8,
+      endTimestamp,
+    ];
+  }, []);
 
   return (
     <BaseGraph graphName="proceed-article-graph" fetchUrl={fetchUrl} processData={processData}>
       {(data, loading) => {
-        // Filter and aggregate the data based on the number of data points
-        const aggregatedData = filterAndAggregateData(data);
+        // Filter data to domain range
+        const filteredData = filterDataToDomainRange(data);
         
         // Calculate domain for even distribution
         const [domainStart, domainEnd] = formattedDomainDateRange;
         const startTimestamp = dayjs(domainStart).valueOf();
         const endTimestamp = dayjs(domainEnd).valueOf();
+        const ticks = calculateTicks(startTimestamp, endTimestamp);
+
+        // Disable animations if there are more than 200 data points
+        const shouldAnimate = filteredData.length <= 200;
 
         return (
-          <BarChart data={aggregatedData} margin={{ top: 0, right: 0, left: 0, bottom: 0 }}>
+          <BarChart 
+            data={filteredData} 
+            margin={{ top: 0, right: 0, left: 0, bottom: 0 }}
+            maxBarSize={30}
+          >
             <XAxis 
               dataKey="timestamp"
               scale="time"
@@ -187,18 +114,24 @@ const ProceededArticlesGraph = ({ mediaId }: ProceededArticlesGraphProps) => {
               interval='preserveStartEnd'
               domain={[startTimestamp, endTimestamp]}
               tickFormatter={formatXAxis}
-              ticks={[
-                startTimestamp,
-                startTimestamp + (endTimestamp - startTimestamp) * 0.2,
-                startTimestamp + (endTimestamp - startTimestamp) * 0.4,
-                startTimestamp + (endTimestamp - startTimestamp) * 0.6,
-                startTimestamp + (endTimestamp - startTimestamp) * 0.8,
-                endTimestamp,
-              ]}
-              tickMargin={10}
+              ticks={ticks}
+              tickSize={15}
+              tickMargin={5}
+              padding={{ left: 30, right: 30 }}
+              minTickGap={50}
             />
-            <Bar dataKey="analysed_count" fill="#EA2525" stackId="a" />
-            <Bar dataKey="non_analyzed_articles" fill="#B8B8B8" stackId="a" />
+            <Bar 
+              dataKey="analysed_count" 
+              fill="#EA2525" 
+              stackId="a"
+              isAnimationActive={shouldAnimate}
+            />
+            <Bar 
+              dataKey="non_analyzed_articles" 
+              fill="#B8B8B8" 
+              stackId="a"
+              isAnimationActive={shouldAnimate}
+            />
           </BarChart>
         );
       }}
