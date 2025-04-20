@@ -5,7 +5,7 @@ import Card from "@/src/components/card";
 import { useEffect } from "react";
 import dayjs from "dayjs";
 import type { RangePickerProps } from 'antd/es/date-picker';
-import { useDateRange } from "@/src/contexts/DateRangeContext";
+import { useDateRange } from "@/src/contexts/date-range-context";
 
 const { RangePicker } = DatePicker;
 
@@ -14,29 +14,29 @@ const DEFAULT_END_DATE = dayjs().endOf('day');
 
 const RangeDateSelect = () => {
   const {
-    mainDateRange,
-    setMainDateRange,
-    secondaryDateRange,
-    setSecondaryDateRange,
+    requestDateRange,
+    setRequestDateRange,
+    domainDateRange,
+    setDomainDateRange,
     sliderValue,
     setSliderValue
   } = useDateRange();
 
   useEffect(() => {
-    // If main date range was changed, reset secondary date range to match
-    setSecondaryDateRange([mainDateRange![0], mainDateRange![1]]);
-  }, [mainDateRange, setSecondaryDateRange]);
+    // If request date range was changed, reset domain date range to match
+    setDomainDateRange([requestDateRange![0], requestDateRange![1]]);
+  }, [requestDateRange, setDomainDateRange]);
 
   const handleDateRangeChange = (dates: RangePickerProps['value']) => {
-    setMainDateRange(dates);
+    setRequestDateRange(dates);
   };
 
   const handleSliderChange = (value: number[]) => {
     const rangeValue = value;
     setSliderValue([rangeValue[0], rangeValue[1]]);
     
-    const start = mainDateRange![0];
-    const end = mainDateRange![1];
+    const start = requestDateRange![0];
+    const end = requestDateRange![1];
     const totalDuration = end!.diff(start, 'day');
 
     
@@ -46,7 +46,20 @@ const RangeDateSelect = () => {
     const newStartDate = start!.add(startDuration, 'day');
     const newEndDate = start!.add(endDuration, 'day');
 
-    setSecondaryDateRange([newStartDate, newEndDate]);
+    setDomainDateRange([newStartDate, newEndDate]);
+  };
+
+  // Format tooltip to show dates instead of percentages
+  const formatTooltip = (value?: number) => {
+    if (!value || !requestDateRange || !requestDateRange[0]) return value;
+    
+    const start = requestDateRange[0];
+    const end = requestDateRange[1];
+    const totalDuration = end!.diff(start, 'day');
+    const duration = Math.floor((value / 100) * totalDuration);
+    const date = start!.add(duration, 'day');
+    
+    return date.format('YYYY-MM-DD');
   };
 
   return (
@@ -56,7 +69,7 @@ const RangeDateSelect = () => {
           <RangePicker
             picker="month"
             allowClear={false}
-            value={mainDateRange}
+            value={requestDateRange}
             onChange={handleDateRangeChange}
             disabledDate={(current) => {
               return current && (current < DEFAULT_START_DATE || current > DEFAULT_END_DATE);
@@ -73,6 +86,7 @@ const RangeDateSelect = () => {
                 min={0}
                 max={100}
                 step={1}
+                tooltip={{ formatter: formatTooltip }}
             />
         </div>
       </div>

@@ -5,7 +5,7 @@ import ProceededArticlesGraph from '@/src/components/graphs/proceeded-article-gr
 import dayjs from 'dayjs';
 import Card from '@/src/components/card';
 import RangeDateSelect from '@/src/components/range-date-select';
-import { DateRangeProvider } from '@/src/contexts/DateRangeContext';
+import { DateRangeProvider } from '@/src/contexts/date-range-context';
 
 interface MediaLayoutProps {
   media: MediaData;

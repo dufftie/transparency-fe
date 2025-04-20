@@ -2,25 +2,43 @@
 
 import { BarChart, Bar, XAxis, YAxis, Tooltip } from 'recharts';
 import dayjs from 'dayjs';
+import isSameOrAfter from 'dayjs/plugin/isSameOrAfter';
+import isSameOrBefore from 'dayjs/plugin/isSameOrBefore';
 import BaseGraph from '@/src/components/graphs/base-graph';
-import { useDateRange } from '@/src/contexts/DateRangeContext';
+import { useDateRange } from '@/src/contexts/date-range-context';
+
+// Extend dayjs with the required plugins
+dayjs.extend(isSameOrAfter);
+dayjs.extend(isSameOrBefore);
 
 interface ProceededArticlesGraphProps {
   mediaId: number;
 }
 
 const ProceededArticlesGraph = ({ mediaId }: ProceededArticlesGraphProps) => {
-  const { formattedMainDateRange } = useDateRange();
-  const [startDate, endDate] = formattedMainDateRange;
+  const { formattedRequestDateRange, formattedDomainDateRange } = useDateRange();
+  const [startDate, endDate] = formattedRequestDateRange;
   const fetchUrl = `/sentiments/daily-stats/media/${mediaId}/?start_date=${startDate}&end_date=${endDate}`;
 
-  const processData = (data: any[]) =>
-    data.map(entry => ({
+  const processData = (data: any[]) => {
+    // First process the data as before
+    const processedData = data.map(entry => ({
       ...entry,
       date: dayjs(entry.date).format('YYYY-MM-DD'),
       displayDate: dayjs(entry.date).format('YYYY'),
       non_analyzed_articles: entry.articles_count - entry.analysed_count,
     }));
+
+    // Then filter the data based on domain date range
+    const [domainStart, domainEnd] = formattedDomainDateRange;
+    const domainStartDate = dayjs(domainStart);
+    const domainEndDate = dayjs(domainEnd);
+
+    return processedData.filter(entry => {
+      const entryDate = dayjs(entry.date);
+      return entryDate.isSameOrAfter(domainStartDate) && entryDate.isSameOrBefore(domainEndDate);
+    });
+  };
 
   const formatXAxis = (tickItem: string) => {
     const date = dayjs(tickItem);
@@ -31,12 +49,15 @@ const ProceededArticlesGraph = ({ mediaId }: ProceededArticlesGraphProps) => {
 
   const ticks = (data: any[]) => {
     if (!data.length) return [];
-    const allDates = data.map(item => dayjs(item.date));
-    const result: string[] = [];
     
-    let currentDate = dayjs(allDates[0]).startOf('month');
-    const endDate = dayjs(allDates[allDates.length - 1]);
-
+    // Use domain date range for X-axis ticks
+    const [domainStart, domainEnd] = formattedDomainDateRange;
+    const startDate = dayjs(domainStart);
+    const endDate = dayjs(domainEnd);
+    
+    const result: string[] = [];
+    let currentDate = startDate.startOf('month');
+    
     while (currentDate.isBefore(endDate) || currentDate.isSame(endDate)) {
       if (currentDate.month() === 0 || currentDate.month() === 6) {
         result.push(currentDate.format('YYYY-MM-DD'));
