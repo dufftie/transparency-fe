@@ -80,23 +80,23 @@ const PartyScatterPlotGraph = ({ media_id, party }: PartyScatterPlotGraphProps) 
   // Memoize the format function for X-axis
   const formatXAxis = useCallback((timestamp: number) => {
     const date = dayjs(timestamp);
-    
+
     // Calculate the total duration to determine the appropriate format
     const [domainStart, domainEnd] = formattedDomainDateRange;
     const startDate = dayjs(domainStart);
     const endDate = dayjs(domainEnd);
     const totalDuration = endDate.diff(startDate, 'day');
-    
+
     // For ranges less than 1 year, show month and day
     if (totalDuration < 365) {
       return date.format('MMM D');
     }
-    
+
     // For ranges between 1-3 years, show month and year
     if (totalDuration < 365 * 3) {
       return date.format('MMM YYYY');
     }
-    
+
     // For ranges over 3 years, show just the year
     return date.format('YYYY');
   }, [formattedDomainDateRange]);
@@ -124,7 +124,7 @@ const PartyScatterPlotGraph = ({ media_id, party }: PartyScatterPlotGraphProps) 
       {(data, loading) => {
         // Filter data to domain range
         const filteredData = filterDataToDomainRange(data);
-        
+
         // Calculate domain for even distribution
         const [domainStart, domainEnd] = formattedDomainDateRange;
         const startTimestamp = dayjs(domainStart).valueOf();
@@ -158,16 +158,18 @@ const PartyScatterPlotGraph = ({ media_id, party }: PartyScatterPlotGraphProps) 
               fontSize={10}
             />
 
+            <CartesianGrid strokeDasharray="3 3" />
+            
             <Scatter
               name={party}
               data={filteredData}
               fill={partyColor}
               onClick={openArticle}
+              isAnimationActive={false}
             />
 
-            <Tooltip content={<ArticleTooltip />} cursor={{ strokeDasharray: '3 3' }} />
+            <Tooltip content={<ArticleTooltip />} />
 
-            <CartesianGrid strokeDasharray="2" vertical={false} />
           </ScatterChart>
         );
       }}
