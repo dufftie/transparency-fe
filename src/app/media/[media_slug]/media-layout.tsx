@@ -2,7 +2,6 @@ import React, { JSX } from 'react';
 import { MediaData } from '@/src/types/article';
 import MediaHeader from '@/src/components/media-detail/media-header';
 import ProceededArticlesGraph from '@/src/components/graphs/proceeded-article-graph';
-import dayjs from 'dayjs';
 import Card from '@/src/components/card';
 import RangeDateSelect from '@/src/components/range-date-select';
 import { DateRangeProvider } from '@/src/contexts/date-range-context';
