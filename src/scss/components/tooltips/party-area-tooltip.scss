@@ -1,21 +1,23 @@
+@import '../../variables';
+
 .party-area-tooltip {
-  background: white;
-  border: 1px solid #e8e8e8;
-  border-radius: 4px;
+  width: max-content;
   padding: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-  min-width: 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 
   &__date {
+    font-size: 14px;
     font-weight: 500;
-    margin-bottom: 8px;
     color: #333;
+    margin-bottom: 12px;
   }
 
   &__stats {
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 8px;
   }
 
   &__stat {
@@ -26,10 +28,13 @@
 
   &__label {
     color: #666;
+    font-size: 12px;
+    margin-right: 20px;
   }
 
   &__value {
     font-weight: 500;
     color: #333;
+    font-size: 13px;
   }
 } 

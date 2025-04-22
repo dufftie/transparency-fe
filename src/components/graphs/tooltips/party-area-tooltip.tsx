@@ -24,7 +24,7 @@ const PartyAreaTooltip = ({ active, payload, label }: TooltipProps<any, any>) =>
   }
 
   return (
-    <div className="party-area-tooltip">
+    <div className="tooltip party-area-tooltip">
       <div className="party-area-tooltip__date">
         {entry.date && formatDate(entry.date, 'DD MMMM YYYY')}
       </div>

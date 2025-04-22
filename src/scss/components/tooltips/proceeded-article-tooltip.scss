@@ -1,9 +1,6 @@
 .proceeded-article-tooltip {
+  width: max-content;
   padding: 12px;
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-  min-width: 200px;
 
   &__date {
     font-size: 14px;
@@ -26,7 +23,8 @@
 
   &__label {
     color: #666;
-    font-size: 13px;
+    font-size: 12px;
+    margin-right: 20px;
   }
 
   &__value {

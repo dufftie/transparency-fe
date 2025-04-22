@@ -1,9 +1,8 @@
 @import '../../variables';
 
 .tooltip {
-  backdrop-filter: blur(25px);
+  backdrop-filter: blur(30px);
   border: 1px solid $border-color;
   border-radius: $border-radius;
   padding: $spacing-lg;
-  width: 350px;
 }

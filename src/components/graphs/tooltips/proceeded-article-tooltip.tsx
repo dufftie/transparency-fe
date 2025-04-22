@@ -20,7 +20,7 @@ const ProceededArticleTooltip = ({ active, payload, label }: TooltipProps<any, a
   }
 
   return (
-    <div className="proceeded-article-tooltip">
+    <div className="tooltip proceeded-article-tooltip">
       <div className="proceeded-article-tooltip__date">
         {entry.date && formatDate(entry.date, 'DD MMMM YYYY')}
       </div>
