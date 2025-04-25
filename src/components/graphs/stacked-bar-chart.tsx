@@ -1,12 +1,13 @@
 'use client';
 
-import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, Legend } from 'recharts';
-import dayjs from 'dayjs';
-import BaseGraph, { BaseGraphProps } from '@/src/components/graphs/base-graph';
+import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts';
+import BaseGraph from '@/src/components/graphs/base-graph';
 import partiesList from '@/src/lib/dictionaries/partiesList';
 import useIsMobile from '@/src/lib/hooks/isMobile';
+import { useDateRange } from '@/src/contexts/date-range-context';
+import StackedBarTooltip from './tooltips/stacked-bar-tooltip';
 
-interface StackedBarChartProps extends BaseGraphProps {
+interface StackedBarChartProps {
   media_id: string;
   showParties: string[];
   positiveThreshold?: number; // Scores >= this value are considered positive
@@ -17,31 +18,23 @@ interface StackedBarChartProps extends BaseGraphProps {
 
 const buildUrl = ({
   media_id,
-  category,
   startDate,
   endDate,
-  parties,
 }: {
   media_id: string;
-  category: string;
-  startDate: dayjs.Dayjs;
-  endDate: dayjs.Dayjs;
-  parties: string[];
+  startDate: string;
+  endDate: string;
 }) => {
   const params = new URLSearchParams();
   if (media_id) params.append('media_id', media_id);
-  if (category) params.append('category', category);
-  if (startDate) params.append('start_date', startDate.format('YYYY-MM-DD'));
-  if (endDate) params.append('end_date', endDate.format('YYYY-MM-DD'));
-  if (parties) parties.forEach(party => params.append('parties', party));
+  if (startDate) params.append('start_date', startDate);
+  if (endDate) params.append('end_date', endDate);
 
   return `sentiments/parties/summary/?${params.toString()}`;
 };
 
 const StackedBarChart = ({
   media_id,
-  category,
-  dateRange,
   showParties = partiesList.map(p => p.value), // Default to showing all parties
   positiveThreshold = 7, // Default: scores >= 7 are positive
   negativeThreshold = 3, // Default: scores <= 3 are negative
@@ -49,12 +42,9 @@ const StackedBarChart = ({
   visibleSentiments = ['positive', 'neutral', 'negative'], // Default: show all sentiments
 }: StackedBarChartProps) => {
   const isMobile = useIsMobile();
-  const [startDate, endDate] = dateRange || [
-    dayjs('2024-01-01', 'YYYY-MM-DD'),
-    dayjs('2025-03-01', 'YYYY-MM-DD'),
-  ];
-
-  const fetchUrl = buildUrl({ media_id, category, startDate, endDate, parties: showParties });
+  const { formattedRequestDateRange } = useDateRange();
+  const [startDate, endDate] = formattedRequestDateRange;
+  const fetchUrl = buildUrl({ media_id, startDate, endDate });
 
   // Process the data for stacked bar chart
   const processData = (data: any[]) => {
@@ -142,10 +132,7 @@ const StackedBarChart = ({
           >
             <CartesianGrid strokeDasharray="3 3" vertical={isMobile} horizontal={!isMobile} />
 
-            <Tooltip
-              formatter={(value, name) => [`${value} mentions`, name]}
-              labelFormatter={label => label}
-            />
+            <Tooltip content={<StackedBarTooltip />} />
 
             {visibleSentiments.includes('negative') && (
               <Bar

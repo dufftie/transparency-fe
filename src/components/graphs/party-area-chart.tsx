@@ -16,7 +16,6 @@ dayjs.extend(isSameOrBefore);
 
 interface PartyAreaChartProps {
   media_id?: string;
-  category?: string;
   party: string;
   positiveThreshold?: number; // Scores >= this value are considered positive
   negativeThreshold?: number; // Scores <= this value are considered negative
@@ -25,20 +24,17 @@ interface PartyAreaChartProps {
 
 const buildUrl = ({
   media_id,
-  category,
   startDate,
   endDate,
   party,
 }: {
   media_id?: string;
-  category?: string;
   startDate: string;
   endDate: string;
   party: string;
 }) => {
   const params = new URLSearchParams();
   if (media_id) params.append('media_id', media_id);
-  if (category) params.append('category', category);
   if (startDate) params.append('start_date', startDate);
   if (endDate) params.append('end_date', endDate);
   if (party) params.append('parties', party);
@@ -48,7 +44,6 @@ const buildUrl = ({
 
 const PartyAreaChart = ({
   media_id,
-  category,
   party, // Default to showing all parties
   positiveThreshold = 7, // Default: scores >= 7 are positive
   negativeThreshold = 3, // Default: scores <= 3 are negative
@@ -60,7 +55,7 @@ const PartyAreaChart = ({
   ]);
   const { formattedRequestDateRange, formattedDomainDateRange } = useDateRange();
   const [startDate, endDate] = formattedRequestDateRange;
-  const fetchUrl = buildUrl({ media_id, category, startDate, endDate, party });
+  const fetchUrl = buildUrl({ media_id, startDate, endDate, party });
 
   // Memoize the format function for X-axis
   const formatXAxis = useCallback((timestamp: number) => {

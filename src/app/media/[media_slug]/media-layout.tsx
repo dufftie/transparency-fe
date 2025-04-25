@@ -9,6 +9,7 @@ import RangeDateSelect from '@/src/components/range-date-select';
 import { DateRangeProvider } from '@/src/contexts/date-range-context';
 import PartySentimentWidget from '@/src/components/widgets/party-sentiment-widget';
 import PartiesMonthlySentimentsAreaChart from '@/src/components/widgets/parties-monthly-sentiments-area-chart';
+import PartiesMonthlySentimentsBarChart from '@/src/components/widgets/parties-monthly-sentiments-barchart';
 
 interface MediaLayoutProps {
   media: MediaData;
@@ -46,6 +47,7 @@ const MediaLayout = ({
           <div className="media-layout__graphs">
             <PartySentimentWidget media_id={media.id} />
             <PartiesMonthlySentimentsAreaChart media_id={media.id} />
+            <PartiesMonthlySentimentsBarChart media_id={media.id} />
           </div>
         </div>
       </div>
