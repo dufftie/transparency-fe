@@ -1,5 +1,3 @@
-'use client';
-
 import React, { JSX } from 'react';
 import { MediaData } from '@/src/types/article';
 import MediaHeader from '@/src/components/media-detail/media-header';

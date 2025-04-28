@@ -1,3 +1,5 @@
+'use client';
+
 import PartyAreaChart from '@/src/components/graphs/party-area-chart';
 import GraphWidget from '@/src/components/graphs/graph-widget';
 import { useState } from 'react';
