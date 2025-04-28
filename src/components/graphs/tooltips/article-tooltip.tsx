@@ -14,33 +14,34 @@ interface ArticleData {
 }
 
 const ArticleTooltip = (props: TooltipProps<any, any>) => {
-  const processData = (data: any[]): any[] => {
-    // If data is an array, return it as is
-    if (Array.isArray(data)) {
-      return data;
-    }
-    // If data is a single object, wrap it in an array
-    return [data];
-  };
-
   const article_id = props.payload?.[0]?.payload?.article_id;
   const fetchUrl = article_id ? `/articles/${article_id}/tooltip` : undefined;
 
   return (
-    <BaseTooltip fetchUrl={fetchUrl} processData={processData}>
-      {(data: any[]) => {
-        const article = data[0] as ArticleData;
+    <BaseTooltip fetchUrl={fetchUrl} processData={data => data}>
+      {data => {
+        const article = data as ArticleData;
+
+        const title = article?.title;
+        const authors = article?.authors;
+        const preview_url = article?.preview_url;
+        const date_time = article?.date_time;
+        
         return (
           <div className="article-tooltip">
             <ExportOutlined className="article-tooltip__icon" />
-            {article?.authors && <span className="article-tooltip__authors">{article.authors}</span>}
-            {article?.title && <span className="article-tooltip__title">{article.title}</span>}
-            <ArticlePreview
-              preview_url={article?.preview_url || ''}
-              className="article-tooltip__preview"
-            />
+            {authors && <span className="article-tooltip__authors">{authors}</span>}
+            {title && <span className="article-tooltip__title">{title}</span>}
+            {preview_url && (
+              <div className="article-tooltip__preview-container">
+                <ArticlePreview
+                  preview_url={preview_url}
+                  className="article-tooltip__preview"
+                />
+              </div>
+            )}
             <div className="article-tooltip__date">
-              {article?.date_time && formatDate(article.date_time, 'DD MMMM YYYY')}
+              {date_time && formatDate(date_time, 'DD MMMM YYYY')}
             </div>
           </div>
         );

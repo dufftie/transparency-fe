@@ -1,7 +1,7 @@
 @import '../../variables';
 
 .article-tooltip {
-  width: 350px;
+  width: 250px;
   display: flex;
   flex-direction: column;
   gap: $spacing-md;
@@ -18,8 +18,7 @@
   }
 
   &__title {
-    font-size: 16px;
-    font-weight: 600;
+    font-size: 14px;
   }
 
   &__date,

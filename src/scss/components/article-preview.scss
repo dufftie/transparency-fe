@@ -1,7 +1,34 @@
 @import '../variables';
 
+.article-preview-container {
+  position: relative;
+  min-height: 150px;
+}
+
 .article-preview {
   display: block;
   filter: grayscale(1) sepia(50%) contrast(70%);
   object-fit: cover;
+  max-width: 100%;
+  max-height: 200px;
+  object-fit: contain;
+  transition: opacity 0.3s ease;
+  
+  &--is-loading {
+    opacity: 0;
+    position: absolute;
+  }
+  
+  &--loaded {
+    opacity: 1;
+    position: relative;
+  }
+}
+
+.article-preview-loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
 }
