@@ -4,11 +4,11 @@ import { useState } from 'react';
 import partiesList from '@/src/lib/dictionaries/partiesList';
 import PartySelect from '@/src/components/party-select';
 
-interface PartySentimentWidgetProps {
+interface PartyScatterPlotWidgetProps {
   media_id: string;
 }
 
-const PartySentimentWidget = ({ media_id }: PartySentimentWidgetProps) => {
+const PartyScatterPlotWidget = ({ media_id }: PartyScatterPlotWidgetProps) => {
   const [party, setParty] = useState(partiesList[0].value);
 
   return (
@@ -22,4 +22,4 @@ const PartySentimentWidget = ({ media_id }: PartySentimentWidgetProps) => {
   );
 };
 
-export default PartySentimentWidget;
+export default PartyScatterPlotWidget;

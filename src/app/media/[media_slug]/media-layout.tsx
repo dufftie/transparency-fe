@@ -7,11 +7,11 @@ import ProceededArticlesGraph from '@/src/components/graphs/proceeded-article-gr
 import Card from '@/src/components/card';
 import RangeDateSelect from '@/src/components/range-date-select';
 import { DateRangeProvider } from '@/src/contexts/date-range-context';
-import PartySentimentWidget from '@/src/components/widgets/party-sentiment-widget';
-import PartiesMonthlySentimentsAreaChart from '@/src/components/widgets/parties-monthly-sentiments-area-chart';
-import PartiesMonthlySentimentsBarChart from '@/src/components/widgets/parties-monthly-sentiments-barchart';
-import PoliticiansMonthlySentimentsBarchart from '@/src/components/widgets/politicians-monthly-sentiments-barchart';
-import SimpleBarChartWidget from '@/src/components/widgets/simple-bar-chart-widget';
+import PartyScatterPlotWidget from '@/src/components/widgets/party-scatter-plot-widget';
+import PartiesAreaChartWidget from '@/src/components/widgets/parties-area-chart-widget';
+import PartiesBarChartWidget from '@/src/components/widgets/parties-bar-chart-widget';
+import PoliticiansBarChartWidget from '@/src/components/widgets/politicians-bar-chart-widget';
+import ScoresBarChartWidget from '@/src/components/widgets/scores-bar-chart-widget';
 
 interface MediaLayoutProps {
   media: MediaData;
@@ -47,11 +47,11 @@ const MediaLayout = ({
           </div>
 
           <div className="media-layout__graphs">
-            <PartySentimentWidget media_id={media.id} />
-            <PartiesMonthlySentimentsAreaChart media_id={media.id} />
-            <PartiesMonthlySentimentsBarChart media_id={media.id} />
-            <PoliticiansMonthlySentimentsBarchart media_id={media.id} />
-            <SimpleBarChartWidget media_id={media.id} />
+            <PartyScatterPlotWidget media_id={media.id} />
+            <PartiesAreaChartWidget media_id={media.id} />
+            <PartiesBarChartWidget media_id={media.id} />
+            <PoliticiansBarChartWidget media_id={media.id} />
+            <ScoresBarChartWidget media_id={media.id} />
           </div>
         </div>
       </div>
