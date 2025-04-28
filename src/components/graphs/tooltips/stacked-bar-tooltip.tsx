@@ -2,8 +2,8 @@ import { TooltipProps } from 'recharts';
 import React from 'react';
 
 interface StackedBarData {
-  party: string;
-  partyLabel: string;
+  name: string;
+  nameLabel: string;
   positive_count: number;
   neutral_count: number;
   negative_count: number;
@@ -24,7 +24,7 @@ const StackedBarTooltip = ({ active, payload, label }: TooltipProps<any, any>) =
   return (
     <div className="tooltip stacked-bar-tooltip">
       <div className="stacked-bar-tooltip__party">
-        {entry.partyLabel}
+        {entry.nameLabel}
       </div>
       <div className="stacked-bar-tooltip__stats">
         <div className="stacked-bar-tooltip__stat">

@@ -3,20 +3,15 @@
 import StackedBarChart from '@/src/components/graphs/stacked-bar-chart';
 import GraphWidget from '@/src/components/graphs/graph-widget';
 import { useState } from 'react';
-import partiesList from '@/src/lib/dictionaries/partiesList';
-import map from 'lodash/map';
 import { DateRangeProvider } from '@/src/contexts/date-range-context';
 
-interface PartiesMonthlySentimentsBarchartProps {
+interface PoliticiansMonthlySentimentsBarchartProps {
   media_id: string;
 }
 
-const PartiesMonthlySentimentsBarchart = ({ media_id }: PartiesMonthlySentimentsBarchartProps) => {
-  // State for sorting and party filtering
+const PoliticiansMonthlySentimentsBarchart = ({ media_id }: PoliticiansMonthlySentimentsBarchartProps) => {
+  // State for sorting
   const [sortBy, setSortBy] = useState<'name' | 'total' | 'positive' | 'negative'>('total'); // Default sort by name
-  const [selectedParties, setSelectedParties] = useState<string[]>(
-    map(partiesList, party => party.value)
-  );
   
   // State for sentiment visibility
   const [visibleSentiments, setVisibleSentiments] = useState<string[]>([
@@ -26,21 +21,20 @@ const PartiesMonthlySentimentsBarchart = ({ media_id }: PartiesMonthlySentiments
   return (
     <DateRangeProvider>
       <GraphWidget
-        title="Sentiment Distribution by Party"
-        description="This chart shows the distribution of sentiment for each party"
+        title="Sentiment Distribution by Politician"
+        description="This chart shows the distribution of sentiment for each politician"
       >
         <StackedBarChart
           media_id={media_id}
-          showNames={selectedParties}
           positiveThreshold={7}
           negativeThreshold={3}
           sortBy={sortBy}
           visibleSentiments={visibleSentiments}
-          dataType="parties"
+          dataType="politicians"
         />
       </GraphWidget>
     </DateRangeProvider>
   );
 };
 
-export default PartiesMonthlySentimentsBarchart;
+export default PoliticiansMonthlySentimentsBarchart; 
