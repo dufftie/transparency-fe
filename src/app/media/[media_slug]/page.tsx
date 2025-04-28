@@ -3,6 +3,7 @@ import { fetchData } from '@/src/lib/services/api';
 import { MediaData } from '@/src/types/article';
 import { Metadata } from 'next';
 import MediaLayout from '@/src/app/media/[media_slug]/media-layout';
+import { Result } from 'antd';
 
 const getMediaData = cache(async (media_slug: string) => {
   return fetchData<{
@@ -39,12 +40,20 @@ export default async function MediaDetailPage({ params }: { params: Promise<{ me
     const response = await getMediaData(resolvedParams.media_slug);
 
     if (!response) {
-      return <div>Media not found</div>;
+      return <Result 
+        status="404" 
+        title="Media not found" 
+        subTitle="The media you are looking for does not exist."
+      />;
     }
 
     return <MediaLayout {...response} />;
   } catch (error) {
     console.error('Error fetching media data:', error);
-    return <div>Failed to load media data</div>;
+    return <Result 
+      status="error" 
+      title="Failed to load media data" 
+      subTitle="There was an error loading the media data. Please try again later."
+    />;
   }
 }
