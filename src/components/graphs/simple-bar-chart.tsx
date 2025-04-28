@@ -1,6 +1,6 @@
 'use client';
 
-import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, LabelList } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, LabelList, Cell } from 'recharts';
 import BaseGraph from '@/src/components/graphs/base-graph';
 import useIsMobile from '@/src/lib/hooks/isMobile';
 import { useDateRange } from '@/src/contexts/date-range-context';
@@ -24,6 +24,52 @@ const buildUrl = ({
   if (endDate) params.append('end_date', endDate);
 
   return `sentiments/summary/?${params.toString()}`;
+};
+
+// Color interpolation function
+const interpolateColor = (value: number, totalValues: number) => {
+  // Convert hex to RGB
+  const hexToRgb = (hex: string) => {
+    const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result ? {
+      r: parseInt(result[1], 16),
+      g: parseInt(result[2], 16),
+      b: parseInt(result[3], 16)
+    } : null;
+  };
+
+  const negativeColor = hexToRgb('#EA5753')!;
+  const neutralColor = hexToRgb('#D9D9D9')!;
+  const positiveColor = hexToRgb('#8FCC7E')!;
+
+  // Calculate percentage position
+  const percentage = (value / (totalValues - 1)) * 100;
+
+  // Interpolate between colors based on percentage position
+  if (percentage <= 40) {
+    // Interpolate between negative and neutral (0% to 40%)
+    const t = percentage / 40;
+    return `rgb(${
+      Math.round(negativeColor.r + (neutralColor.r - negativeColor.r) * t)
+    }, ${
+      Math.round(negativeColor.g + (neutralColor.g - negativeColor.g) * t)
+    }, ${
+      Math.round(negativeColor.b + (neutralColor.b - negativeColor.b) * t)
+    })`;
+  } else if (percentage >= 60) {
+    // Interpolate between neutral and positive (60% to 100%)
+    const t = (percentage - 60) / 40;
+    return `rgb(${
+      Math.round(neutralColor.r + (positiveColor.r - neutralColor.r) * t)
+    }, ${
+      Math.round(neutralColor.g + (positiveColor.g - neutralColor.g) * t)
+    }, ${
+      Math.round(neutralColor.b + (positiveColor.b - neutralColor.b) * t)
+    })`;
+  } else {
+    // Use neutral color for the middle range (40% to 60%)
+    return '#D9D9D9';
+  }
 };
 
 const SimpleBarChart = ({ media_id }: SimpleBarChartProps) => {
@@ -59,8 +105,11 @@ const SimpleBarChart = ({ media_id }: SimpleBarChartProps) => {
               dataKey="value"
               fill="#EBEBEB"
               minPointSize={30}
-              opacity={0.5}
+              opacity={0.8}
             >
+              {data.map((entry, index) => (
+                <Cell key={`cell-${index}`} fill={interpolateColor(index, data.length)} />
+              ))}
               <LabelList
                 dataKey="value"
                 position="insideTop"
