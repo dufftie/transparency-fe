@@ -14,16 +14,13 @@ interface ArticleLayoutProps {
 }
 
 const ArticleLayout = ({ article, media, sentiments }: ArticleLayoutProps): JSX.Element => {
+  console.log({ article, media, sentiments });
   const [selectedSentiment, setSelectedSentiment] = useState<SentimentData>(sentiments[0] || null);
 
   // Handle model selection change
   const handleModelChange = (sentiment: SentimentData) => {
     setSelectedSentiment(sentiment);
   };
-
-  if (!article || !media || !selectedSentiment) {
-    return <div>Article data not available</div>;
-  }
 
   const partyData = selectedSentiment.sentiment.parties || [];
   const politiciansData = selectedSentiment.sentiment.politicians || [];
@@ -35,7 +32,6 @@ const ArticleLayout = ({ article, media, sentiments }: ArticleLayoutProps): JSX.
         <ArticleHeader
           title={article.title}
           url={article.url}
-          paywall={article.paywall}
           category={article.category}
           date={article.date_time}
           authors={article.authors}
@@ -56,11 +52,11 @@ const ArticleLayout = ({ article, media, sentiments }: ArticleLayoutProps): JSX.
           media={media}
           article={article}
         />
-        <AnalysisTable
+        {/* <AnalysisTable
           partyData={partyData}
           politiciansData={politiciansData}
           article={article}
-        />
+        /> */}
       </div>
     </div>
   );

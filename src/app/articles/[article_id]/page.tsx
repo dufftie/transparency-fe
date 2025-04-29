@@ -3,6 +3,7 @@ import { fetchData } from '@/src/lib/services/api';
 import ArticleLayout from '@/app/articles/[article_id]/article-layout';
 import { ArticleData, MediaData, SentimentData } from '@/src/types/article';
 import { Metadata } from 'next';
+import { Result } from 'antd';
 
 const getArticleData = cache(async (article_id: string) => {
   return fetchData<{
@@ -41,12 +42,20 @@ export default async function ArticleDetailPage({ params }: { params: { article_
     const { article, sentiments, media } = await getArticleData(article_id);
     
     if (!article || !media || !sentiments || sentiments.length === 0) {
-      return <div>Article not found</div>;
+      return <Result 
+        status="404" 
+        title="Article not found" 
+        subTitle="The article you are looking for does not exist."
+      />;
     }
     
     return <ArticleLayout article={article} media={media} sentiments={sentiments} />;
   } catch (error) {
     console.error('Error fetching article data:', error);
-    return <div>Failed to load article data</div>;
+    return <Result 
+      status="error" 
+      title="Failed to load article data" 
+      subTitle="There was an error loading the article data. Please try again later."
+    />;
   }
 }
