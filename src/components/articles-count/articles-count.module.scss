@@ -1,6 +1,6 @@
-@import "../variables";
+@import '@/scss/variables';
 
-.articles-count {
+.count {
   display: flex;
   flex-wrap: wrap;
   gap: $spacing-lg;
@@ -18,4 +18,4 @@
   &--vertical {
     flex-direction: column;
   }
-}
+} 

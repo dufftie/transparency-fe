@@ -9,10 +9,10 @@ interface ArticlePreviewProps {
   className?: string;
 }
 
-const ArticlePreview = ({ preview_url, className }: ArticlePreviewProps) => {
+export default function ArticlePreview({ preview_url, className }: ArticlePreviewProps) {
   const [isLoading, setIsLoading] = useState(false);
   const prevUrlRef = useRef<string | null>(null);
-  
+
   useEffect(() => {
     // Only set loading to true if preview_url has actually changed
     if (prevUrlRef.current !== null && prevUrlRef.current !== preview_url) {
@@ -20,9 +20,9 @@ const ArticlePreview = ({ preview_url, className }: ArticlePreviewProps) => {
     }
     prevUrlRef.current = preview_url;
   }, [preview_url]);
-  
+
   if (!preview_url) return <Empty description={false} />;
-  
+
   return (
     <div className={styles.container}>
       {isLoading && (
@@ -30,22 +30,16 @@ const ArticlePreview = ({ preview_url, className }: ArticlePreviewProps) => {
           <Spin indicator={<LoadingOutlined style={{ fontSize: 48 }} spin />} />
         </div>
       )}
-      <img 
-        className={classNames(
-          styles.preview,
-          className,
-          { 
-            [styles.isLoading]: isLoading,
-            [styles.loaded]: !isLoading
-          }
-        )} 
-        src={preview_url} 
-        alt='article preview image'
+      <img
+        className={classNames(styles.preview, className, {
+          [styles.isLoading]: isLoading,
+          [styles.loaded]: !isLoading,
+        })}
+        src={preview_url}
+        alt="article preview image"
         onLoad={() => setIsLoading(false)}
         onError={() => setIsLoading(false)}
       />
     </div>
   );
-};
-
-export default ArticlePreview; 
+}

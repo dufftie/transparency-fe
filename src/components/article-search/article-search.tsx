@@ -7,7 +7,7 @@ import debounce from 'lodash/debounce';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import classNames from 'classnames';
-import ArticlesCount from '@/components/articles-count';
+import ArticlesCount from '@/components/articles-count/index';
 import { isEmpty } from 'lodash';
 import ArticleSearchResult from '@/components/article-search/article-search-result';
 import styles from './article-search.module.scss';
@@ -34,7 +34,13 @@ interface ArticleSearchProps {
   isWidget?: boolean;
 }
 
-const ArticleSearch = ({ total_articles, total_sentiments, defaultValue, limit = 20, isWidget = false }: ArticleSearchProps) => {
+export default function ArticleSearch({
+  total_articles,
+  total_sentiments,
+  defaultValue,
+  limit = 20,
+  isWidget = false,
+}: ArticleSearchProps) {
   const [searchValue, setSearchValue] = useState(defaultValue);
   const [isLoading, setIsLoading] = useState(false);
   const [articles, setArticles] = useState<Article[]>([]);
@@ -48,7 +54,10 @@ const ArticleSearch = ({ total_articles, total_sentiments, defaultValue, limit =
         setIsLoading(false);
         return;
       }
-      const { articles } = await fetchData<SearchResponse>('/articles/search', { value, limit: limit.toString() });
+      const { articles } = await fetchData<SearchResponse>('/articles/search', {
+        value,
+        limit: limit.toString(),
+      });
       setArticles(articles);
       setIsLoading(false);
     }, 300),
@@ -89,7 +98,11 @@ const ArticleSearch = ({ total_articles, total_sentiments, defaultValue, limit =
       <div className={styles.header}>
         <div className={styles.inner}>
           <div className={styles.title}>Articles</div>
-          <ArticlesCount total_count={total_articles} analyzed_count={total_sentiments} layout='vertical' />
+          <ArticlesCount
+            total_count={total_articles}
+            analyzed_count={total_sentiments}
+            layout="vertical"
+          />
         </div>
       </div>
       <div className={styles.content}>
@@ -108,7 +121,7 @@ const ArticleSearch = ({ total_articles, total_sentiments, defaultValue, limit =
             <ArticleSearchResult key={article.id} article={article} />
           ))}
         </div>
-        {(!isEmpty(articles) && isWidget) && (
+        {!isEmpty(articles) && isWidget && (
           <a href={`/articles?search=${searchValue}`} className={styles.link}>
             Open articles
           </a>
@@ -116,6 +129,4 @@ const ArticleSearch = ({ total_articles, total_sentiments, defaultValue, limit =
       </div>
     </div>
   );
-};
-
-export default ArticleSearch;
+}

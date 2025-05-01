@@ -1,7 +1,6 @@
 'use client';
 
 import { JSX, useRef, useState } from 'react';
-import ArticlesCount from '@/components/articles-count';
 import { useGSAP } from '@gsap/react';
 import { gsap } from 'gsap';
 import MediaSelectOption from '@/components/media-select/media-select-option';

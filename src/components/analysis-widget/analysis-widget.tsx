@@ -15,7 +15,7 @@ interface AnalysisTableProps {
   chart: React.ReactNode;
 }
 
-const AnalysisWidget = (props: AnalysisTableProps) => {
+export default function AnalysisWidget(props: AnalysisTableProps) {
   const { data, title, chart } = props;
 
   const isEmpty = !data || data.length === 0;
@@ -47,5 +47,3 @@ const AnalysisWidget = (props: AnalysisTableProps) => {
     </div>
   );
 };
-
-export default AnalysisWidget;

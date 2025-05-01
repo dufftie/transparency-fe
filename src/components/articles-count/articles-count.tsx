@@ -4,8 +4,19 @@ import { useGSAP } from '@gsap/react';
 import { gsap } from 'gsap';
 import { useRef } from 'react';
 import classNames from 'classnames';
+import styles from './articles-count.module.scss';
 
-const ArticlesCount = ({ total_count, analyzed_count, layout = 'horizontal' }) => {
+interface ArticlesCountProps {
+  total_count: number;
+  analyzed_count: number;
+  layout?: 'horizontal' | 'vertical';
+}
+
+export default function ArticlesCount({
+  total_count,
+  analyzed_count,
+  layout = 'horizontal',
+}: ArticlesCountProps) {
   const scopeRef = useRef(null);
   const totalCountRef = useRef(null);
   const analyzedCountRef = useRef(null);
@@ -18,7 +29,7 @@ const ArticlesCount = ({ total_count, analyzed_count, layout = 'horizontal' }) =
         { opacity: 1, y: 0, duration: 0.3, ease: 'power2.out' }
       );
 
-      const animateNumber = (element, endValue) => {
+      const animateNumber = (element: HTMLElement, endValue: number) => {
         gsap.fromTo(
           element,
           { innerText: 0 },
@@ -38,30 +49,28 @@ const ArticlesCount = ({ total_count, analyzed_count, layout = 'horizontal' }) =
         );
 
         gsap.fromTo(
-          '.articles-count__value',
+          `.${styles.count__value}`,
           { opacity: 0, y: 20 },
           { opacity: 1, y: 0, duration: 0.5, stagger: 0.1, ease: 'power2.out' }
         );
       };
 
-      animateNumber(totalCountRef.current, total_count);
-      animateNumber(analyzedCountRef.current, analyzed_count);
+      animateNumber(totalCountRef.current!, total_count);
+      animateNumber(analyzedCountRef.current!, analyzed_count);
     },
     { scope: scopeRef, dependencies: [total_count, analyzed_count] }
   );
 
   return (
-    <div className={classNames('articles-count', `articles-count--${layout}`)} ref={scopeRef}>
-      <div className="articles-count__value">
-        <div className="articles-count__label">Scanned</div>
+    <div className={classNames(styles.count, styles[`count--${layout}`])} ref={scopeRef}>
+      <div className={styles.count__value}>
+        <div className={styles.count__label}>Scanned</div>
         <span ref={totalCountRef}>{total_count.toLocaleString()}</span>
       </div>
-      <div className="articles-count__value">
-        <div className="articles-count__label">Analysed</div>
+      <div className={styles.count__value}>
+        <div className={styles.count__label}>Analysed</div>
         <span ref={analyzedCountRef}>{analyzed_count.toLocaleString()}</span>
       </div>
     </div>
   );
-};
-
-export default ArticlesCount;
+}

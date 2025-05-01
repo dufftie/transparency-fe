@@ -2,9 +2,19 @@ import { isNull, isUndefined } from 'lodash';
 import ArticlesCount from '@/components/articles-count';
 import Card from '@/components/card';
 
-const MediaSelectDetail = props => {
-  const { media } = props;
+interface Media {
+  title: string;
+  editors?: Array<{ name: string }>;
+  description: string;
+  analyzed_count: number;
+  total_count: number;
+}
 
+interface MediaSelectDetailProps {
+  media: Media | null | undefined;
+}
+
+const MediaSelectDetail = ({ media }: MediaSelectDetailProps) => {
   if (isUndefined(media)) return null;
 
   if (isNull(media)) {
@@ -24,7 +34,7 @@ const MediaSelectDetail = props => {
     <div className="media-select-detail">
       <div className="media-select-detail__header">
         <p className="media-select-detail__title">{title}</p>
-        {editor && <Card label='Editor-in-Chief' noBorder>{editor.name}</Card>}
+        {editor && <Card label='Editor-in-Chief' noBorder><span>{editor.name}</span></Card>}
         <ArticlesCount analyzed_count={analyzed_count} total_count={total_count} />
       </div>
       <p className="media-select-detail__description">{description}</p>

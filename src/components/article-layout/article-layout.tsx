@@ -23,7 +23,7 @@ export interface MetaItem {
   children: React.ReactNode;
 }
 
-const ArticleLayout = ({ article, media, sentiments }: ArticleLayoutProps) => {
+export default function ArticleLayout({ article, media, sentiments }: ArticleLayoutProps) {
   const [selectedSentiment, setSelectedSentiment] = useState(sentiments[0] || null);
 
   const handleModelChange = (sentiment: typeof selectedSentiment) => {
@@ -78,19 +78,17 @@ const ArticleLayout = ({ article, media, sentiments }: ArticleLayoutProps) => {
       )}
 
       <div className={styles.analysis}>
-        <AnalysisWidget 
-          title="Parties sentiment" 
-          data={partyData} 
-          chart={<ArticlePartySentimentBarchart parties={partyData} />} 
+        <AnalysisWidget
+          title="Parties sentiment"
+          data={partyData}
+          chart={<ArticlePartySentimentBarchart parties={partyData} />}
         />
-        <AnalysisWidget 
-          title="Politicians sentiment" 
-          data={politiciansData} 
-          chart={<PoliticianBarChart politicians={politiciansData} />} 
+        <AnalysisWidget
+          title="Politicians sentiment"
+          data={politiciansData}
+          chart={<PoliticianBarChart politicians={politiciansData} />}
         />
       </div>
     </div>
   );
-};
-
-export default ArticleLayout; 
+}

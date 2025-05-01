@@ -1,7 +1,5 @@
 import React from 'react';
-import { ExportOutlined } from '@ant-design/icons';
-import ArticlesCount from '../articles-count';
-
+import ArticlesCount from '@/components/articles-count';
 interface MediaHeaderProps {
   title: string;
   url: string;

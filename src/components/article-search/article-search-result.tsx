@@ -12,7 +12,7 @@ interface ArticleSearchResultProps {
   article: Article;
 }
 
-const ArticleSearchResult = ({ article }: ArticleSearchResultProps) => {
+export default function ArticleSearchResult({ article }: ArticleSearchResultProps) {
   return (
     <a
       key={article.id}
@@ -23,12 +23,8 @@ const ArticleSearchResult = ({ article }: ArticleSearchResultProps) => {
       <div className={styles.title}>{article.title}</div>
       <div className={styles.meta}>
         <div className={styles.media}>{article.media_title}</div>
-        <div className={styles.date}>
-          {formatDate(article.date_time, 'DD.MM.YYYY')}
-        </div>
+        <div className={styles.date}>{formatDate(article.date_time, 'DD.MM.YYYY')}</div>
       </div>
     </a>
   );
-};
-
-export default ArticleSearchResult;
+}
