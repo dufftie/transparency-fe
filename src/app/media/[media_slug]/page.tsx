@@ -33,11 +33,13 @@ export async function generateMetadata({ params }: {
   }
 }
 
-export default async function MediaDetailPage({ params }: { params: Promise<{ media_slug: string }> }) {
-  const resolvedParams = await params;
+export default async function MediaDetailPage({ params }: { 
+  params: Promise<{ media_slug: string }>;
+}) {
+  const { media_slug } = await params;
 
   try {
-    const response = await getMediaData(resolvedParams.media_slug);
+    const response = await getMediaData(media_slug);
 
     if (!response) {
       return <Result 
