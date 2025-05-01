@@ -1,31 +1,29 @@
 import React from 'react';
-import { ArticleData, MediaData } from '@/src/types/article';
-import Hint from '@/src/components/hint';
-import { formatDate } from '@/lib/utils/helpers';
+// import { ArticleData, MediaData } from '@/src/types/article';
+// import Hint from '@/src/components/hint';
+// import { formatDate } from '@/lib/utils/helpers';
 
-const titlePrompt = (
-  <pre>
-    Оцени объективность *заголовка* статьи по шкале от 0 до 10 (0 - крайне предвзятый, 10 -
-    абсолютно объективный). Предоставь обоснование. Учитывай, отражает ли заголовок содержание
-    статьи, использует ли он эмоционально окрашенную лексику, преувеличения или искажения.
-  </pre>
-);
+// const titlePrompt = (
+//   <pre>
+//     Оцени объективность *заголовка* статьи по шкале от 0 до 10 (0 - крайне предвзятый, 10 -
+//     абсолютно объективный). Предоставь обоснование. Учитывай, отражает ли заголовок содержание
+//     статьи, использует ли он эмоционально окрашенную лексику, преувеличения или искажения.
+//   </pre>
+// );
 
-const articlePrompt = (
-  <pre>
-    Оцени объективность *всего текста* статьи по шкале от 0 до 10 (0 - крайне предвзятый, 10 -
-    абсолютно объективный). Предоставь обоснование. Учитывай, представлены ли разные точки зрения,
-    используются ли достоверные источники, есть ли признаки манипуляции фактами или мнениями.
-  </pre>
-);
+// const articlePrompt = (
+//   <pre>
+//     Оцени объективность *всего текста* статьи по шкале от 0 до 10 (0 - крайне предвзятый, 10 -
+//     абсолютно объективный). Предоставь обоснование. Учитывай, представлены ли разные точки зрения,
+//     используются ли достоверные источники, есть ли признаки манипуляции фактами или мнениями.
+//   </pre>
+// );
 
 interface ArticleAnalysisProps {
   title_score: number;
   title_explanation: string;
   body_score: number;
   body_explanation: string;
-  media: MediaData;
-  article: ArticleData;
 }
 
 export default function ArticleAnalysis({
@@ -33,69 +31,26 @@ export default function ArticleAnalysis({
   title_explanation,
   body_score,
   body_explanation,
-  media,
-  article,
 }: ArticleAnalysisProps) {
+  // TODO: AI analysis prompt is different for different articles and should come from the backend
+  // Uncomment once backend is ready
+
   return (
-    <div className="analysis-table">
-      <table>
-        <tbody>
-          <tr>
-            <td>
-              <div className='analysis-table__heading'>Publisher</div>
-              <h2>
-                <a href={`/media/${media.slug}`}>
-                  <b>{media.title}</b>
-                </a>
-              </h2>
-            </td>
-
-            {article.authors && (
-              <td>
-                <div className='analysis-table__heading'>Author</div>
-                <h2>
-                  <b>{article.authors}</b>
-                </h2>
-              </td>
-            )}
-          </tr>
-
-          <tr>
-            <td colSpan={2}>
-              <b>Original publish date:</b> {formatDate(article.date_time)}
-            </td>
-          </tr>
-
-          <tr>
-            <td colSpan={2}>
-              <b>Article scanned:</b> {formatDate(article.created_at)}
-            </td>
-          </tr>
-        </tbody>
-      </table>
-
-      <table>
-        <tbody>
-          <tr>
-            <td>
-              <b>
-                Title objectivity: {title_score} / 10{' '}
-                <Hint title="AI prompt" content={titlePrompt} />
-              </b>
-              <p>{title_explanation}</p>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <b>
-                Article objectivity: {body_score} / 10{' '}
-                <Hint title="AI prompt" content={articlePrompt} />
-              </b>
-              <p>{body_explanation}</p>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+    <div className="article-analysis">
+      <div className="article-analysis__item">
+        <b>
+          Title objectivity: {title_score}/10
+          {/* <Hint title="AI prompt" content={titlePrompt} /> */}
+        </b>
+        <p>{title_explanation}</p>
+      </div>
+      <div className="article-analysis__item">
+        <b>
+          Article objectivity: {body_score}/ 10
+          {/* <Hint title="AI prompt" content={articlePrompt} /> */}
+        </b>
+        <p>{body_explanation}</p>
+      </div>
     </div>
   );
 }
