@@ -1,6 +1,6 @@
-@import "../variables";
+@import '@/scss/variables';
 
-.article-search {
+.search {
   display: flex;
   row-gap: 12px;
   column-gap: 100px;
@@ -8,10 +8,10 @@
   font-family: $font-family-display;
   min-height: 50vh;
 
-  &__header {
+  .header {
     flex: 1 1 150px;
 
-    &__inner {
+    .inner {
       position: sticky;
       top: 130px;
       z-index: 1000;
@@ -22,17 +22,17 @@
     }
   }
 
-  &__title {
+  .title {
     font-size: 2rem;
     font-family: $font-family-display;
     font-weight: bold;
   }
 
-  &__content {
+  .content {
     flex: 1 1 100%;
   }
 
-  &__link {
+  .link {
     display: block;
     margin-top: 24px;
     text-align: center;
@@ -40,7 +40,7 @@
     margin-inline: auto;
   }
 
-  &__input {
+  .input {
     position: sticky;
     top: 130px;
     z-index: 1000;
@@ -54,48 +54,10 @@
     }
   }
 
-  &__results {
+  .results {
     display: flex;
     flex-wrap: wrap;
     margin-top: 12px;
     gap: $spacing-sm;
   }
-}
-
-.article-search-result {
-  flex: 1 1 400px;
-
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-content: space-between;
-  gap: $spacing-lg;
-
-  border: 1px solid $border-color-dark;
-  transition: 0.3s;
-  background-color: white;
-  z-index: 100;
-  padding: $spacing-md;
-  cursor: pointer;
-  border-radius: 15px;
-
-  &:hover {
-    transform: scale(1.02) !important;
-    box-shadow: 0 0 10px gray;
-    text-decoration: none !important;
-  }
-
-  &__title {
-    font-family: $font-family-base;
-    font-weight: 600;
-    font-size: 1.25rem;
-  }
-
-  &__meta {
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-    font-size: 14px;
-    color: $text-color-light;
-  }
-}
+} 

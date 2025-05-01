@@ -1,0 +1,39 @@
+@import '@/scss/variables';
+
+.result {
+  flex: 1 1 400px;
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-content: space-between;
+  gap: $spacing-lg;
+
+  border: 1px solid $border-color-dark;
+  transition: 0.3s;
+  background-color: white;
+  z-index: 100;
+  padding: $spacing-md;
+  cursor: pointer;
+  border-radius: 15px;
+
+  &:hover {
+    transform: scale(1.02) !important;
+    box-shadow: 0 0 10px gray;
+    text-decoration: none !important;
+  }
+
+  .title {
+    font-family: $font-family-base;
+    font-weight: 600;
+    font-size: 1.25rem;
+  }
+
+  .meta {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    font-size: 14px;
+    color: $text-color-light;
+  }
+} 

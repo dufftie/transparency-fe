@@ -1,17 +1,29 @@
 import { formatDate } from '@/lib/utils/helpers';
+import styles from './article-search-result.module.scss';
 
-const ArticleSearchResult = ({ article }) => {
+interface Article {
+  id: number;
+  title: string;
+  media_title: string;
+  date_time: string;
+}
+
+interface ArticleSearchResultProps {
+  article: Article;
+}
+
+const ArticleSearchResult = ({ article }: ArticleSearchResultProps) => {
   return (
     <a
       key={article.id}
       id={`article-${article.id}`}
       href={`/articles/${article.id}`}
-      className="article-search-result"
+      className={styles.result}
     >
-      <div className="article-search-result__title">{article.title}</div>
-      <div className="article-search-result__meta">
-        <div className="article-search-result__media">{article.media_title}</div>
-        <div className="article-search-result__date">
+      <div className={styles.title}>{article.title}</div>
+      <div className={styles.meta}>
+        <div className={styles.media}>{article.media_title}</div>
+        <div className={styles.date}>
           {formatDate(article.date_time, 'DD.MM.YYYY')}
         </div>
       </div>

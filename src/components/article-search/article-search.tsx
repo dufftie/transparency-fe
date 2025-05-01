@@ -10,25 +10,45 @@ import classNames from 'classnames';
 import ArticlesCount from '@/components/articles-count';
 import { isEmpty } from 'lodash';
 import ArticleSearchResult from '@/components/article-search/article-search-result';
+import styles from './article-search.module.scss';
 
 const { Search } = Input;
 gsap.registerPlugin(ScrollTrigger);
 
-const ArticleSearch = ({ total_articles, total_sentiments, defaultValue, limit = 20, isWidget = false }) => {
+interface Article {
+  id: number;
+  title: string;
+  media_title: string;
+  date_time: string;
+}
+
+interface SearchResponse {
+  articles: Article[];
+}
+
+interface ArticleSearchProps {
+  total_articles: number;
+  total_sentiments: number;
+  defaultValue?: string;
+  limit?: number;
+  isWidget?: boolean;
+}
+
+const ArticleSearch = ({ total_articles, total_sentiments, defaultValue, limit = 20, isWidget = false }: ArticleSearchProps) => {
   const [searchValue, setSearchValue] = useState(defaultValue);
   const [isLoading, setIsLoading] = useState(false);
-  const [articles, setArticles] = useState([]);
+  const [articles, setArticles] = useState<Article[]>([]);
   const scopeRef = useRef(null);
 
   const requestArticles = useCallback(
-    debounce(async value => {
+    debounce(async (value: string) => {
       setIsLoading(true);
       if (!value || value?.length < 3) {
         setArticles([]);
         setIsLoading(false);
         return;
       }
-      const { articles } = await fetchData('/articles/search', { value, limit });
+      const { articles } = await fetchData<SearchResponse>('/articles/search', { value, limit: limit.toString() });
       setArticles(articles);
       setIsLoading(false);
     }, 300),
@@ -36,7 +56,7 @@ const ArticleSearch = ({ total_articles, total_sentiments, defaultValue, limit =
   );
 
   useEffect(() => {
-    requestArticles(searchValue);
+    requestArticles(searchValue || '');
   }, [searchValue, requestArticles]);
 
   useEffect(() => {
@@ -65,32 +85,31 @@ const ArticleSearch = ({ total_articles, total_sentiments, defaultValue, limit =
   }, [articles]);
 
   return (
-    <div className="article-search">
-      <div className="article-search__header">
-        <div className="article-search__header__inner">
-          <div className="article-search__title">Articles</div>
+    <div className={styles.search}>
+      <div className={styles.header}>
+        <div className={styles.inner}>
+          <div className={styles.title}>Articles</div>
           <ArticlesCount total_count={total_articles} analyzed_count={total_sentiments} layout='vertical' />
         </div>
       </div>
-      <div className="article-search__content">
+      <div className={styles.content}>
         <Search
           defaultValue={searchValue}
-          rootClassName={classNames('article-search__input', {
-            'article-search__input--focused': searchValue,
+          rootClassName={classNames(styles.input, {
+            [styles['input--focused']]: searchValue,
           })}
           placeholder="Search for title"
           onChange={e => setSearchValue(e.target.value)}
           size="large"
           loading={isLoading}
-
         />
-        <div className="article-search__results" ref={scopeRef}>
+        <div className={styles.results} ref={scopeRef}>
           {articles.map(article => (
             <ArticleSearchResult key={article.id} article={article} />
           ))}
         </div>
         {(!isEmpty(articles) && isWidget) && (
-          <a href={`/articles?search=${searchValue}`} className="article-search__link">
+          <a href={`/articles?search=${searchValue}`} className={styles.link}>
             Open articles
           </a>
         )}
