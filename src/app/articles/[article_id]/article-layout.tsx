@@ -5,11 +5,11 @@ import { ArticleData, MediaData, SentimentData } from '@/src/types/article';
 import ArticleHeader from '@/src/components/article-detail/article-header';
 import ArticleAnalysis from '@/src/components/article-detail/article-analysis';
 import ModelSelect from '@/src/components/model-select';
-import AnalysisWidget from '@/src/components/analysis-widget';
 import { Descriptions } from 'antd';
 import { formatDate } from '@/src/lib/utils/helpers';
 import ArticlePartySentimentBarchart from '@/src/components/graphs/article-party-sentiment-barchart';
 import PoliticianBarChart from '@/src/components/graphs/politician-bar-chart';
+import AnalysisWidget from '@/src/components/analysis-widget';
 
 interface ArticleLayoutProps {
   article: ArticleData;
@@ -21,7 +21,6 @@ const ArticleLayout = ({ article, media, sentiments }: ArticleLayoutProps): JSX.
   console.log({ article, media, sentiments });
   const [selectedSentiment, setSelectedSentiment] = useState<SentimentData>(sentiments[0] || null);
 
-  // Handle model selection change
   const handleModelChange = (sentiment: SentimentData) => {
     setSelectedSentiment(sentiment);
   };
@@ -32,7 +31,6 @@ const ArticleLayout = ({ article, media, sentiments }: ArticleLayoutProps): JSX.
 
   console.log({ partyData, politiciansData, articleSentiment });
 
-  // Create a list of metadata items for the Descriptions component
   const metaItems = [
     { label: 'Author', children: article.authors },
     {
@@ -74,12 +72,12 @@ const ArticleLayout = ({ article, media, sentiments }: ArticleLayoutProps): JSX.
 
       <div className="article-layout__analysis">
         <AnalysisWidget 
-          title="Parties" 
+          title="Parties sentiment" 
           data={partyData} 
           chart={<ArticlePartySentimentBarchart parties={partyData} />} 
         />
         <AnalysisWidget 
-          title="Politicians" 
+          title="Politicians sentiment" 
           data={politiciansData} 
           chart={<PoliticianBarChart politicians={politiciansData} />} 
         />

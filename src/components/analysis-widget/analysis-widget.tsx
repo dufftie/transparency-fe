@@ -1,6 +1,7 @@
 import React from 'react';
 import map from 'lodash/map';
 import { Collapse, Empty } from 'antd';
+import styles from './analysis-widget.module.scss';
 
 interface AnalysisDataProps {
   name: string;
@@ -14,7 +15,7 @@ interface AnalysisTableProps {
   chart: React.ReactNode;
 }
 
-const AnalysisTable = (props: AnalysisTableProps) => {
+const AnalysisWidget = (props: AnalysisTableProps) => {
   const { data, title, chart } = props;
 
   const isEmpty = !data || data.length === 0;
@@ -24,23 +25,22 @@ const AnalysisTable = (props: AnalysisTableProps) => {
       key: 'explanation',
       label: 'Explanation',
       children: (
-        <table>
-          <tbody>
-            {map(data, item => (
-              <tr key={item.name}>
-                <td className="analysis-table__cell">{item.name}</td>
-                <td className="analysis-table__cell">{item.explanation}</td>
-                <td className="analysis-table__cell">{item.score}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <div className={styles.explanations}>
+          {map(data, explanation => (
+            <div className={styles.explanation} key={explanation.name}>
+              <b className={styles.name}>
+                {explanation.name} – {explanation.score}
+              </b>
+              <div className={styles.cell}>{explanation.explanation}</div>
+            </div>
+          ))}
+        </div>
       ),
     },
   ];
 
   return (
-    <div className="analysis-widget">
+    <div className={styles.wrapper}>
       <h3>{title}</h3>
       {!isEmpty ? chart : <Empty description="No data found" />}
       {!isEmpty && <Collapse items={collapseItems} bordered={false} />}
@@ -48,4 +48,4 @@ const AnalysisTable = (props: AnalysisTableProps) => {
   );
 };
 
-export default AnalysisTable;
+export default AnalysisWidget;

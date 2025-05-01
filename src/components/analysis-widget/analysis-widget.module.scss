@@ -1,0 +1,30 @@
+@import '@/scss/variables';
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xxl;
+
+  .content {
+    display: flex;
+    gap: $spacing-xxl;
+    
+  }
+
+  .explanations {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-xxl;
+    padding: $spacing-md;
+  }
+
+  .explanation {
+    display: flex;
+    flex-direction: column;
+    font-family: $font-family-display;
+
+    b {
+      padding-bottom: $spacing-sm;
+    }
+  }
+} 
