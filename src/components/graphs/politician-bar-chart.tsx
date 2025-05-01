@@ -5,13 +5,11 @@ import {
   Bar,
   XAxis,
   YAxis,
-  Tooltip,
   CartesianGrid,
   Cell,
   ResponsiveContainer,
   LabelList,
 } from 'recharts';
-import useIsMobile from '@/src/lib/hooks/isMobile';
 
 interface PoliticianSentimentData {
   name: string;

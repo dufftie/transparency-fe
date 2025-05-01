@@ -4,7 +4,7 @@ import { JSX, useRef, useState } from 'react';
 import { useGSAP } from '@gsap/react';
 import { gsap } from 'gsap';
 import MediaSelectOption from '@/components/media-select/media-select-option';
-import { groupBy, indexOf, isNull, sortBy } from 'lodash';
+import { groupBy, indexOf, sortBy } from 'lodash';
 import map from 'lodash/map';
 import MediaSelectDetail from '@/components/media-select/media-select-detail';
 import classNames from 'classnames';

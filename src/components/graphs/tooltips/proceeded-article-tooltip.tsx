@@ -9,7 +9,7 @@ interface ProceededArticleData {
   articles_count: number;
 }
 
-const ProceededArticleTooltip = ({ active, payload, label }: TooltipProps<any, any>) => {
+const ProceededArticleTooltip = ({ active, payload }: TooltipProps<any, any>) => {
   if (!active || !payload || payload.length === 0) {
     return null;
   }

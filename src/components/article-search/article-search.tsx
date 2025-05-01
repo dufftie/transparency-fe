@@ -1,13 +1,13 @@
 'use client';
 
 import { Input } from 'antd';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { fetchData } from '@/lib/services/api';
 import debounce from 'lodash/debounce';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import classNames from 'classnames';
-import ArticlesCount from '@/components/articles-count/index';
+import ArticlesCount from '@/components/articles-count';
 import { isEmpty } from 'lodash';
 import ArticleSearchResult from '@/components/article-search/article-search-result';
 import styles from './article-search.module.scss';
@@ -46,23 +46,20 @@ export default function ArticleSearch({
   const [articles, setArticles] = useState<Article[]>([]);
   const scopeRef = useRef(null);
 
-  const requestArticles = useCallback(
-    debounce(async (value: string) => {
-      setIsLoading(true);
-      if (!value || value?.length < 3) {
-        setArticles([]);
-        setIsLoading(false);
-        return;
-      }
-      const { articles } = await fetchData<SearchResponse>('/articles/search', {
-        value,
-        limit: limit.toString(),
-      });
-      setArticles(articles);
+  const requestArticles = debounce(async (value: string) => {
+    setIsLoading(true);
+    if (!value || value?.length < 3) {
+      setArticles([]);
       setIsLoading(false);
-    }, 300),
-    []
-  );
+      return;
+    }
+    const { articles } = await fetchData<SearchResponse>('/articles/search', {
+      value,
+      limit: limit.toString(),
+    });
+    setArticles(articles);
+    setIsLoading(false);
+  }, 300);
 
   useEffect(() => {
     requestArticles(searchValue || '');

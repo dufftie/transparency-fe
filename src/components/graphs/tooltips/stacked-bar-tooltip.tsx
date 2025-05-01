@@ -11,7 +11,7 @@ interface StackedBarData {
   color?: string;
 }
 
-const StackedBarTooltip = ({ active, payload, label }: TooltipProps<any, any>) => {
+const StackedBarTooltip = ({ active, payload }: TooltipProps<any, any>) => {
   if (!active || !payload || payload.length === 0) {
     return null;
   }

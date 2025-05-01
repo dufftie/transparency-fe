@@ -92,7 +92,7 @@ const SimpleBarChart = ({ media_id }: SimpleBarChartProps) => {
 
   return (
     <BaseGraph graphName="simple-bar-chart" fetchUrl={fetchUrl} processData={processData}>
-      {(data, loading) => {
+      {(data) => {
         return (
           <BarChart
             data={data}

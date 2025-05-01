@@ -1,4 +1,4 @@
-import { ScatterChart, Scatter, XAxis, YAxis, Tooltip, CartesianGrid, Legend, Dot } from 'recharts';
+import { ScatterChart, Scatter, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts';
 import dayjs from 'dayjs';
 import isSameOrAfter from 'dayjs/plugin/isSameOrAfter';
 import isSameOrBefore from 'dayjs/plugin/isSameOrBefore';
@@ -121,7 +121,7 @@ const PartyScatterPlotGraph = ({ media_id, party }: PartyScatterPlotGraphProps) 
 
   return (
     <BaseGraph graphName="party-scatter-plot-graph" fetchUrl={fetchUrl} processData={processData}>
-      {(data, loading) => {
+      {(data) => {
         // Filter data to domain range
         const filteredData = filterDataToDomainRange(data);
 

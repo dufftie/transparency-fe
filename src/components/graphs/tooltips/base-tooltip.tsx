@@ -8,12 +8,10 @@ interface BaseTooltipProps {
 }
 
 const BaseTooltip = ({ fetchUrl, processData, children }: BaseTooltipProps) => {
-  const { data, loading } = useDataFetching({
+  const { data } = useDataFetching({
     fetchUrl,
     processData,
   });
-
-  // if (loading) return <>LOADING</>
 
   return (
     <div className='tooltip'>

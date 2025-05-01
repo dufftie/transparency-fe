@@ -67,7 +67,6 @@ export default function RangeDateSelectCard() {
   const {
     requestDateRange,
     setRequestDateRange,
-    domainDateRange,
     setDomainDateRange,
     sliderValue,
     setSliderValue,

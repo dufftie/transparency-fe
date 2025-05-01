@@ -13,7 +13,7 @@ interface PartyAreaData {
   total_count: number;
 }
 
-const PartyAreaTooltip = ({ active, payload, label }: TooltipProps<any, any>) => {
+const PartyAreaTooltip = ({ active, payload }: TooltipProps<any, any>) => {
   if (!active || !payload || payload.length === 0) {
     return null;
   }

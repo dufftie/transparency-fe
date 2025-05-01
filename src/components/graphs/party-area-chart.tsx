@@ -4,7 +4,7 @@ import { Area, AreaChart, CartesianGrid, Tooltip, XAxis, YAxis } from 'recharts'
 import dayjs from 'dayjs';
 import isSameOrAfter from 'dayjs/plugin/isSameOrAfter';
 import isSameOrBefore from 'dayjs/plugin/isSameOrBefore';
-import BaseGraph, { BaseGraphProps } from '@/src/components/graphs/base-graph';
+import BaseGraph from '@/src/components/graphs/base-graph';
 import round from 'lodash/round';
 import { useDateRange } from '@/src/contexts/date-range-context';
 import { useState, useCallback } from 'react';
@@ -48,6 +48,7 @@ const PartyAreaChart = ({
   positiveThreshold = 7, // Default: scores >= 7 are positive
   negativeThreshold = 3, // Default: scores <= 3 are negative
 }: PartyAreaChartProps) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [visibleSentiments, setVisibleSentiments] = useState<string[]>([
     'positive',
     'neutral',
@@ -92,15 +93,6 @@ const PartyAreaChart = ({
       endTimestamp,
     ];
   }, []);
-
-  const handleSentimentToggle = (sentiment: string) => {
-    setVisibleSentiments(prev => {
-      if (prev.includes(sentiment)) {
-        return prev.filter(s => s !== sentiment);
-      }
-      return [...prev, sentiment];
-    });
-  };
 
   const processData = (data: any[]) => {
     return data.map(item => {
@@ -151,7 +143,7 @@ const PartyAreaChart = ({
 
   return (
     <BaseGraph graphName="stacked-bar-chart" fetchUrl={fetchUrl} processData={processData}>
-      {(data, loading) => {
+      {(data) => {
         // Calculate domain for even distribution
         const [domainStart, domainEnd] = formattedDomainDateRange;
         const startTimestamp = dayjs(domainStart).valueOf();

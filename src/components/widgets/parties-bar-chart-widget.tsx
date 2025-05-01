@@ -12,15 +12,12 @@ interface PartiesMonthlySentimentsBarchartProps {
 }
 
 const PartiesMonthlySentimentsBarchart = ({ media_id }: PartiesMonthlySentimentsBarchartProps) => {
-  // State for sorting and party filtering
-  const [sortBy, setSortBy] = useState<'name' | 'total' | 'positive' | 'negative'>('total'); // Default sort by name
-  const [selectedParties, setSelectedParties] = useState<string[]>(
-    map(partiesList, party => party.value)
-  );
-  
   // State for sentiment visibility
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [visibleSentiments, setVisibleSentiments] = useState<string[]>([
-    'positive', 'neutral', 'negative'
+    'positive',
+    'neutral',
+    'negative',
   ]);
 
   return (
@@ -31,10 +28,9 @@ const PartiesMonthlySentimentsBarchart = ({ media_id }: PartiesMonthlySentiments
       >
         <StackedBarChart
           media_id={media_id}
-          showNames={selectedParties}
+          showNames={map(partiesList, party => party.value)}
           positiveThreshold={7}
           negativeThreshold={3}
-          sortBy={sortBy}
           visibleSentiments={visibleSentiments}
           dataType="parties"
         />

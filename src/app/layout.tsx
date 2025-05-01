@@ -2,7 +2,7 @@ import type React from 'react';
 import type { Metadata } from 'next';
 import '@/src/scss/main.scss';
 import classNames from 'classnames';
-import { Mulish, Tektur, IBM_Plex_Mono, Montserrat } from 'next/font/google';
+import { Mulish, IBM_Plex_Mono, Montserrat } from 'next/font/google';
 import MainLayout from '@/components/layouts/main-layout/main-layout';
 
 const mulish = Mulish({

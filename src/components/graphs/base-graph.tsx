@@ -5,7 +5,6 @@ import { ResponsiveContainer } from 'recharts';
 import { Spin } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
 import { useDataFetching } from '@/src/lib/utils/data-fetching';
-import { useEffect, useState } from 'react';
 
 export interface BaseGraphProps {
   graphName?: string;
@@ -16,7 +15,7 @@ export interface BaseGraphProps {
 }
 
 const BaseGraph = ({ fetchUrl, processData, children, graphName }: BaseGraphProps) => {
-  const { data, loading, showSpinner, loadData } = useDataFetching({
+  const { data, loading, showSpinner } = useDataFetching({
     fetchUrl,
     processData,
   });

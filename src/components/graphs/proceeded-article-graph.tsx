@@ -1,6 +1,6 @@
 'use client';
 
-import { BarChart, Bar, XAxis, YAxis, Tooltip } from 'recharts';
+import { BarChart, Bar, XAxis, Tooltip } from 'recharts';
 import dayjs from 'dayjs';
 import isSameOrAfter from 'dayjs/plugin/isSameOrAfter';
 import isSameOrBefore from 'dayjs/plugin/isSameOrBefore';
@@ -89,7 +89,7 @@ const ProceededArticlesGraph = ({ media_id }: ProceededArticlesGraphProps) => {
 
   return (
     <BaseGraph graphName="proceed-article-graph" fetchUrl={fetchUrl} processData={processData}>
-      {(data, loading) => {
+      {(data) => {
         // Filter data to domain range
         const filteredData = filterDataToDomainRange(data);
         

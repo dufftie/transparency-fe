@@ -5,13 +5,11 @@ import {
   Bar,
   XAxis,
   YAxis,
-  Tooltip,
   CartesianGrid,
   Cell,
   ResponsiveContainer, LabelList,
 } from 'recharts';
 import partiesList from '@/src/lib/dictionaries/partiesList';
-import useIsMobile from '@/src/lib/hooks/isMobile';
 
 interface ArticlePartySentimentData {
   name: string;

@@ -112,7 +112,7 @@ const StackedBarChart = ({
 
   return (
     <BaseGraph graphName="stacked-bar-chart" fetchUrl={fetchUrl} processData={processData}>
-      {(data, loading) => {
+      {(data) => {
         // Calculate max value for YAxis domain based on visible sentiments
         const maxTotal = Math.max(
           ...data.map(item => {
