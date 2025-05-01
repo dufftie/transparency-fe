@@ -3,14 +3,14 @@
 import React, { useState } from 'react';
 import { Descriptions } from 'antd';
 import { formatDate } from '@/src/lib/utils/helpers';
-import ArticleHeader from '@/src/components/article-detail/article-header';
-import ArticleAnalysis from '@/src/components/article-detail/article-analysis';
 import ArticlePartySentimentBarchart from '@/src/components/graphs/article-party-sentiment-barchart';
 import PoliticianBarChart from '@/src/components/graphs/politician-bar-chart';
 import AnalysisWidget from '@/src/components/analysis-widget';
 import ModelSelect from '@/src/components/model-select';
 import styles from './article-layout.module.scss';
 import { ArticleData, MediaData, SentimentData } from '@/src/types/article';
+import ArticleHeader from '../article-header';
+import ArticleAnalysis from '../article-analysis';
 
 export interface ArticleLayoutProps {
   article: ArticleData;
