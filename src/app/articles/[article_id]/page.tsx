@@ -13,13 +13,13 @@ const getArticleData = cache(async (article_id: string) => {
   }>(`/articles/${article_id}`, undefined, { next: { revalidate: 3600 } });
 });
 
-export async function generateMetadata(props: {
-  params: { article_id: string };
+export async function generateMetadata({ params }: {
+  params: Promise<{ article_id: string }>;
 }): Promise<Metadata> {
-  const { article_id } = props.params;
-
+  const resolvedParams = await params;
+  
   try {
-    const { article } = await getArticleData(article_id);
+    const { article } = await getArticleData(resolvedParams.article_id);
     if (!article) return {};
 
     return {
@@ -31,8 +31,10 @@ export async function generateMetadata(props: {
   }
 }
 
-export default async function ArticleDetailPage({ params }: { params: { article_id: string } }) {
-  const { article_id } = params;
+export default async function ArticleDetailPage({ params }: { 
+  params: Promise<{ article_id: string }>;
+}) {
+  const { article_id } = await params;
 
   try {
     const { article, sentiments, media } = await getArticleData(article_id);
