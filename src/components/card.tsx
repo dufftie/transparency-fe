@@ -5,16 +5,16 @@ interface CardProps {
   label?: string;
   children: JSX.Element;
   primary?: boolean;
-  noBorder?: boolean;
+  borderless?: boolean;
   hint?: string;
   className?: string;
 }
 
-const Card = ({ label, children, primary, noBorder, hint, className }: CardProps) => {
+const Card = ({ label, children, primary, borderless, hint, className }: CardProps) => {
   return (
     <div className={classNames('card', className, {
       'card--primary': primary,
-      'card--no-border': noBorder,
+      'card--borderless': borderless,
     })}>
       <div className='card__header'>
         {label && <div className='card__label'>{label}</div>}
