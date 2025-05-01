@@ -24,13 +24,23 @@
 
 .ant-descriptions-item {
   &-label {
-    color: var(--ant-heading-color) !important;
+    color: $text-color-secondary !important;
     padding-bottom: 0;
+    font-size: 16px !important;
   }
 
   &-content {
-    color: $text-color-light !important;
-    margin-bottom: $spacing-sm;
+    color: $text-color !important;
+    font-size: 16px !important;
+    
+    a {
+      text-decoration: none;
+      transition: $transition-standard;
+      
+      &:hover {
+        text-decoration: underline;
+      }
+    }
   }
 }
 

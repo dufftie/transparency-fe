@@ -5,7 +5,11 @@ import { ArticleData, MediaData, SentimentData } from '@/src/types/article';
 import ArticleHeader from '@/src/components/article-detail/article-header';
 import ArticleAnalysis from '@/src/components/article-detail/article-analysis';
 import ModelSelect from '@/src/components/model-select';
-import AnalysisTable from '@/src/components/analysis-table';
+import AnalysisWidget from '@/src/components/analysis-widget';
+import { Descriptions } from 'antd';
+import { formatDate } from '@/src/lib/utils/helpers';
+import ArticlePartySentimentBarchart from '@/src/components/graphs/article-party-sentiment-barchart';
+import PoliticianBarChart from '@/src/components/graphs/politician-bar-chart';
 
 interface ArticleLayoutProps {
   article: ArticleData;
@@ -26,37 +30,59 @@ const ArticleLayout = ({ article, media, sentiments }: ArticleLayoutProps): JSX.
   const politiciansData = selectedSentiment.sentiment.politicians || [];
   const articleSentiment = selectedSentiment.sentiment.article;
 
+  console.log({ partyData, politiciansData, articleSentiment });
+
+  // Create a list of metadata items for the Descriptions component
+  const metaItems = [
+    { label: 'Author', children: article.authors },
+    {
+      label: 'Publisher',
+      children: (
+        <a href={`/media/${media.slug}`} target="_blank" rel="noopener noreferrer">
+          {media.title}
+        </a>
+      ),
+    },
+    { label: 'Category', children: article.category },
+    { label: 'Published at', children: formatDate(article.date_time) },
+    { label: 'Scanned at', children: formatDate(article.created_at) },
+  ];
+
   return (
-    <div className="article-detail-page">
-      <div className="article-detail-page__details">
-        <ArticleHeader
-          title={article.title}
-          url={article.url}
-          category={article.category}
-          date={article.date_time}
-          authors={article.authors}
-          media={media}
-        />
+    <div className="article-layout">
+      <div className="article-layout__header">
+        <ArticleHeader article={article} />
+
+        <div className="article-layout__meta">
+          <Descriptions column={1} items={metaItems} />
+          <ModelSelect
+            sentiments={sentiments}
+            selectedSentiment={selectedSentiment}
+            onModelChange={handleModelChange}
+          />
+        </div>
       </div>
-      <div className="article-detail-page__analysis">
-        <ModelSelect
-          sentiments={sentiments}
-          selectedSentiment={selectedSentiment}
-          onModelChange={handleModelChange}
-        />
+
+      <div className="article-layout__analysis">
         <ArticleAnalysis
           title_score={articleSentiment.title_score}
           title_explanation={articleSentiment.title_explanation}
           body_score={articleSentiment.body_score}
           body_explanation={articleSentiment.body_explanation}
-          media={media}
-          article={article}
         />
-        {/* <AnalysisTable
-          partyData={partyData}
-          politiciansData={politiciansData}
-          article={article}
-        /> */}
+      </div>
+
+      <div className="article-layout__analysis">
+        <AnalysisWidget 
+          title="Parties" 
+          data={partyData} 
+          chart={<ArticlePartySentimentBarchart parties={partyData} />} 
+        />
+        <AnalysisWidget 
+          title="Politicians" 
+          data={politiciansData} 
+          chart={<PoliticianBarChart politicians={politiciansData} />} 
+        />
       </div>
     </div>
   );

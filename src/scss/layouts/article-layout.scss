@@ -1,0 +1,44 @@
+@import '../variables';
+
+.article-layout {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-layout;
+
+  &__header {
+    display: flex;
+    gap: $spacing-layout;
+  }
+
+  .article-header {
+    flex: 1 1 700px;
+    max-width: 700px;
+  }
+
+  &__meta {
+    flex: 1 1 300px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: $spacing-xxl;
+  }
+
+  &__analysis {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-layout;
+  }
+}
+
+.article-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+}
+
+.article-error {
+  padding: $spacing-lg;
+  max-width: 800px;
+  margin: $spacing-lg auto;
+}

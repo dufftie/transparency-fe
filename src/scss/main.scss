@@ -1,7 +1,7 @@
 @import 'components/graphs';
 @import 'components/dashboard';
-@import 'components/analysis-table';
-@import 'components/article-detail';
+@import 'components/article-analysis';
+@import 'components/article-header';
 @import 'components/article-preview';
 @import 'components/article-search';
 @import 'components/articles-count';
@@ -19,6 +19,7 @@
 @import 'components/tooltips/party-area-tooltip';
 @import 'components/tooltips/proceeded-article-tooltip';
 
+@import 'layouts/article-layout';
 @import 'layouts/landing-layout';
 @import 'layouts/medias-layout';
 @import 'layouts/media-layout';

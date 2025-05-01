@@ -2,7 +2,7 @@ import { Select } from 'antd';
 import React from 'react';
 import map from 'lodash/map';
 import { SentimentData } from '@/src/types/article';
-import dayjs from 'dayjs';
+import { formatDate } from '@/src/lib/utils/helpers';
 
 interface ModelSelectProps {
   selectedSentiment: SentimentData;
@@ -13,7 +13,6 @@ interface ModelSelectProps {
 const ModelSelect = (props: ModelSelectProps) => {
   const { selectedSentiment, sentiments, onModelChange } = props;
 
-  console.log({ selectedSentiment });
   const sentimentOptions = map(sentiments, sentiment => ({
     label: sentiment.model,
     value: sentiment.id,
@@ -40,7 +39,7 @@ const ModelSelect = (props: ModelSelectProps) => {
         />
       </span>
       <span className="model-select__date">
-        Analysed on – {dayjs(selectedSentiment.analysed_at).format('DD MMMM YYYY, HH:mm:ss')}
+        Analysed on – {formatDate(selectedSentiment.analysed_at)}
       </span>
     </div>
   );

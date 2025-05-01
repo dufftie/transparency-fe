@@ -1,23 +1,20 @@
 import React from 'react';
-import { ExportOutlined } from '@ant-design/icons';
 import ArticlePreview from '@/src/components/article-preview';
+import { ArticleData } from '@/src/types/article';
 
 interface ArticleHeaderProps {
-  title: string;
-  url: string;
-  preview_url: string;
+  article: ArticleData;
 }
 
-export default function ArticleHeader({ title, url, preview_url }: ArticleHeaderProps) {
+export default function ArticleHeader({ article }: ArticleHeaderProps) {
+  const { title, url, preview_url } = article;
+
   return (
-    <div className="article-header">
-      <a href={url} target="_blank" rel="noopener noreferrer">
-        <article className="article-header__article">
-          <ExportOutlined className="article-header__link-icon" />
-          <span className="article-header__title">{title}</span>
-          <ArticlePreview preview_url={preview_url} className="article-header__image" />
-        </article>
-      </a>
-    </div>
+    <a href={url} target="_blank" rel="noopener noreferrer" className="article-header">
+      <article className="article-header__article">
+        <span className="article-header__title">{title}</span>
+        <ArticlePreview preview_url={preview_url} className="article-header__image" />
+      </article>
+    </a>
   );
 }

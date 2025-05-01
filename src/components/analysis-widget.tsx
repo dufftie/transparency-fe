@@ -1,7 +1,5 @@
 import React from 'react';
 import map from 'lodash/map';
-import ArticlePartySentimentBarchart from '@/src/components/graphs/article-party-sentiment-barchart';
-import PoliticianBarChart from '@/src/components/graphs/politician-bar-chart';
 import { Collapse, Empty } from 'antd';
 
 interface AnalysisDataProps {
@@ -13,10 +11,11 @@ interface AnalysisDataProps {
 interface AnalysisTableProps {
   title: string;
   data: AnalysisDataProps[];
+  chart: React.ReactNode;
 }
 
 const AnalysisTable = (props: AnalysisTableProps) => {
-  const { data, title } = props;
+  const { data, title, chart } = props;
 
   const isEmpty = !data || data.length === 0;
 
@@ -40,23 +39,10 @@ const AnalysisTable = (props: AnalysisTableProps) => {
     },
   ];
 
-  const renderChart = () => {
-    if (title === 'Politicians') {
-      return <PoliticianBarChart politicians={data} />;
-    }
-    return <ArticlePartySentimentBarchart parties={data} />;
-  };
-
   return (
-    <div className="analysis-table">
-      <div style={{ display: 'grid', gap: 30 }}>
-        <h2>{title}</h2>
-        {!isEmpty ? (
-          renderChart()
-        ) : (
-          <p className="analysis-table__note">No {title} found in the article</p>
-        )}
-      </div>
+    <div className="analysis-widget">
+      <h3>{title}</h3>
+      {!isEmpty ? chart : <Empty description="No data found" />}
       {!isEmpty && <Collapse items={collapseItems} bordered={false} />}
     </div>
   );

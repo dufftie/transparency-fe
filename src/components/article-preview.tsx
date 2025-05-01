@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Empty, Spin } from 'antd';
+import { LoadingOutlined } from '@ant-design/icons';
 import classNames from 'classnames';
 
 interface ArticlePreviewProps {
@@ -8,11 +9,15 @@ interface ArticlePreviewProps {
 }
 
 const ArticlePreview = ({ preview_url, className }: ArticlePreviewProps) => {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+  const prevUrlRef = useRef<string | null>(null);
   
-  // Reset loading state when preview_url changes
   useEffect(() => {
-    setIsLoading(true);
+    // Only set loading to true if preview_url has actually changed
+    if (prevUrlRef.current !== null && prevUrlRef.current !== preview_url) {
+      setIsLoading(true);
+    }
+    prevUrlRef.current = preview_url;
   }, [preview_url]);
   
   if (!preview_url) return <Empty description={false} />;
@@ -21,7 +26,7 @@ const ArticlePreview = ({ preview_url, className }: ArticlePreviewProps) => {
     <div className="article-preview-container">
       {isLoading && (
         <div className="article-preview-loading">
-          <Spin />
+          <Spin indicator={<LoadingOutlined style={{ fontSize: 48 }} spin />} />
         </div>
       )}
       <img 
@@ -34,7 +39,7 @@ const ArticlePreview = ({ preview_url, className }: ArticlePreviewProps) => {
           }
         )} 
         src={preview_url} 
-        alt='article preview image' 
+        alt='article preview image'
         onLoad={() => setIsLoading(false)}
         onError={() => setIsLoading(false)}
       />
