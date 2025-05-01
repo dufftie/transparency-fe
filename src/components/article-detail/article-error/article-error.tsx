@@ -1,13 +1,14 @@
 import React from 'react';
 import { Alert } from 'antd';
+import styles from './article-error.module.scss';
 
 interface ArticleErrorProps {
   message: string;
 }
 
-const ArticleError = ({ message }: ArticleErrorProps) => {
+export const ArticleError = ({ message }: ArticleErrorProps) => {
   return (
-    <div className="article-error">
+    <div className={styles.error}>
       <Alert
         message="Error"
         description={message}
