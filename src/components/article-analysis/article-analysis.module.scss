@@ -1,4 +1,5 @@
 @import '@/scss/variables';
+@import '../hint/hint.module.scss';
 
 .analysis {
   display: flex;
@@ -12,10 +13,8 @@
     gap: $spacing-sm;
     flex: 1 1;
 
-    :global {
-      .hint {
-        margin-left: $spacing-sm;
-      }
+    .hint {
+      margin-left: $spacing-sm;
     }
 
     p {
