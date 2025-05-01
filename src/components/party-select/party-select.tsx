@@ -1,5 +1,6 @@
 import { Radio } from 'antd';
 import partiesList from '@/lib/dictionaries/partiesList';
+import styles from './party-select.module.scss';
 
 interface PartySelectProps {
   value?: string;
@@ -11,7 +12,7 @@ export default function PartySelect({ value, onChange }: PartySelectProps) {
     <Radio.Group
       value={value}
       onChange={(e) => onChange?.(e.target.value)}
-      rootClassName='party-select'
+      rootClassName={styles.select}
       size='large'
     >
       {partiesList.map((party) => (
