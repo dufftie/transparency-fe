@@ -1,0 +1,41 @@
+@import '@/scss/variables';
+
+.select {
+  display: flex;
+  flex-direction: column;
+  color: $text-color-secondary;
+  font-size: 16px;
+  font-family: $font-family-display;
+
+  .input {
+    display: flex;
+    align-items: center;
+    gap: $spacing-sm;
+  }
+
+  .date {
+    font-size: 12px;
+  }
+
+  :global {
+    .ant-select {
+      &-selector {
+        border: none !important;
+        background-color: transparent !important;
+        padding: 0 !important;
+      }
+
+      &-selection-item {
+        font-size: 16px;
+        color: $text-color-secondary;
+        font-family: $font-family-display;
+        padding: 0 !important;
+      }
+
+      &-selection-placeholder {
+        color: $text-color-secondary;
+        font-family: $font-family-display;
+      }
+    }
+  }
+}

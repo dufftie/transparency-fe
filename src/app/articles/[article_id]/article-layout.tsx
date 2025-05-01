@@ -4,12 +4,12 @@ import React, { JSX, useState } from 'react';
 import { ArticleData, MediaData, SentimentData } from '@/src/types/article';
 import ArticleHeader from '@/src/components/article-detail/article-header';
 import ArticleAnalysis from '@/src/components/article-detail/article-analysis';
-import ModelSelect from '@/src/components/model-select';
 import { Descriptions } from 'antd';
 import { formatDate } from '@/src/lib/utils/helpers';
 import ArticlePartySentimentBarchart from '@/src/components/graphs/article-party-sentiment-barchart';
 import PoliticianBarChart from '@/src/components/graphs/politician-bar-chart';
 import AnalysisWidget from '@/src/components/analysis-widget';
+import ModelSelect from '@/src/components/model-select';
 
 interface ArticleLayoutProps {
   article: ArticleData;
@@ -18,7 +18,6 @@ interface ArticleLayoutProps {
 }
 
 const ArticleLayout = ({ article, media, sentiments }: ArticleLayoutProps): JSX.Element => {
-  console.log({ article, media, sentiments });
   const [selectedSentiment, setSelectedSentiment] = useState<SentimentData>(sentiments[0] || null);
 
   const handleModelChange = (sentiment: SentimentData) => {
@@ -28,8 +27,6 @@ const ArticleLayout = ({ article, media, sentiments }: ArticleLayoutProps): JSX.
   const partyData = selectedSentiment.sentiment.parties || [];
   const politiciansData = selectedSentiment.sentiment.politicians || [];
   const articleSentiment = selectedSentiment.sentiment.article;
-
-  console.log({ partyData, politiciansData, articleSentiment });
 
   const metaItems = [
     { label: 'Author', children: article.authors },

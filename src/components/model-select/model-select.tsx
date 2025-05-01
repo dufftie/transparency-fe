@@ -3,11 +3,12 @@ import React from 'react';
 import map from 'lodash/map';
 import { SentimentData } from '@/src/types/article';
 import { formatDate } from '@/src/lib/utils/helpers';
+import styles from './model-select.module.scss';
 
 interface ModelSelectProps {
   selectedSentiment: SentimentData;
   sentiments: SentimentData[];
-  onModelChange?: (sentiment: SentimentData) => void;
+  onModelChange: (sentiment: SentimentData) => void;
 }
 
 const ModelSelect = (props: ModelSelectProps) => {
@@ -19,17 +20,15 @@ const ModelSelect = (props: ModelSelectProps) => {
   }));
 
   const handleChange = (value: number) => {
-    if (onModelChange) {
-      const newSentiment = sentiments.find(s => s.id === value);
-      if (newSentiment) {
-        onModelChange(newSentiment);
-      }
+    const newSentiment = sentiments.find(s => s.id === value);
+    if (newSentiment) {
+      onModelChange(newSentiment);
     }
   };
 
   return (
-    <div className="model-select">
-      <span className="model-select__input">
+    <div className={styles.select}>
+      <span className={styles.input}>
         Analysed by:
         <Select
           size="small"
@@ -38,9 +37,7 @@ const ModelSelect = (props: ModelSelectProps) => {
           onChange={handleChange}
         />
       </span>
-      <span className="model-select__date">
-        Analysed on – {formatDate(selectedSentiment.analysed_at)}
-      </span>
+      <span className={styles.date}>Analysed on – {formatDate(selectedSentiment.analysed_at)}</span>
     </div>
   );
 };
