@@ -1,21 +1,23 @@
-@import '../variables';
+@import '@/scss/variables';
 
-.article-layout {
+.layout {
   display: flex;
   flex-direction: column;
   gap: $spacing-layout;
+  max-width: 1200px;
+  margin: 0 auto;
 
-  &__header {
+  .header {
     display: flex;
     gap: $spacing-layout;
+
+    .articleHeader {
+      flex: 1 1 700px;
+      max-width: 700px;
+    }
   }
 
-  .article-header {
-    flex: 1 1 700px;
-    max-width: 700px;
-  }
-
-  &__meta {
+  .meta {
     flex: 1 1 300px;
     display: flex;
     justify-content: center;
@@ -23,15 +25,9 @@
     gap: $spacing-xxl;
   }
 
-  &__analysis {
+  .analysis {
     display: flex;
     flex-direction: column;
     gap: $spacing-layout;
   }
-}
-
-.article-error {
-  padding: $spacing-lg;
-  max-width: 800px;
-  margin: $spacing-lg auto;
 }
