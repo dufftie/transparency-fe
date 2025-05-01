@@ -1,0 +1,36 @@
+@import '@/scss/variables';
+
+.card {
+  border: 1px solid $border-color;
+  border-radius: $border-radius;
+  padding: $spacing-md;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.label {
+  font-size: 0.875rem;
+  font-family: $font-family-display;
+  color: $text-color-light;
+}
+
+.borderless {
+  border: none;
+  padding: 0;
+}
+
+.primary {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+
+  .label {
+    font-size: 1.5rem;
+    color: $text-color;
+  }
+} 
