@@ -4,8 +4,9 @@ import Link from 'next/link';
 import SupportButton from '@/components/support-button';
 import { Button } from 'antd';
 import { useEffect, useState } from 'react';
+import styles from './header.module.scss';
 
-const Header = () => {
+export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
 
   // TODO: Refactor this to be more smoother and more modern
@@ -22,12 +23,12 @@ const Header = () => {
   }, []);
 
   return (
-    <header className={`header ${isScrolled ? 'header--scrolled' : ''}`}>
-      <div className="header__inner">
-        <Link href="/" className="header__logo">
+    <header className={`${styles.header} ${isScrolled ? styles.scrolled : ''}`}>
+      <div className={styles.inner}>
+        <Link href="/" className={styles.logo}>
           Ä
         </Link>
-        <div className="header__menu">
+        <div className={styles.menu}>
           <Link href="/articles">
             <Button type="text">Articles</Button>
           </Link>
@@ -42,6 +43,4 @@ const Header = () => {
       </div>
     </header>
   );
-};
-
-export default Header;
+}

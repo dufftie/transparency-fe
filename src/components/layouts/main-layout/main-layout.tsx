@@ -4,7 +4,7 @@ import { AntdRegistry } from '@ant-design/nextjs-registry';
 import { ConfigProvider } from 'antd';
 import antDesignTheme from '@/src/config/antDesignTheme';
 import Content from './content';
-import Header from './header';
+import Header from '../../layout/header/header';
 import Footer from './footer';
 
 const MainLayout = ({ children }: { children: React.ReactNode }): JSX.Element => {
