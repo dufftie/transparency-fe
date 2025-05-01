@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from './article-analysis.module.scss';
 // import { ArticleData, MediaData } from '@/src/types/article';
 // import Hint from '@/src/components/hint';
 // import { formatDate } from '@/lib/utils/helpers';
@@ -36,17 +37,17 @@ export default function ArticleAnalysis({
   // Uncomment once backend is ready
 
   return (
-    <div className="article-analysis">
-      <div className="article-analysis__item">
+    <div className={styles.analysis}>
+      <div className={styles.item}>
         <b>
           Title objectivity: {title_score}/10
           {/* <Hint title="AI prompt" content={titlePrompt} /> */}
         </b>
         <p>{title_explanation}</p>
       </div>
-      <div className="article-analysis__item">
+      <div className={styles.item}>
         <b>
-          Article objectivity: {body_score}/ 10
+          Article objectivity: {body_score}/10
           {/* <Hint title="AI prompt" content={articlePrompt} /> */}
         </b>
         <p>{body_explanation}</p>

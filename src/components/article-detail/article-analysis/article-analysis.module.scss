@@ -1,0 +1,27 @@
+@import '@/scss/variables';
+
+.analysis {
+  display: flex;
+  gap: $spacing-xxl;
+  font-size: 16px;
+  font-family: $font-family-display;
+
+  .item {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-sm;
+    flex: 1 1;
+
+    :global {
+      .hint {
+        margin-left: $spacing-sm;
+      }
+    }
+
+    p {
+      margin-top: $spacing-md;
+      font-family: $font-family-base;
+      line-height: 1.5rem;
+    }
+  }
+} 
