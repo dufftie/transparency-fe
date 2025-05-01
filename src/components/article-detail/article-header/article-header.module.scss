@@ -1,0 +1,25 @@
+@import '@/scss/variables';
+
+.header {
+  position: relative;
+  transition: $transition-standard;
+
+  article {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-lg;
+    height: fit-content;
+  }
+
+  .title {
+    font-weight: bold;
+    font-size: 32px;
+  }
+
+  .image {
+    width: 100%;
+    height: auto;
+    min-height: 400px;
+    align-self: center;
+  }
+} 
