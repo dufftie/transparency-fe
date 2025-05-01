@@ -1,4 +1,5 @@
 import React from 'react';
+
 import ArticlePreview from '@/src/components/article-preview';
 import { ArticleData } from '@/src/types/article';
 import styles from './article-header.module.scss';

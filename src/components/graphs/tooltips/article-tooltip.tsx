@@ -1,7 +1,7 @@
 import BaseTooltip from '@/src/components/graphs/tooltips/base-tooltip';
+import ArticlePreview from '@/src/components/article-preview';
 import { TooltipProps } from 'recharts';
 import React from 'react';
-import ArticlePreview from '@/src/components/article-preview';
 import { ExportOutlined } from '@ant-design/icons';
 import { formatDate } from '@/lib/utils/helpers';
 

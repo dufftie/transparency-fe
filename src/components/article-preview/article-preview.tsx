@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Empty, Spin } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
 import classNames from 'classnames';
+import styles from './article-preview.module.scss';
 
 interface ArticlePreviewProps {
   preview_url: string;
@@ -23,19 +24,19 @@ const ArticlePreview = ({ preview_url, className }: ArticlePreviewProps) => {
   if (!preview_url) return <Empty description={false} />;
   
   return (
-    <div className="article-preview-container">
+    <div className={styles.container}>
       {isLoading && (
-        <div className="article-preview-loading">
+        <div className={styles.loading}>
           <Spin indicator={<LoadingOutlined style={{ fontSize: 48 }} spin />} />
         </div>
       )}
       <img 
         className={classNames(
-          'article-preview', 
-          className, 
+          styles.preview,
+          className,
           { 
-            'article-preview--is-loading': isLoading,
-            'article-preview--loaded': !isLoading
+            [styles.isLoading]: isLoading,
+            [styles.loaded]: !isLoading
           }
         )} 
         src={preview_url} 
@@ -47,4 +48,4 @@ const ArticlePreview = ({ preview_url, className }: ArticlePreviewProps) => {
   );
 };
 
-export default ArticlePreview;
+export default ArticlePreview; 
