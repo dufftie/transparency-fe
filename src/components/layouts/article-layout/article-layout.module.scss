@@ -1,15 +1,13 @@
-@import '@/scss/variables';
-
 .layout {
   display: flex;
   flex-direction: column;
-  gap: $spacing-layout;
+  gap: var(--spacing-layout);
   max-width: 1200px;
   margin: 0 auto;
 
   .header {
     display: flex;
-    gap: $spacing-layout;
+    gap: var(--spacing-layout);
 
     .articleHeader {
       flex: 1 1 700px;
@@ -22,12 +20,13 @@
     display: flex;
     justify-content: center;
     flex-direction: column;
-    gap: $spacing-xxl;
+    gap: var(--spacing-xxl);
   }
+
 
   .analysis {
     display: flex;
     flex-direction: column;
-    gap: $spacing-layout;
+    gap: var(--spacing-layout);
   }
 }

@@ -15,7 +15,7 @@ export default function ArticleHeader({ article }: ArticleHeaderProps) {
     <a href={url} target="_blank" rel="noopener noreferrer" className={styles.header}>
       <article>
         <span className={styles.title}>{title}</span>
-        <ArticlePreview preview_url={preview_url} className={styles.image} />
+        <ArticlePreview preview_url={preview_url} />
       </article>
     </a>
   );

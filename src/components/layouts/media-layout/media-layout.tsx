@@ -1,7 +1,7 @@
 import React, { JSX } from 'react';
 import { MediaData } from '@/src/types/article';
 import MediaHeader from '@/src/components/media-detail/media-header';
-import ProceededArticlesGraph from '@/src/components/graphs/proceeded-article-graph';
+import AnalysisProgress from '@/src/components/graphs/analysis-progress/';
 import Card from '@/src/components/card';
 import RangeDateSelect from '@/src/components/range-date-select';
 import { DateRangeProvider } from '@/src/contexts/date-range-context';
@@ -10,6 +10,7 @@ import PartiesAreaChartWidget from '@/src/components/widgets/parties-area-chart-
 import PartiesBarChartWidget from '@/src/components/widgets/parties-bar-chart-widget';
 import PoliticiansBarChartWidget from '@/src/components/widgets/politicians-bar-chart-widget';
 import ScoresBarChartWidget from '@/src/components/widgets/scores-bar-chart-widget';
+import styles from './media-layout.module.scss';
 
 interface MediaLayoutProps {
   media: MediaData;
@@ -17,17 +18,17 @@ interface MediaLayoutProps {
   total_count: number;
 }
 
-const MediaLayout = ({
+export default function MediaLayout({
   media,
   analyzed_count,
   total_count,
-}: MediaLayoutProps): JSX.Element => {
+}: MediaLayoutProps): JSX.Element {
   // ToDo: Replace with actual hint text
   const hintText = `The number of articles analyzed for the selected period`;
 
   return (
     <DateRangeProvider>
-      <div className="media-layout">
+      <div className={styles.layout}>
         <MediaHeader
           title={media.title}
           url={media.base_url}
@@ -36,25 +37,23 @@ const MediaLayout = ({
           total_count={total_count}
         />
 
-        <div className="media-layout__content">
-          <div className="media-layout__meta">
+        <div className={styles.content}>
+          <div className={styles.meta}>
             <Card label="Analysis progress" primary hint={hintText}>
-              <ProceededArticlesGraph media_id={media.id} />
+              <AnalysisProgress media_id={media.id} className={styles.graph} />
             </Card>
             <RangeDateSelect />
           </div>
 
-          <div className="media-layout__graphs">
+          {/* <div className={styles.graphs}>
             <PartyScatterPlotWidget media_id={media.id} />
             <PartiesAreaChartWidget media_id={media.id} />
             <PartiesBarChartWidget media_id={media.id} />
             <PoliticiansBarChartWidget media_id={media.id} />
             <ScoresBarChartWidget media_id={media.id} />
-          </div>
+          </div> */}
         </div>
       </div>
     </DateRangeProvider>
   );
 };
-
-export default MediaLayout;

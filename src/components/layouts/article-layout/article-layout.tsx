@@ -9,8 +9,8 @@ import AnalysisWidget from '@/src/components/analysis-widget';
 import ModelSelect from '@/src/components/model-select';
 import styles from './article-layout.module.scss';
 import { ArticleData, MediaData, SentimentData } from '@/src/types/article';
-import ArticleHeader from '../article-header';
-import ArticleAnalysis from '../article-analysis';
+import ArticleHeader from '../../article-header';
+import ArticleAnalysis from '../../article-analysis';
 
 export interface ArticleLayoutProps {
   article: ArticleData;

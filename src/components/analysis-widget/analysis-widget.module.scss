@@ -1,30 +1,22 @@
-@import '@/scss/variables';
-
-.wrapper {
+.container {
   display: flex;
   flex-direction: column;
-  gap: $spacing-xxl;
+  gap: var(--spacing-xxl);
+}
 
-  .content {
-    display: flex;
-    gap: $spacing-xxl;
-    
+.explanations {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xl);
+  padding: var(--spacing-md);
+}
+
+.explanation {
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-family-display);
+
+  .name {
+    padding-bottom: var(--spacing-sm);
   }
-
-  .explanations {
-    display: flex;
-    flex-direction: column;
-    gap: $spacing-xxl;
-    padding: $spacing-md;
-  }
-
-  .explanation {
-    display: flex;
-    flex-direction: column;
-    font-family: $font-family-display;
-
-    b {
-      padding-bottom: $spacing-sm;
-    }
-  }
-} 
+}

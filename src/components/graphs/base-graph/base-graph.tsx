@@ -1,37 +1,39 @@
 'use client';
 
-import classNames from 'classnames';
 import { ResponsiveContainer } from 'recharts';
 import { Spin } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
 import { useDataFetching } from '@/src/lib/utils/data-fetching';
+import styles from './base-graph.module.scss';
+import classNames from 'classnames';
 
 export interface BaseGraphProps {
-  graphName?: string;
   fetchUrl: string;
   processData: (data: any[]) => any[];
   children: (data: any[], loading: boolean) => JSX.Element;
-  autoFetch?: boolean;
+  className?: string;
 }
 
-const BaseGraph = ({ fetchUrl, processData, children, graphName }: BaseGraphProps) => {
+const BaseGraph = ({ fetchUrl, processData, children, className }: BaseGraphProps) => {
   const { data, loading, showSpinner } = useDataFetching({
     fetchUrl,
     processData,
   });
 
   return (
-    <div className={classNames('graph', graphName, { loading: loading })}>
-      <div className={classNames('graph__loading-spinner', { active: showSpinner })}>
+    <div className={classNames(styles.graph, className)}>
+      <div className={`${styles.spinner} ${showSpinner ? styles['spinner--active'] : ''}`}>
         <Spin
           size="large"
           indicator={<LoadingOutlined spin />}
-          className={classNames({ active: showSpinner })}
+          className={showSpinner ? styles['spinner--active'] : ''}
         />
       </div>
-      <ResponsiveContainer width="100%" height="100%">
-        {children(data, loading)}
-      </ResponsiveContainer>
+      <div className={styles.chart}>
+        <ResponsiveContainer width="100%" height="100%">
+          {children(data, loading)}
+        </ResponsiveContainer>
+      </div>
     </div>
   );
 };

@@ -1,7 +1,7 @@
 'use client';
 
 import { Input } from 'antd';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { fetchData } from '@/lib/services/api';
 import debounce from 'lodash/debounce';
 import { gsap } from 'gsap';
@@ -46,20 +46,24 @@ export default function ArticleSearch({
   const [articles, setArticles] = useState<Article[]>([]);
   const scopeRef = useRef(null);
 
-  const requestArticles = debounce(async (value: string) => {
-    setIsLoading(true);
-    if (!value || value?.length < 3) {
-      setArticles([]);
-      setIsLoading(false);
-      return;
-    }
-    const { articles } = await fetchData<SearchResponse>('/articles/search', {
-      value,
-      limit: limit.toString(),
-    });
-    setArticles(articles);
-    setIsLoading(false);
-  }, 300);
+  const requestArticles = useMemo(
+    () =>
+      debounce(async (value: string) => {
+        setIsLoading(true);
+        if (!value || value?.length < 3) {
+          setArticles([]);
+          setIsLoading(false);
+          return;
+        }
+        const { articles } = await fetchData<SearchResponse>('/articles/search', {
+          value,
+          limit: limit.toString(),
+        });
+        setArticles(articles);
+        setIsLoading(false);
+      }, 300),
+    [limit]
+  );
 
   useEffect(() => {
     requestArticles(searchValue || '');
@@ -91,9 +95,9 @@ export default function ArticleSearch({
   }, [articles]);
 
   return (
-    <div className={styles.search}>
-      <div className={styles.header}>
-        <div className={styles.inner}>
+    <div className={styles.container}>
+      <div className={styles.sidebar}>
+        <div className={styles.sidebarInner}>
           <div className={styles.title}>Articles</div>
           <ArticlesCount
             total_count={total_articles}
@@ -106,7 +110,7 @@ export default function ArticleSearch({
         <Search
           defaultValue={searchValue}
           rootClassName={classNames(styles.input, {
-            [styles['input--focused']]: searchValue,
+            [styles.inputFocused]: searchValue,
           })}
           placeholder="Search for title"
           onChange={e => setSearchValue(e.target.value)}

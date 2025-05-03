@@ -7,7 +7,7 @@
   }
 
   .recharts-bar {
-    transition: opacity $transition-fast;
+    transition: opacity var(--transition-fast);
 
     &:hover {
       opacity: 0.8;
@@ -15,7 +15,7 @@
   }
 
   .recharts-legend-item {
-    transition: opacity $transition-fast;
+    transition: opacity var(--transition-fast);
 
     &:hover {
       opacity: 0.7;
@@ -28,7 +28,7 @@
   
 
   // Make sure chart has enough height
-  @media (max-width: $breakpoint-md) {
+  @media (max-width: var(--breakpoint-md)) {
     min-height: 350px;
   }
 }

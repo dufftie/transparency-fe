@@ -1,6 +1,6 @@
 import React, { cache } from 'react';
 import { fetchData } from '@/src/lib/services/api';
-import ArticlesLayout from './articles-layout';
+import ArticlesLayout from '@/src/components/layouts/articles-layout/articles-layout';
 
 
 const getArticlesStats = cache(async () => {

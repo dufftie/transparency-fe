@@ -9,34 +9,24 @@ import map from 'lodash/map';
 import MediaSelectDetail from '@/components/media-select/media-select-detail';
 import classNames from 'classnames';
 import styles from './media-select.module.scss';
+import detailStyles from './media-select-detail.module.scss';
+import { MediaData } from '@/src/types/article';
 
-export interface Media {
-  id: string;
-  title: string;
-  language_code: string;
-  slug?: string;
-  disabled?: boolean;
-  description?: string;
-  analyzed_count?: number;
-  total_count?: number;
-  editors?: Array<{ name: string }>;
-}
-
-export type SetActiveMedia = (media: Media | null | undefined) => void;
+export type SetActiveMedia = (media: MediaData | null | undefined) => void;
 
 interface MediaSelectProps {
-  medias: Media[];
+  media: MediaData[];
   primary?: boolean;
 }
 
-const MediaSelect = ({ medias, primary = false }: MediaSelectProps): JSX.Element => {
+const MediaSelect = ({ media, primary = false }: MediaSelectProps): JSX.Element => {
   const scopeRef = useRef<HTMLDivElement>(null);
   const detailRef = useRef<HTMLDivElement>(null);
-  const [activeMedia, setActiveMedia] = useState<Media | null | undefined>(undefined);
+  const [activeMedia, setActiveMedia] = useState<MediaData | null | undefined>(undefined);
 
   useGSAP(
     () => {
-      const description = detailRef.current?.querySelector(`.${styles.detailDescription}`);
+      const description = detailRef.current?.querySelector(`.${detailStyles.description}`);
       if (description) {
         gsap.fromTo(
           description,
@@ -63,7 +53,7 @@ const MediaSelect = ({ medias, primary = false }: MediaSelectProps): JSX.Element
   );
 
   const fullMediasList = [
-    ...medias,
+    ...media,
     // MEDIA CHANNELS THAT WEREN'T YET ANALYSED
     { disabled: true, title: 'Delfi', language_code: 'et', id: 'delfi' },
     { disabled: true, title: 'rus.Delfi', language_code: 'ru', id: 'rus-delfi' },

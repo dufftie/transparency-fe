@@ -4,12 +4,12 @@ import { MediaData } from '@/types/article';
 
 export default async function Home() {
   const { media } = await fetchData<{
-    medias: MediaData[];
+    media: MediaData[];
   }>(`/media`);
 
   return (
     <div className='medias-layout'>
-      <MediaSelect medias={media} primary />
+      <MediaSelect media={media} primary />
     </div>
   );
 }

@@ -1,25 +1,24 @@
-@import '@/scss/variables';
 @import '../hint/hint.module.scss';
 
 .analysis {
   display: flex;
-  gap: $spacing-xxl;
+  gap: var(--spacing-xxl);
   font-size: 16px;
-  font-family: $font-family-display;
+  font-family: var(--font-family-display);
 
   .item {
     display: flex;
     flex-direction: column;
-    gap: $spacing-sm;
+    gap: var(--spacing-sm);
     flex: 1 1;
 
     .hint {
-      margin-left: $spacing-sm;
+      margin-left: var(--spacing-sm);
     }
 
     p {
-      margin-top: $spacing-md;
-      font-family: $font-family-base;
+      margin-top: var(--spacing-md);
+      font-family: var(--font-family-base);
       line-height: 1.5rem;
     }
   }

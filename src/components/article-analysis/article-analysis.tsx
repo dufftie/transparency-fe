@@ -1,16 +1,16 @@
 import React from 'react';
 import styles from './article-analysis.module.scss';
 // import { ArticleData, MediaData } from '@/src/types/article';
-import Hint from '../hint';
+// import Hint from '../hint';
 // import { formatDate } from '@/lib/utils/helpers';
 
-const titlePrompt = (
-  <pre>
-    Оцени объективность *заголовка* статьи по шкале от 0 до 10 (0 - крайне предвзятый, 10 -
-    абсолютно объективный). Предоставь обоснование. Учитывай, отражает ли заголовок содержание
-    статьи, использует ли он эмоционально окрашенную лексику, преувеличения или искажения.
-  </pre>
-);
+// const titlePrompt = (
+//   <pre>
+//     Оцени объективность *заголовка* статьи по шкале от 0 до 10 (0 - крайне предвзятый, 10 -
+//     абсолютно объективный). Предоставь обоснование. Учитывай, отражает ли заголовок содержание
+//     статьи, использует ли он эмоционально окрашенную лексику, преувеличения или искажения.
+//   </pre>
+// );
 
 // const articlePrompt = (
 //   <pre>
@@ -41,7 +41,7 @@ export default function ArticleAnalysis({
       <div className={styles.item}>
         <b>
           Title objectivity: {title_score}/10
-          <Hint title="AI prompt" content={titlePrompt} className={styles.hint} />
+          {/* <Hint title="AI prompt" content={titlePrompt} className={styles.hint} /> */}
         </b>
         <p>{title_explanation}</p>
       </div>

@@ -1,10 +1,8 @@
-@import '@/scss/variables';
-
 .hint {
   max-width: 400px !important;
   display: flex;
   flex-direction: column;
-  gap: $spacing-md;
+  gap: var(--spacing-md);
 
   pre {
     font-size: 12px;

@@ -1,30 +1,27 @@
-@import '../variables';
-@import '../components/graphs/base-graph/base-graph.module';
-
-.media-layout {
+.layout {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-layout);
 
-  &__meta {
+  .meta {
     display: flex;
     flex-direction: column;
     gap: var(--spacing-lg);
-    
-    :global(.graph) {
-      height: 75px;
-    }
   }
 
-  &__content {
+  .content {
     display: flex;
     flex-direction: column;
     gap: var(--spacing-layout);
   }
 
-  &__graphs {
+  .graphs {
     display: flex;
     flex-direction: column;
     gap: var(--spacing-layout);
   }
 }
+
+.graph {
+  height: 75px;
+} 

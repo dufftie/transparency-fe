@@ -28,10 +28,10 @@ export default function AnalysisWidget(props: AnalysisTableProps) {
         <div className={styles.explanations}>
           {map(data, explanation => (
             <div className={styles.explanation} key={explanation.name}>
-              <b className={styles.name}>
-                {explanation.name} – {explanation.score}
-              </b>
-              <div className={styles.cell}>{explanation.explanation}</div>
+              <span className={styles.name}>
+                <b>{explanation.name} – {explanation.score}</b>
+              </span>
+              <div className={styles.text}>{explanation.explanation}</div>
             </div>
           ))}
         </div>
@@ -40,10 +40,10 @@ export default function AnalysisWidget(props: AnalysisTableProps) {
   ];
 
   return (
-    <div className={styles.wrapper}>
+    <div className={styles.container}>
       <h3>{title}</h3>
       {!isEmpty ? chart : <Empty description="No data found" />}
       {!isEmpty && <Collapse items={collapseItems} bordered={false} />}
     </div>
   );
-};
+}

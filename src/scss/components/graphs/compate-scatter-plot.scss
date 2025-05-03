@@ -2,12 +2,12 @@
 
 .compare-scatter-plot {
   display: grid;
-  gap: $spacing-sm;
+  gap: var(--spacing-sm);
   grid-area: compare-scatter-plot;
 
   &__graphs {
     display: grid;
-    gap: $spacing-sm;
+    gap: var(--spacing-sm);
     grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
     grid-template-rows: auto;
   }

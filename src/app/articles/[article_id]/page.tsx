@@ -1,5 +1,5 @@
 import React, { cache } from 'react';
-import ArticleLayout from '@/src/components/article-layout';
+import ArticleLayout from '@/src/components/layouts/article-layout';
 import { fetchData } from '@/src/lib/services/api';
 import { ArticleData, MediaData, SentimentData } from '@/src/types/article';
 import { Metadata } from 'next';

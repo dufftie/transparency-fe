@@ -1,63 +1,59 @@
-@import '@/scss/variables';
-
-.search {
+.container {
   display: flex;
   row-gap: 12px;
   column-gap: 100px;
   justify-content: space-between;
-  font-family: $font-family-display;
+  font-family: var(--font-family-display);
   min-height: 50vh;
+}
 
-  .header {
-    flex: 1 1 150px;
+.sidebar {
+  flex: 1 1 150px;
+}
 
-    .inner {
-      position: sticky;
-      top: 130px;
-      z-index: 1000;
+.sidebarInner {
+  position: sticky;
+  top: 130px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
 
-      display: flex;
-      flex-direction: column;
-      gap: $spacing-lg;
-    }
-  }
+.title {
+  font-size: 2rem;
+  font-family: var(--font-family-display);
+  font-weight: bold;
+}
 
-  .title {
-    font-size: 2rem;
-    font-family: $font-family-display;
-    font-weight: bold;
-  }
+.content {
+  flex: 1 1 100%;
+}
 
-  .content {
-    flex: 1 1 100%;
-  }
+.link {
+  display: block;
+  margin-top: 24px;
+  text-align: center;
+  color: gray;
+  margin-inline: auto;
+}
 
-  .link {
-    display: block;
-    margin-top: 24px;
-    text-align: center;
-    color: gray;
-    margin-inline: auto;
-  }
+.input {
+  position: sticky;
+  top: 130px;
+  z-index: 1000;
+  border-radius: 10px;
+  transition: 1s ease-out;
+  box-shadow: 0 0 0 var(--accent-color);
+}
 
-  .input {
-    position: sticky;
-    top: 130px;
-    z-index: 1000;
+.inputFocused {
+  box-shadow: 0 0 100px var(--accent-color);
+}
 
-    border-radius: 10px;
-    transition: 1s ease-out;
-    box-shadow: 0 0 0 $accent-color;
-
-    &--focused {
-      box-shadow: 0 0 100px $accent-color;
-    }
-  }
-
-  .results {
-    display: flex;
-    flex-wrap: wrap;
-    margin-top: 12px;
-    gap: $spacing-sm;
-  }
+.results {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 12px;
+  gap: var(--spacing-sm);
 } 

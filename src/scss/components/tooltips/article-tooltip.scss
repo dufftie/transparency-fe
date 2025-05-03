@@ -1,10 +1,10 @@
-@import '../../variables';
+
 
 .article-tooltip {
   width: 250px;
   display: flex;
   flex-direction: column;
-  gap: $spacing-md;
+  gap: var(--spacing-md);
 
   &__preview {
     width: 100%;
@@ -13,8 +13,8 @@
 
   &__icon {
     position: absolute;
-    top: $spacing-sm;
-    right: $spacing-sm;
+    top: var(--spacing-sm);
+    right: var(--spacing-sm);
   }
 
   &__title {
@@ -27,7 +27,7 @@
   }
 
   &__date {
-    color: $text-color-light;
+    color: var(--text-color-light);
     text-align: end;
   }
 } 

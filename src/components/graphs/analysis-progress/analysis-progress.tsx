@@ -4,20 +4,23 @@ import { BarChart, Bar, XAxis, Tooltip } from 'recharts';
 import dayjs from 'dayjs';
 import isSameOrAfter from 'dayjs/plugin/isSameOrAfter';
 import isSameOrBefore from 'dayjs/plugin/isSameOrBefore';
-import BaseGraph from '@/src/components/graphs/base-graph';
+import BaseGraph from '@/src/components/graphs/base-graph/';
 import { useDateRange } from '@/src/contexts/date-range-context';
 import { useMemo, useCallback } from 'react';
 import ProceededArticleTooltip from '@/src/components/graphs/tooltips/proceeded-article-tooltip';
+import styles from './analysis-progress.module.scss';
+import classNames from 'classnames';
 
 // Extend dayjs with the required plugins
 dayjs.extend(isSameOrAfter);
 dayjs.extend(isSameOrBefore);
 
-interface ProceededArticlesGraphProps {
+interface AnalysisProgressProps {
   media_id: string;
+  className?: string;
 }
 
-const ProceededArticlesGraph = ({ media_id }: ProceededArticlesGraphProps) => {
+export default function AnalysisProgress({ media_id, className }: AnalysisProgressProps) {
   const { formattedRequestDateRange, formattedDomainDateRange } = useDateRange();
   const [startDate, endDate] = formattedRequestDateRange;
   
@@ -88,7 +91,7 @@ const ProceededArticlesGraph = ({ media_id }: ProceededArticlesGraphProps) => {
   }, []);
 
   return (
-    <BaseGraph graphName="proceed-article-graph" fetchUrl={fetchUrl} processData={processData}>
+    <BaseGraph fetchUrl={fetchUrl} processData={processData} className={classNames(styles.chart, className)}>
       {(data) => {
         // Filter data to domain range
         const filteredData = filterDataToDomainRange(data);
@@ -140,5 +143,3 @@ const ProceededArticlesGraph = ({ media_id }: ProceededArticlesGraphProps) => {
     </BaseGraph>
   );
 };
-
-export default ProceededArticlesGraph;

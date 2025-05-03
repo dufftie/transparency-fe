@@ -49,7 +49,7 @@ export default function ArticlesCount({
         );
 
         gsap.fromTo(
-          `.${styles.count__value}`,
+          `.${styles.value}`,
           { opacity: 0, y: 20 },
           { opacity: 1, y: 0, duration: 0.5, stagger: 0.1, ease: 'power2.out' }
         );
@@ -62,13 +62,13 @@ export default function ArticlesCount({
   );
 
   return (
-    <div className={classNames(styles.count, styles[`count--${layout}`])} ref={scopeRef}>
-      <div className={styles.count__value}>
-        <div className={styles.count__label}>Scanned</div>
+    <div className={classNames(styles.container, layout === 'vertical' && styles.vertical)} ref={scopeRef}>
+      <div className={styles.value}>
+        <div className={styles.label}>Scanned</div>
         <span ref={totalCountRef}>{total_count.toLocaleString()}</span>
       </div>
-      <div className={styles.count__value}>
-        <div className={styles.count__label}>Analysed</div>
+      <div className={styles.value}>
+        <div className={styles.label}>Analysed</div>
         <span ref={analyzedCountRef}>{analyzed_count.toLocaleString()}</span>
       </div>
     </div>

@@ -1,18 +1,20 @@
-@import '@/scss/variables';
-
 .select {
-  :global {
-    .ant-radio-button-wrapper {
-      font-size: 16px !important;
-      font-family: $font-family-display !important;
-    }
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
 
-    .ant-radio-button-wrapper-checked {
-      background-color: $color-black !important;
+  .label {
+    font-family: var(--font-family-display);
+    font-size: 14px;
+    color: var(--text-color-light);
+  }
 
-      .ant-radio-button-label {
-        color: $color-white !important;
-      }
+  .input {
+    width: 100%;
+    
+    :global(.ant-select-selector) {
+      border-radius: var(--border-radius);
+      border-color: var(--border-color);
     }
   }
 } 

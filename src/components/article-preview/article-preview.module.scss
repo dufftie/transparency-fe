@@ -1,5 +1,3 @@
-@import '@/scss/variables';
-
 .container {
   position: relative;
   min-height: 150px;
@@ -17,15 +15,15 @@
   display: block;
   filter: grayscale(1) sepia(50%) contrast(70%);
   object-fit: cover;
-  max-width: 100%;
-  max-height: 200px;
+  width: 100%;
+  max-height: 400px;
   transition: opacity 0.3s ease;
-  
+
   &.isLoading {
     opacity: 0;
     position: absolute;
   }
-  
+
   &.loaded {
     opacity: 1;
     position: relative;

@@ -1,16 +1,35 @@
-@import '@/scss/variables';
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+
+  .label {
+    font-family: var(--font-family-display);
+    font-size: 14px;
+    color: var(--text-color-light);
+  }
+
+  .select {
+    width: 100%;
+    
+    :global(.ant-select-selector) {
+      border-radius: var(--border-radius);
+      border-color: var(--border-color);
+    }
+  }
+}
 
 .select {
   display: flex;
   flex-direction: column;
-  color: $text-color-secondary;
+  color: var(--text-color-secondary);
   font-size: 16px;
-  font-family: $font-family-display;
+  font-family: var(--font-family-display);
 
   .input {
     display: flex;
     align-items: center;
-    gap: $spacing-sm;
+    gap: var(--spacing-sm);
   }
 
   .date {
@@ -27,14 +46,14 @@
 
       &-selection-item {
         font-size: 16px;
-        color: $text-color-secondary;
-        font-family: $font-family-display;
+        color: var(--text-color-secondary);
+        font-family: var(--font-family-display);
         padding: 0 !important;
       }
 
       &-selection-placeholder {
-        color: $text-color-secondary;
-        font-family: $font-family-display;
+        color: var(--text-color-secondary);
+        font-family: var(--font-family-display);
       }
     }
   }

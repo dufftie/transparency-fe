@@ -2,7 +2,7 @@ import React, { cache } from 'react';
 import { fetchData } from '@/src/lib/services/api';
 import { MediaData } from '@/src/types/article';
 import { Metadata } from 'next';
-import MediaLayout from '@/src/app/media/[media_slug]/media-layout';
+import MediaLayout from '@/src/components/layouts/media-layout/media-layout';
 import { Result } from 'antd';
 
 const getMediaData = cache(async (media_slug: string) => {

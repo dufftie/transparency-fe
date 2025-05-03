@@ -1,13 +1,11 @@
-@import '@/scss/variables';
-
 .header {
   position: relative;
-  transition: $transition-standard;
+  transition: var(--transition-standard);
 
   article {
     display: flex;
     flex-direction: column;
-    gap: $spacing-lg;
+    gap: var(--spacing-lg);
     height: fit-content;
   }
 
@@ -21,5 +19,6 @@
     height: auto;
     min-height: 400px;
     align-self: center;
+
   }
 } 

@@ -1,16 +1,14 @@
-@import '@/scss/variables';
-
 .root {
   display: flex;
-  font-family: $font-family-display;
+  font-family: var(--font-family-display);
   column-gap: 100px;
-  row-gap: 12px;
+  row-gap: var(--spacing-sm);
   min-height: 50vh;
-  background: radial-gradient(31.5% 31.5% at 37.5% 52.61%, #BBDBF5 39.9%, rgba(187, 219, 245, 0) 100%);
+  background: radial-gradient(31.5% 31.5% at 37.5% 52.61%, var(--accent-color) 39.9%, rgba(187, 219, 245, 0) 100%);
 }
 
 .primary {
-  row-gap: $spacing-lg;
+  row-gap: var(--spacing-lg);
 
   .title {
     display: none;
@@ -18,13 +16,13 @@
 
   .options {
     flex-direction: row;
-    gap: $spacing-layout;
+    gap: var(--spacing-layout);
   }
 }
 
 .title {
   font-size: 2rem;
-  font-family: $font-family-display;
+  font-family: var(--font-family-display);
   font-weight: bold;
 }
 
@@ -35,7 +33,7 @@
 .options {
   display: flex;
   flex-direction: column;
-  gap: $spacing-lg;
+  gap: var(--spacing-lg);
 }
 
 .group {
@@ -46,8 +44,8 @@
 
 .groupTitle {
   font-size: 1rem;
-  color: $text-color-light;
-  margin-bottom: 6px;
+  color: var(--text-color-light);
+  margin-bottom: var(--spacing-xs);
 }
 
 .option {
@@ -62,32 +60,27 @@
 
   &.disabled {
     cursor: crosshair;
-    color: $text-color-light !important;
+    color: var(--text-color-light) !important;
   }
 }
 
-.detail {
-  display: flex;
-  gap: $spacing-xl;
-  border-radius: 15px;
-  padding: $spacing-lg;
-  border: 1px solid $border-color;
-  backdrop-filter: blur(50px);
-}
-
-.detailHeader {
+.select {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-}
+  gap: var(--spacing-md);
 
-.detailTitle {
-  font-size: 1.5rem;
-  font-weight: bold;
-}
+  .label {
+    font-family: var(--font-family-display);
+    font-size: 14px;
+    color: var(--text-color-light);
+  }
 
-.detailDescription {
-  font-size: 1rem;
-  font-family: $font-family-base;
-  line-height: 1.5rem;
+  .input {
+    width: 100%;
+    
+    :global(.ant-select-selector) {
+      border-radius: var(--border-radius);
+      border-color: var(--border-color);
+    }
+  }
 } 

@@ -42,15 +42,19 @@ export interface SentimentData {
   };
 }
 
-export interface ChiefEditorData {
-  chief_editor: string;
-}
-
 export interface MediaData {
   base_url: string;
   id: string;
   title: string;
-  chief_editor: ChiefEditorData;
+  editors: EditorData[];
   description: string;
   slug: string;
+  language_code?: string;
+  total_count?: number;
+  analyzed_count?: number;
+}
+
+export interface EditorData {
+  name: string;
+  id: number;
 }
