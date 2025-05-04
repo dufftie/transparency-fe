@@ -45,4 +45,10 @@
   width: 100%;
   transition: filter var(--transition-standard),
     opacity var(--transition-standard);
+
+  :global {
+    .recharts-tooltip-cursor {
+      opacity: 0.1;
+    }
+  }
 }
