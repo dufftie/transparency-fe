@@ -3,7 +3,8 @@ import { fetchData } from '@/src/lib/services/api';
 import { MediaData } from '@/src/types/article';
 import { Metadata } from 'next';
 import MediaLayout from '@/src/components/layouts/media-layout/media-layout';
-import { Result } from 'antd';
+import { ErrorResult } from '@/src/components/error/error-result';
+import { generatePageMetadata } from '@/src/lib/utils/metadata';
 
 const getMediaData = cache(async (media_slug: string) => {
   return fetchData<{
@@ -24,9 +25,9 @@ export async function generateMetadata({ params }: {
     const { media } = await getMediaData(resolvedParams.media_slug);
     if (!media) return {};
 
-    return {
+    return generatePageMetadata({
       title: media.title,
-    };
+    });
   } catch (error) {
     console.error('Error fetching media data for metadata:', error);
     return {};
@@ -42,7 +43,7 @@ export default async function MediaDetailPage({ params }: {
     const response = await getMediaData(media_slug);
 
     if (!response) {
-      return <Result 
+      return <ErrorResult 
         status="404" 
         title="Media not found" 
         subTitle="The media you are looking for does not exist."
@@ -52,7 +53,7 @@ export default async function MediaDetailPage({ params }: {
     return <MediaLayout {...response} />;
   } catch (error) {
     console.error('Error fetching media data:', error);
-    return <Result 
+    return <ErrorResult 
       status="error" 
       title="Failed to load media data" 
       subTitle="There was an error loading the media data. Please try again later."

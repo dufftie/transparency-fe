@@ -3,7 +3,8 @@ import ArticleLayout from '@/src/components/layouts/article-layout';
 import { fetchData } from '@/src/lib/services/api';
 import { ArticleData, MediaData, SentimentData } from '@/src/types/article';
 import { Metadata } from 'next';
-import { Result } from 'antd';
+import { ErrorResult } from '@/src/components/error/error-result';
+import { generatePageMetadata } from '@/src/lib/utils/metadata';
 
 const getArticleData = cache(async (article_id: string) => {
   return fetchData<{
@@ -22,9 +23,9 @@ export async function generateMetadata({ params }: {
     const { article } = await getArticleData(resolvedParams.article_id);
     if (!article) return {};
 
-    return {
+    return generatePageMetadata({
       title: article.title,
-    };
+    });
   } catch (error) {
     console.error('Error fetching article data for metadata:', error);
     return {};
@@ -41,7 +42,7 @@ export default async function ArticleDetailPage({ params }: {
 
     if (!article || !media || !sentiments || sentiments.length === 0) {
       return (
-        <Result
+        <ErrorResult
           status="404"
           title="Article not found"
           subTitle="The article you are looking for does not exist."
@@ -53,7 +54,7 @@ export default async function ArticleDetailPage({ params }: {
   } catch (error) {
     console.error('Error fetching article data:', error);
     return (
-      <Result
+      <ErrorResult
         status="error"
         title="Failed to load article data"
         subTitle="There was an error loading the article data. Please try again later."
