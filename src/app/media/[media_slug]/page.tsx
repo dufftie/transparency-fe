@@ -3,7 +3,7 @@ import { fetchData } from '@/src/lib/services/api';
 import { MediaData } from '@/src/types/article';
 import { Metadata } from 'next';
 import MediaLayout from '@/src/components/layouts/media-layout/media-layout';
-import { ErrorResult } from '@/src/components/error/error-result';
+import ErrorResult from '@/src/components/error/error-result';
 import { generatePageMetadata } from '@/src/lib/utils/metadata';
 
 const getMediaData = cache(async (media_slug: string) => {

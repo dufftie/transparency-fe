@@ -13,11 +13,11 @@
 
 .preview {
   display: block;
-  filter: grayscale(1) sepia(50%) contrast(70%);
+  width: 100%;
+  height: 100%;
   object-fit: cover;
-  max-width: 100%;
-  max-height: 200px;
   transition: opacity 0.3s ease;
+  filter: grayscale(1) sepia(50%) contrast(70%);
 
   &.isLoading {
     opacity: 0;

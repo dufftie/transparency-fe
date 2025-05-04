@@ -1,10 +1,11 @@
 import React from 'react';
 import classNames from 'classnames';
 import styles from './media-select.module.scss';
-import { MediaData, SetActiveMedia } from './media-select';
+import { SetActiveMedia } from './media-select';
+import { MediaDataOrPlaceholder } from '@/src/types/article';
 
 interface MediaSelectOptionProps {
-  media: Media;
+  media: MediaDataOrPlaceholder;
   setActiveMedia: SetActiveMedia;
 }
 

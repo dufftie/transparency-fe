@@ -1,7 +1,7 @@
 import React, { cache } from 'react';
 import { fetchData } from '@/src/lib/services/api';
 import ArticlesLayout from '@/src/components/layouts/articles-layout/articles-layout';
-import { ErrorResult } from '@/src/components/error/error-result';
+import ErrorResult from '@/src/components/error/error-result';
 
 interface ArticlesStats {
   total_articles: number;

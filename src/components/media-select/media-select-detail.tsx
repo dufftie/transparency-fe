@@ -2,16 +2,16 @@ import { isNull, isUndefined } from 'lodash';
 import ArticlesCount from '@/components/articles-count';
 import Card from '@/components/card';
 import styles from './media-select-detail.module.scss';
-import { MediaData } from '@/src/types/article';
+import { MediaDataOrPlaceholder } from '@/src/types/article';
 
 interface MediaSelectDetailProps {
-  media: MediaData | null | undefined;
+  media: MediaDataOrPlaceholder | null | undefined;
 }
 
 const MediaSelectDetail = ({ media }: MediaSelectDetailProps) => {
   if (isUndefined(media)) return null;
 
-  if (isNull(media)) {
+  if (isNull(media) || media.disabled) {
     return (
       <div className={styles.detail}>
         <p className={styles.detailDescription}>
@@ -35,10 +35,12 @@ const MediaSelectDetail = ({ media }: MediaSelectDetailProps) => {
         )}
       </div>
       <p className={styles.description}>{description}</p>
-      <ArticlesCount
-        analyzed_count={analyzed_count as number}
-        total_count={total_count as number}
-      />
+      {analyzed_count !== undefined && total_count !== undefined && (
+        <ArticlesCount
+          analyzed_count={analyzed_count}
+          total_count={total_count}
+        />
+      )}
     </div>
   );
 };

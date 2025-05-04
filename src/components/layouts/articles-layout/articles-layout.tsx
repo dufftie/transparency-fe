@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { Suspense } from 'react';
 import ArticleSearch from '@/components/article-search/article-search';
 import { useSearchParams } from 'next/navigation';
 import styles from './articles-layout.module.scss';
@@ -12,7 +12,7 @@ interface ArticlesLayoutProps {
   [key: string]: any;
 }
 
-export default function ArticlesLayout({ children, total_articles, total_sentiments, ...props }: ArticlesLayoutProps) {
+function ArticlesLayoutContent({ children, total_articles, total_sentiments, ...props }: ArticlesLayoutProps) {
   const searchParams = useSearchParams();
   const searchValue = searchParams.get('search') || undefined;
 
@@ -27,4 +27,12 @@ export default function ArticlesLayout({ children, total_articles, total_sentime
       {children}
     </div>
   );
-};
+}
+
+export default function ArticlesLayout(props: ArticlesLayoutProps) {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <ArticlesLayoutContent {...props} />
+    </Suspense>
+  );
+}

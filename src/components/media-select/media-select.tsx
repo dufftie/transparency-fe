@@ -10,9 +10,9 @@ import MediaSelectDetail from '@/components/media-select/media-select-detail';
 import classNames from 'classnames';
 import styles from './media-select.module.scss';
 import detailStyles from './media-select-detail.module.scss';
-import { MediaData } from '@/src/types/article';
+import { MediaData, MediaDataOrPlaceholder } from '@/src/types/article';
 
-export type SetActiveMedia = (media: MediaData | null | undefined) => void;
+export type SetActiveMedia = (media: MediaDataOrPlaceholder | null | undefined) => void;
 
 interface MediaSelectProps {
   media: MediaData[];
@@ -22,7 +22,7 @@ interface MediaSelectProps {
 const MediaSelect = ({ media, primary = false }: MediaSelectProps): JSX.Element => {
   const scopeRef = useRef<HTMLDivElement>(null);
   const detailRef = useRef<HTMLDivElement>(null);
-  const [activeMedia, setActiveMedia] = useState<MediaData | null | undefined>(undefined);
+  const [activeMedia, setActiveMedia] = useState<MediaDataOrPlaceholder | null | undefined>(undefined);
 
   useGSAP(
     () => {

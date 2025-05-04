@@ -52,7 +52,23 @@ export interface MediaData {
   language_code?: string;
   total_count?: number;
   analyzed_count?: number;
+  disabled?: boolean;
 }
+
+export interface PlaceholderMediaData {
+  id: string;
+  title: string;
+  language_code: string;
+  disabled: boolean;
+  description?: string;
+  editors?: EditorData[];
+  base_url?: string;
+  slug?: string;
+  analyzed_count?: number;
+  total_count?: number;
+}
+
+export type MediaDataOrPlaceholder = MediaData | PlaceholderMediaData;
 
 export interface EditorData {
   name: string;

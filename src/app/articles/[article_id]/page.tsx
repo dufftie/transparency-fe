@@ -3,7 +3,7 @@ import ArticleLayout from '@/src/components/layouts/article-layout';
 import { fetchData } from '@/src/lib/services/api';
 import { ArticleData, MediaData, SentimentData } from '@/src/types/article';
 import { Metadata } from 'next';
-import { ErrorResult } from '@/src/components/error/error-result';
+import ErrorResult from '@/src/components/error/error-result';
 import { generatePageMetadata } from '@/src/lib/utils/metadata';
 
 const getArticleData = cache(async (article_id: string) => {

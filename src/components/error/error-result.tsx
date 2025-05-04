@@ -6,6 +6,6 @@ export interface ErrorResultProps {
   subTitle: string;
 }
 
-export const ErrorResult = ({ status, title, subTitle }: ErrorResultProps) => {
+export default function ErrorResult({ status, title, subTitle }: ErrorResultProps) {
   return <Result status={status} title={title} subTitle={subTitle} />;
-}; 
+}

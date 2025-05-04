@@ -1,1 +1,1 @@
-export { default } from './stacked-bar-chart-tooltip';
+export { default } from './stacked-bar-tooltip';
