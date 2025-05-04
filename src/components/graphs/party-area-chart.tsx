@@ -4,7 +4,7 @@ import { Area, AreaChart, CartesianGrid, Tooltip, XAxis, YAxis } from 'recharts'
 import dayjs from 'dayjs';
 import isSameOrAfter from 'dayjs/plugin/isSameOrAfter';
 import isSameOrBefore from 'dayjs/plugin/isSameOrBefore';
-import BaseGraph from '@/src/components/graphs/base-graph';
+import BaseGraph from '@/src/components/graphs/base-graph/';
 import round from 'lodash/round';
 import { useDateRange } from '@/src/contexts/date-range-context';
 import { useState, useCallback } from 'react';
