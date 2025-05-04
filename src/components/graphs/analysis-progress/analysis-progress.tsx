@@ -7,7 +7,7 @@ import isSameOrBefore from 'dayjs/plugin/isSameOrBefore';
 import BaseGraph from '@/src/components/graphs/base-graph/';
 import { useDateRange } from '@/src/contexts/date-range-context';
 import { useMemo, useCallback } from 'react';
-import ProceededArticleTooltip from '@/src/components/graphs/tooltips/proceeded-article-tooltip';
+import ProceededArticleTooltip from '@/src/components/graphs/analysis-progress/analysis-progress-tooltip/analysis-progress-tooltip';
 import styles from './analysis-progress.module.scss';
 import classNames from 'classnames';
 

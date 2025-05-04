@@ -1,6 +1,6 @@
 'use client';
 
-import PartyScatterPlotGraph from '@/src/components/graphs/party-scatter-plot';
+import PartyScatterPlotGraph from '@/src/components/graphs/party-scatter-plot/party-scatter-plot';
 import GraphWidget from '@/src/components/graphs/graph-widget/graph-widget';
 import { useState } from 'react';
 import partiesList from '@/src/lib/dictionaries/partiesList';

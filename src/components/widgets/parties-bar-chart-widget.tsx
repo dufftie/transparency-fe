@@ -1,6 +1,6 @@
 'use client';
 
-import StackedBarChart from '@/src/components/graphs/stacked-bar-chart';
+import StackedBarChart from '@/src/components/graphs/stacked-bar-chart/stacked-bar-chart';
 import GraphWidget from '@/src/components/graphs/graph-widget/graph-widget';
 import { useState } from 'react';
 import partiesList from '@/src/lib/dictionaries/partiesList';

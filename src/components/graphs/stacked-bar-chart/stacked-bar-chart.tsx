@@ -5,7 +5,7 @@ import BaseGraph from '@/src/components/graphs/base-graph';
 import partiesList from '@/src/lib/dictionaries/partiesList';
 import useIsMobile from '@/src/lib/hooks/isMobile';
 import { useDateRange } from '@/src/contexts/date-range-context';
-import StackedBarTooltip from './tooltips/stacked-bar-tooltip';
+import StackedBarTooltip from './stacked-bar-chart-tooltip/stacked-bar-tooltip';
 
 interface StackedBarChartProps {
   media_id: string;

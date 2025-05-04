@@ -8,7 +8,7 @@ import BaseGraph from '@/src/components/graphs/base-graph/';
 import round from 'lodash/round';
 import { useDateRange } from '@/src/contexts/date-range-context';
 import { useState, useCallback } from 'react';
-import PartyAreaTooltip from './tooltips/party-area-tooltip';
+import PartyAreaTooltip from './party-area-chart-tooltip';
 
 // Extend dayjs with the required plugins
 dayjs.extend(isSameOrAfter);
