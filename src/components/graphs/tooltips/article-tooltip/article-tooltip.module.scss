@@ -1,33 +1,31 @@
-
-
-.article-tooltip {
+.tooltip {
   width: 250px;
   display: flex;
   flex-direction: column;
   gap: var(--spacing-md);
 
-  &__preview {
+  .preview {
     width: 100%;
     max-height: 150px;
   }
 
-  &__icon {
+  .icon {
     position: absolute;
     top: var(--spacing-sm);
     right: var(--spacing-sm);
   }
 
-  &__title {
+  .title {
     font-size: 14px;
   }
 
-  &__date,
-  &__authors {
+  .date,
+  .authors {
     font-size: 12px;
   }
 
-  &__date {
+  .date {
     color: var(--text-color-light);
     text-align: end;
   }
-} 
+}

@@ -18,7 +18,8 @@
   z-index: 5;
   opacity: 0;
   visibility: hidden;
-  transition: opacity var(--transition-standard),
+  transition:
+    opacity var(--transition-standard),
     visibility var(--transition-standard),
     backdrop-filter 0.4s ease;
 
@@ -30,7 +31,8 @@
   .ant-spin {
     transform: scale(0.8);
     opacity: 0;
-    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+    transition:
+      transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
       opacity var(--transition-standard);
 
     &--active {
@@ -43,7 +45,8 @@
 .chart {
   height: 100%;
   width: 100%;
-  transition: filter var(--transition-standard),
+  transition:
+    filter var(--transition-standard),
     opacity var(--transition-standard);
 
   :global {

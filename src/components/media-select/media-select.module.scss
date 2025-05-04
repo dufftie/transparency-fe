@@ -4,7 +4,11 @@
   column-gap: 100px;
   row-gap: var(--spacing-sm);
   min-height: 50vh;
-  background: radial-gradient(31.5% 31.5% at 37.5% 52.61%, var(--accent-color) 39.9%, rgba(187, 219, 245, 0) 100%);
+  background: radial-gradient(
+    31.5% 31.5% at 37.5% 52.61%,
+    var(--accent-color) 39.9%,
+    rgba(187, 219, 245, 0) 100%
+  );
 }
 
 .primary {
@@ -77,10 +81,10 @@
 
   .input {
     width: 100%;
-    
+
     :global(.ant-select-selector) {
       border-radius: var(--border-radius);
       border-color: var(--border-color);
     }
   }
-} 
+}

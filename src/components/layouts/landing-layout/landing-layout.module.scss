@@ -12,7 +12,11 @@
   gap: var(--spacing-md);
   padding: var(--spacing-xxl);
   margin: var(--spacing-xxl) 0;
-  background: radial-gradient(50% 50% at 50% 50%, var(--accent-color) 39.9%, rgba(187, 219, 245, 0) 100%);
+  background: radial-gradient(
+    50% 50% at 50% 50%,
+    var(--accent-color) 39.9%,
+    rgba(187, 219, 245, 0) 100%
+  );
 
   .title {
     font-size: 5.75rem;
@@ -28,4 +32,4 @@
     font-weight: 300;
     max-width: 750px;
   }
-} 
+}

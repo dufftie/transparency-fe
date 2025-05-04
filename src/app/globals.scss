@@ -2,9 +2,9 @@
 
 :root {
   /* Colors */
-  --accent-color: #BBDBF5;
-  --color-red: #EA2525;
-  --color-gray: #B8B8B8;
+  --accent-color: #bbdbf5;
+  --color-red: #ea2525;
+  --color-gray: #b8b8b8;
   --color-black: black;
   --color-white: white;
 
@@ -20,7 +20,7 @@
   --footer-bg: #001529;
   --footer-text: #ffffff;
 
-  --tooltip-bg: #FFF4EA;
+  --tooltip-bg: #fff4ea;
 
   /* Typography */
   --font-family-base: 'Mulish', sans-serif;
@@ -160,4 +160,4 @@ main {
 
 .ant-popover {
   font-family: var(--font-family-display) !important;
-} 
+}

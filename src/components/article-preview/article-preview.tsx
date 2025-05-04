@@ -26,7 +26,7 @@ export default function ArticlePreview({ preview_url, className }: ArticlePrevie
   return (
     <div className={styles.container}>
       {isLoading && (
-        <div className={styles.isLoading}>
+        <div className={styles.loading}>
           <Spin indicator={<LoadingOutlined style={{ fontSize: 48 }} spin />} />
         </div>
       )}

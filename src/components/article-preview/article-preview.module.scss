@@ -15,8 +15,8 @@
   display: block;
   filter: grayscale(1) sepia(50%) contrast(70%);
   object-fit: cover;
-  width: 100%;
-  max-height: 400px;
+  max-width: 100%;
+  max-height: 200px;
   transition: opacity 0.3s ease;
 
   &.isLoading {
@@ -28,4 +28,4 @@
     opacity: 1;
     position: relative;
   }
-} 
+}

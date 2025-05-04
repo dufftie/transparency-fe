@@ -41,9 +41,7 @@
     height: 100px;
 
     /* Add mask image for bottom-to-top fade effect */
-    mask-image: linear-gradient(to top,
-        transparent 0%,
-        black 50%);
+    mask-image: linear-gradient(to top, transparent 0%, black 50%);
   }
 }
 
