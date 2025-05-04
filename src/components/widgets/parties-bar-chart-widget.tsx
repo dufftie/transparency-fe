@@ -1,7 +1,7 @@
 'use client';
 
 import StackedBarChart from '@/src/components/graphs/stacked-bar-chart';
-import GraphWidget from '@/src/components/graphs/graph-widget';
+import GraphWidget from '@/src/components/graphs/graph-widget/graph-widget';
 import { useState } from 'react';
 import partiesList from '@/src/lib/dictionaries/partiesList';
 import map from 'lodash/map';
@@ -12,6 +12,7 @@ interface PartiesMonthlySentimentsBarchartProps {
 }
 
 const PartiesMonthlySentimentsBarchart = ({ media_id }: PartiesMonthlySentimentsBarchartProps) => {
+  // TODO: Add functionality to filter by party
   // State for sentiment visibility
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [visibleSentiments, setVisibleSentiments] = useState<string[]>([

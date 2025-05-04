@@ -36,7 +36,7 @@ const buildUrl = ({
   return `sentiments/${dataType}/summary/?${params.toString()}`;
 };
 
-const StackedBarChart = ({
+export default function StackedBarChart({
   media_id,
   showNames, // Removed default value
   positiveThreshold = 7, // Default: scores >= 7 are positive
@@ -44,7 +44,7 @@ const StackedBarChart = ({
   sortBy = 'total', // Default: sort by total count
   visibleSentiments = ['positive', 'neutral', 'negative'], // Default: show all sentiments
   dataType = 'parties', // Default: show parties data
-}: StackedBarChartProps) => {
+}: StackedBarChartProps) {
   const isMobile = useIsMobile();
   const { formattedRequestDateRange } = useDateRange();
   const [startDate, endDate] = formattedRequestDateRange;
@@ -53,9 +53,7 @@ const StackedBarChart = ({
   // Process the data for stacked bar chart
   const processData = (data: any[]) => {
     // Filter by requested names if showNames is provided
-    const filteredData = showNames 
-      ? data.filter(item => showNames.includes(item.name))
-      : data;
+    const filteredData = showNames ? data.filter(item => showNames.includes(item.name)) : data;
 
     // Calculate sentiment counts based on configurable thresholds
     let processedData = filteredData.map(item => {
@@ -111,8 +109,8 @@ const StackedBarChart = ({
   };
 
   return (
-    <BaseGraph graphName="stacked-bar-chart" fetchUrl={fetchUrl} processData={processData}>
-      {(data) => {
+    <BaseGraph fetchUrl={fetchUrl} processData={processData}>
+      {data => {
         // Calculate max value for YAxis domain based on visible sentiments
         const maxTotal = Math.max(
           ...data.map(item => {
@@ -177,8 +175,8 @@ const StackedBarChart = ({
                 tickLine={false}
                 width={80}
                 fontSize={10}
-                textAnchor='end'
-                orientation='right'
+                textAnchor="end"
+                orientation="right"
                 mirror
               />
             ) : (
@@ -216,6 +214,4 @@ const StackedBarChart = ({
       }}
     </BaseGraph>
   );
-};
-
-export default StackedBarChart;
+}

@@ -120,7 +120,7 @@ const PartyScatterPlotGraph = ({ media_id, party }: PartyScatterPlotGraphProps) 
   };
 
   return (
-    <BaseGraph graphName="party-scatter-plot-graph" fetchUrl={fetchUrl} processData={processData}>
+    <BaseGraph fetchUrl={fetchUrl} processData={processData}>
       {(data) => {
         // Filter data to domain range
         const filteredData = filterDataToDomainRange(data);

@@ -25,19 +25,7 @@ export const useDataFetching = ({
   const [showSpinner, setShowSpinner] = useState(true);
 
   useEffect(() => {
-    let timer: NodeJS.Timeout;
-
-    if (loading) {
-      setShowSpinner(true);
-    } else {
-      timer = setTimeout(() => {
-        setShowSpinner(false);
-      }, 300);
-    }
-
-    return () => {
-      if (timer) clearTimeout(timer);
-    };
+    setShowSpinner(loading);
   }, [loading]);
 
   const loadData = useCallback(
@@ -52,9 +40,7 @@ export const useDataFetching = ({
       } catch (error) {
         console.error('Error fetching data:', error);
       } finally {
-        setTimeout(() => {
-          setLoading(false);
-        }, 300);
+        setLoading(false);
       }
     }, debounceTime),
     [fetchUrl, processData, debounceTime]

@@ -142,7 +142,7 @@ const PartyAreaChart = ({
   };
 
   return (
-    <BaseGraph graphName="stacked-bar-chart" fetchUrl={fetchUrl} processData={processData}>
+    <BaseGraph fetchUrl={fetchUrl} processData={processData}>
       {(data) => {
         // Calculate domain for even distribution
         const [domainStart, domainEnd] = formattedDomainDateRange;

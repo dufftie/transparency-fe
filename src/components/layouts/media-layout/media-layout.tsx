@@ -45,13 +45,13 @@ export default function MediaLayout({
             <RangeDateSelect />
           </div>
 
-          {/* <div className={styles.graphs}>
+          <div className={styles.graphs}>
             <PartyScatterPlotWidget media_id={media.id} />
             <PartiesAreaChartWidget media_id={media.id} />
             <PartiesBarChartWidget media_id={media.id} />
             <PoliticiansBarChartWidget media_id={media.id} />
             <ScoresBarChartWidget media_id={media.id} />
-          </div> */}
+          </div>
         </div>
       </div>
     </DateRangeProvider>

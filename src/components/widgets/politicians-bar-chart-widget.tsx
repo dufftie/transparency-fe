@@ -1,7 +1,7 @@
 'use client';
 
 import StackedBarChart from '@/src/components/graphs/stacked-bar-chart';
-import GraphWidget from '@/src/components/graphs/graph-widget';
+import GraphWidget from '@/src/components/graphs/graph-widget/graph-widget';
 import { useState } from 'react';
 import { DateRangeProvider } from '@/src/contexts/date-range-context';
 
@@ -10,6 +10,8 @@ interface PoliticiansMonthlySentimentsBarchartProps {
 }
 
 const PoliticiansMonthlySentimentsBarchart = ({ media_id }: PoliticiansMonthlySentimentsBarchartProps) => {
+    // TODO: Add functionality to filter
+
   // State for sorting
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [sortBy, setSortBy] = useState<'name' | 'total' | 'positive' | 'negative'>('total'); // Default sort by name
