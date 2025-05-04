@@ -49,6 +49,22 @@
   /* Animations */
   --transition-standard: 0.3s ease;
   --transition-fast: 0.2s ease;
+
+  /* Ant Design overrides */
+  --ant-primary-color: var(--color-white);
+  --ant-primary-color-hover: var(--color-white);
+  --ant-primary-color-active: var(--color-white);
+  --ant-primary-color-outline: transparent;
+
+  --ant-font-family: var(--font-family-base);
+  --ant-code-family: var(--font-family-display);
+
+  --ant-border-radius-base: var(--border-radius);
+  --ant-border-color-base: var(--border-color);
+
+  --ant-heading-color: var(--text-color);
+  --ant-text-color: var(--text-color);
+  --ant-text-color-secondary: var(--text-color-secondary);
 }
 
 * {
@@ -112,4 +128,36 @@ main {
   @media (max-width: var(--breakpoint-sm)) {
     padding: 0 var(--spacing-sm);
   }
+}
+
+/* Ant Design custom styles */
+.ant-form-item-label,
+.ant-descriptions-item {
+  font-family: var(--font-family-display) !important;
+}
+
+.ant-descriptions-item {
+  &-label {
+    color: var(--text-color-secondary) !important;
+    padding-bottom: 0;
+    font-size: 16px !important;
+  }
+
+  &-content {
+    color: var(--text-color) !important;
+    font-size: 16px !important;
+  }
+
+  &-content a {
+    text-decoration: none;
+    transition: var(--transition-standard);
+  }
+
+  &-content a:hover {
+    text-decoration: underline;
+  }
+}
+
+.ant-popover {
+  font-family: var(--font-family-display) !important;
 } 
