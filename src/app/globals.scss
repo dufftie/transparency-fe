@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Mulish:wght@400;500;600;700&display=swap');
+@import '@/app/styles/breakpoints';
 
 :root {
   /* Colors */
@@ -25,12 +26,6 @@
   /* Typography */
   --font-family-base: 'Mulish', sans-serif;
   --font-family-display: 'IBM Plex Mono', monospace;
-
-  /* Breakpoints */
-  --breakpoint-sm: 576px;
-  --breakpoint-md: 768px;
-  --breakpoint-lg: 992px;
-  --breakpoint-xl: 1200px;
 
   /* Spacing */
   --spacing-xs: 4px;
@@ -125,8 +120,8 @@ main {
   padding: var(--spacing-layout) var(--spacing-xxl);
   margin-top: var(--spacing-layout);
 
-  @media (max-width: var(--breakpoint-sm)) {
-    padding: 0 var(--spacing-sm);
+  @include mobile {
+    padding: var(--spacing-xxl) var(--spacing-md);
   }
 }
 

@@ -1,3 +1,5 @@
+@import '@/app/styles/breakpoints';
+
 .container {
   display: flex;
   flex-direction: column;
@@ -9,12 +11,23 @@
     display: flex;
   }
 
+  .description {
+    @include mobile {
+      font-size: 0.85rem;
+    }
+  }
+
   .context {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: var(--spacing-lg);
     text-align: center;
+
+    @include mobile {
+      align-items: start;
+      text-align: left;
+    }
   }
 
   .content {

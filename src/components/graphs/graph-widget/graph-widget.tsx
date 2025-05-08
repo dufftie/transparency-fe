@@ -18,7 +18,7 @@ export default function GraphWidget({
     <div className={styles.container}>
       <div className={styles.context}>
         {title && <h3 className={styles.title}>{title}</h3>}
-        {description && <span>{description}</span>}
+        {description && <span className={styles.description}>{description}</span>}
         {extra && <div>{extra}</div>}
       </div>
       <div className={styles.content}>{children}</div>

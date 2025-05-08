@@ -1,3 +1,5 @@
+@import '@/app/styles/breakpoints';
+
 .container {
   max-width: 750px;
   position: relative;
@@ -19,6 +21,10 @@
   &:hover {
     text-decoration: underline;
   }
+
+  @include mobile {
+    font-size: 2rem;
+  } 
 }
 
 .description {
