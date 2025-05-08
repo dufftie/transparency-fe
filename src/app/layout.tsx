@@ -29,7 +29,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="ee" className={classNames(fonts)}>
+    <html lang="en" className={classNames(fonts)}>
       <body>
         <ConfigProvider theme={antDesignTheme}>
           <AntdRegistry>
