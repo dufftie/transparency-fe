@@ -9,8 +9,9 @@
   min-height: 50vh;
 
   @include mobile {
+    min-height: initial;
     flex-direction: column;
-    row-gap: var(--spacing-xl);
+    row-gap: var(--spacing-md);
   }
 }
 
