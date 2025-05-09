@@ -8,6 +8,8 @@ import { ConfigProvider } from 'antd';
 import antDesignTheme from '@/src/config/antDesignTheme';
 import Header from '@/components/layout/header';
 import Footer from '@/components/layout/footer';
+import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 const mulish = Mulish({
   subsets: ['latin', 'cyrillic'],
@@ -31,6 +33,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={classNames(fonts)}>
       <body>
+        <Analytics />
+        <SpeedInsights />
         <ConfigProvider theme={antDesignTheme}>
           <AntdRegistry>
             <Header />
