@@ -49,7 +49,11 @@
       width: 100%;
       aspect-ratio: 1 / 2;
       transform: translate(10%, 10%) rotate(130deg);
-      filter: invert(1) opacity(0.9) brightness(1.1);
+
+      mix-blend-mode: exclusion;
+      @supports not (mix-blend-mode: exclusion) {
+        filter: invert(1) opacity(0.9) brightness(1.1);
+      }
 
       @include mobile {
         transform: translate(-35%, 5%) rotate(250deg);
