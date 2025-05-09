@@ -1,6 +1,7 @@
 @import '@/app/styles/breakpoints';
 
 .container {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: var(--spacing-layout);
@@ -14,13 +15,8 @@
   gap: var(--spacing-md);
   padding: var(--spacing-xxl);
   margin: var(--spacing-xxl) 0;
-  background: radial-gradient(
-    50% 50% at 50% 50%,
-    var(--accent-color) 39.9%,
-    rgba(187, 219, 245, 0) 100%
-  );
 
-  @include mobile {
+  @include tablet {
     padding: var(--spacing-xl) var(--spacing-md);
     gap: var(--spacing-sm);
   }
@@ -33,7 +29,7 @@
     -webkit-text-fill-color: transparent;
     background-clip: text;
 
-    @include mobile {
+    @include tablet {
       font-size: 2.75rem;
     }
   }
