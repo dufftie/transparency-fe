@@ -1,18 +1,19 @@
 import React from 'react';
 import styles from './footer.module.scss';
 
-const Footer = () => {
+export default function Footer() {
   return (
-    <footer className={styles.footer}>
-      <div className={styles.footer__menu}>
-        <a href="/about">About</a>
-        <a href="/contact">Contact</a>
+    <footer className={styles.container}>
+      <div className={styles.menu}>
+        <a href="/about#analysis">How do we analyse articles?</a>
+        <a href="/about">About us</a>
+        <a href="/support">Support</a>
+        <a href="/contribute">We are open source!</a>
       </div>
-      <div className={styles.footer__logo}>
-        MTÜ Läbipaistvus
+      <div className={styles.logo}>
+        Läbipaistvus <span>MTÜ</span>
+        <div className={styles.gradient} />
       </div>
     </footer>
   );
-};
-
-export default Footer; 
+}
