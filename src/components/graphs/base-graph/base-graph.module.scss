@@ -13,13 +13,17 @@
   display: flex;
   justify-content: center;
   align-items: center;
+
+  -webkit-backdrop-filter: blur(2px);
   backdrop-filter: blur(2px);
+
   z-index: 5;
   opacity: 0;
   visibility: hidden;
   transition:
     opacity var(--transition-standard),
     visibility var(--transition-standard),
+    -webkit-backdrop-filter 0.4s ease,
     backdrop-filter 0.4s ease;
 
   &--active {

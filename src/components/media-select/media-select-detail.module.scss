@@ -5,6 +5,8 @@
   border-radius: var(--border-radius);
   padding: var(--spacing-lg);
   border: 1px solid var(--border-color);
+
+  -webkit-backdrop-filter: blur(50px);
   backdrop-filter: blur(50px);
 }
 

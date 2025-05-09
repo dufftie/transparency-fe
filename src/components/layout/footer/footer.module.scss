@@ -52,6 +52,8 @@
       mix-blend-mode: exclusion;
       transform: translate(10%, 10%) rotate(130deg);
 
+      backdrop-filter: opacity(1);
+
       @include mobile {
         transform: translate(-35%, 5%) rotate(250deg);
       }
