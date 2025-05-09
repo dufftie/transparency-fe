@@ -125,6 +125,8 @@ main {
   @include mobile {
     padding: var(--spacing-xxl) var(--spacing-md);
   }
+
+  overflow-x: hidden;
 }
 
 /* Ant Design custom styles */
