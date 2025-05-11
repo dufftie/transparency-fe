@@ -1,4 +1,4 @@
-import './globals.scss';
+import '@/app/globals.scss';
 import type React from 'react';
 import type { Metadata } from 'next';
 import classNames from 'classnames';
@@ -10,6 +10,9 @@ import Header from '@/components/layout/header';
 import Footer from '@/components/layout/footer';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
+import { hasLocale, NextIntlClientProvider } from 'next-intl';
+import { routing } from '@/src/i18n/routing';
+import { notFound } from 'next/navigation';
 
 const mulish = Mulish({
   subsets: ['latin', 'cyrillic'],
@@ -29,19 +32,26 @@ export const metadata: Metadata = {
   description: 'Läbipaistvus projekt',
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+
+export default async function RootLayout({ children, params }: { children: React.ReactNode; params: Promise<{ locale: string }>; }) {
+  const { locale } = await params;
+  if (!hasLocale(routing.locales, locale)) {
+    notFound();
+  }
   return (
-    <html lang="en" className={classNames(fonts)}>
+    <html lang={locale} className={classNames(fonts)}>
       <body>
         <Analytics />
         <SpeedInsights />
-        <ConfigProvider theme={antDesignTheme}>
-          <AntdRegistry>
-            <Header />
-            <main>{children}</main>
-            <Footer />
-          </AntdRegistry>
-        </ConfigProvider>
+        <NextIntlClientProvider>
+          <ConfigProvider theme={antDesignTheme}>
+            <AntdRegistry>
+              <Header />
+              <main>{children}</main>
+              <Footer />
+            </AntdRegistry>
+          </ConfigProvider>
+        </NextIntlClientProvider>
       </body>
     </html>
   );
