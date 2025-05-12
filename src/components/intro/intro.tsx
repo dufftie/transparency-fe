@@ -3,11 +3,14 @@
 import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import styles from './intro.module.scss';
+import { useTranslations } from 'next-intl';
 
 const Intro = () => {
   const titleRef = useRef<HTMLHeadingElement>(null);
   const descriptionRef = useRef<HTMLParagraphElement>(null);
   const prismRef = useRef<HTMLDivElement>(null);
+
+  const t = useTranslations('Intro');
 
   useEffect(() => {
     const elements = [titleRef.current, descriptionRef.current, prismRef.current].filter(Boolean);
@@ -49,8 +52,7 @@ const Intro = () => {
         Läbipaistvus
       </h1>
       <p ref={descriptionRef} className={styles.description}>
-        an independent non-profit organization focused on making media biases in Estonia
-        transparent.
+        {t('description')}
       </p>
     </div>
   );
