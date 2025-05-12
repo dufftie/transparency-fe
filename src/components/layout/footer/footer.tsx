@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './footer.module.scss';
+import LanguageSwitcher from '../../language-switcher';
 
 export default function Footer() {
   return (
@@ -9,6 +10,7 @@ export default function Footer() {
         <a href="/about">About us</a>
         <a href="/support">Support</a>
         <a href="/contribute">We are open source!</a>
+        <LanguageSwitcher />
       </div>
       <div className={styles.logo}>
         Läbipaistvus <span>MTÜ</span>
