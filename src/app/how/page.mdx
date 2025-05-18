@@ -1,39 +1,39 @@
 # How do we analyse articles?
 
-Our project is focused on understanding how political bias is reflected in Estonian media. To do this, we built a system that collects and analyses news articles from major online outlets. The process unfolds in three main stages: collecting the data, filtering relevant content, and analysing the articles using AI. Here's how it works:
+Our project is focused on understanding how political bias is reflected in Estonian media. To do this, we built a system that collects and analyses news articles from major online outlets. The process unfolds in three main stages: collecting the data, filtering relevant content, and analysing the articles using AI.
 
 
 ## Step 1: Collecting the Articles
 
-We start by scraping the websites of major Estonian news portals, including Postimees, Delfi, and ERR. This is done using a Python-based crawler built on the [Scrapy](https://github.com/scrapy/scrapy) framework. The crawler opens each media site and begins collecting articles from the newest to the oldest.
+We start by scraping the websites of major Estonian news portals, including **Postimees**, **Delfi**, and **ERR**. This is done using a Python-based crawler built on the [Scrapy](https://github.com/scrapy/scrapy) framework. The crawler opens each media site and begins collecting articles from the newest to the oldest.
 
 Each article is saved to our local database along with key metadata: the title, summary, publication date, author, category, and other relevant fields. We decided to limit our dataset to articles published since 2020, as this five-year window offers enough depth for trend analysis while keeping the project manageable.
 
 From the very beginning, we filter out certain categories of content that are unlikely to contain political bias. Articles related to weather, education, pets, design, health, home, tabloid news, and other lifestyle topics are excluded. These categories are generally not politicised and therefore not relevant to our analysis.
 
-_To be respectful of the media outlets and avoid overloading their servers, we use a soft approach — requesting around one article per second._
+*To be respectful of the media outlets and avoid overloading their servers, we use a soft approach — requesting around one article per second.*
 
 
 ## Step 2: Filtering for Relevance
 
 After scraping, the next step is to narrow down the pool of articles to those most likely to contain political content.
 
-1. We include all “Opinion” articles. These are the most ideologically expressive pieces and often provide clear insights into a media outlet’s political leanings. While we understand that political content also appears outside the Opinion section, given limited resources, this was the most effective starting point.
+1. We include all **"Opinion"** articles. These are the most ideologically expressive pieces and often provide clear insights into a media outlet's political leanings. While we understand that political content also appears outside the Opinion section, given limited resources, this was the most effective starting point.
 
-1. We exclude articles that are behind a paywall. This is partly due to legal concerns – as open-access articles are public and safe to analyse, whereas the status of closed content is unclear. In addition, accessing paywalled content would require either purchasing subscriptions or negotiating with publishers, which adds cost and complexity. From a practical standpoint, open articles are also more influential since they reach a wider audience.
+2. We exclude articles that are behind a paywall. This is partly due to legal concerns – as open-access articles are public and safe to analyse, whereas the status of closed content is unclear. In addition, accessing paywalled content would require either purchasing subscriptions or negotiating with publishers, which adds cost and complexity. From a practical standpoint, open articles are also more influential since they reach a wider audience.
 
-1. We identify and select articles that mention key political parties. By filtering for these mentions, we ensure that the articles we analyse are contextually relevant to the political discourse in Estonia. We created a comprehensive list that includes Estonia’s main parties and their common aliases or abbreviations for example: 
-    - Eesti Keskerakond (KESK)
-    - Eesti Konservatiivne Rahvaerakond (EKRE)
-    - Eesti Reformierakond (REF)
-    - Erakond Eesti 200 (E200)
-    - ISAMAA Erakond (Isamaa)
-    - Sotsiaaldemokraatlik Erakond (Sotsid)
+3. We identify and select articles that mention key political parties. By filtering for these mentions, we ensure that the articles we analyse are contextually relevant to the political discourse in Estonia. We created a comprehensive list that includes Estonia's main parties and their common aliases or abbreviations for example: 
+    - **Eesti Keskerakond** (KESK)
+    - **Eesti Konservatiivne Rahvaerakond** (EKRE)
+    - **Eesti Reformierakond** (REF)
+    - **Erakond Eesti 200** (E200)
+    - **ISAMAA Erakond** (Isamaa)
+    - **Sotsiaaldemokraatlik Erakond** (Sotsid)
 
 
 > ## P.S.
 >
-> The Parempoolsed ("Right Party") was currently excluded from our analysis for the following reasons:
+> The **Parempoolsed** ("Right Party") was currently excluded from our analysis for the following reasons:
 >
 > - As of the research period (February–March 2025), the party held no seats in any state institutions.
 > - It had not surpassed the 5% threshold in national polling, making its public and political impact relatively limited at the time.
@@ -43,24 +43,24 @@ After scraping, the next step is to narrow down the pool of articles to those mo
 ## Step 3: Analysing with AI
 
 We analyse three types of sentiment:
-- Article sentiment – general tone and bias of the article and its title
-- Party sentiment – sentiment toward each political party mentioned
-- Person sentiment – sentiment toward individual people mentioned in the article
+- **Article sentiment** – general tone and bias of the article and its title
+- **Party sentiment** – sentiment toward each political party mentioned
+- **Person sentiment** – sentiment toward individual people mentioned in the article
 
 Each sentiment is rated on a 0 to 10 scale:
-- 0 = Extremely negative
-- 5 = Neutral
-- 10 = Extremely positive
+- **0** = Extremely negative
+- **5** = Neutral
+- **10** = Extremely positive
 
 
 Before running the AI at scale, we conducted a manual test of 20 articles to compare human-assigned sentiment with AI results. The output was consistent and aligned with our expectations. We tested multiple AI models:
-- Google Gemini
-- OpenAI ChatGPT
-- DeepSeek
+- **Google Gemini**
+- **OpenAI ChatGPT**
+- **DeepSeek**
 
 All three produced similar results. Gemini and ChatGPT stood out for their balance of speed and accuracy, while DeepSeek was slightly less consistent. We evaluated Pro versions as well (e.g., Gemini 2.5 Pro, ChatGPT o3) for better precision, but they were too slow and costly for large-scale analysis.
 
-We proceeded with Gemini 2.0 Flash as it offered the best speed/quality/cost ratio. Some sentiment outputs still include anomalies or inconsistencies. We plan to implement a "report" feature so users can flag inaccurate results, improving long-term model accuracy.
+We proceeded with **Gemini 2.0 Flash** as it offered the best speed/quality/cost ratio. Some sentiment outputs still include anomalies or inconsistencies. We plan to implement a "report" feature so users can flag inaccurate results, improving long-term model accuracy.
 
 After experimenting with various configurations, we decided to use the following AI settings, as they provided more robust and predictable results across models:
 
@@ -125,4 +125,3 @@ The original prompt used for every analysis:
 
 *   **Заголовок:** Оцени объективность *заголовка* статьи по шкале от 0 до 10 (0 - крайне предвзятый, 10 - абсолютно объективный). Предоставь обоснование. Учитывай, отражает ли заголовок содержание статьи, использует ли он эмоционально окрашенную лексику, преувеличения или искажения.
 *   **Текст статьи:** Оцени объективность *всего текста* статьи по шкале от 0 до 10 (0 - крайне предвзятый, 10 - абсолютно объективный). Предоставь обоснование. Учитывай, представлены ли разные точки зрения, используются ли достоверные источники, есть ли признаки манипуляции фактами или мнениями."""
-```
