@@ -96,15 +96,13 @@ export default function ArticleSearch({
 
   return (
     <div className={styles.container}>
-      <div className={styles.sidebar}>
-        <div className={styles.sidebarInner}>
-          <div className={styles.title}>Articles</div>
-          <ArticlesCount
-            total_count={total_articles}
-            analyzed_count={total_sentiments}
-            layout="vertical"
-          />
-        </div>
+      <div className={styles.header}>
+        <div className={styles.title}>Articles</div>
+        <ArticlesCount
+          total_count={total_articles}
+          analyzed_count={total_sentiments}
+          layout="horizontal"
+        />
       </div>
       <div className={styles.content}>
         <Search
