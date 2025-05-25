@@ -13,7 +13,7 @@ const antDesignTheme: ThemeConfig = {
   components: {
     Button: {
       fontFamily: "'IBM Plex Mono', monospace",
-      contentFontSizeLG: 24,
+      contentFontSizeLG: 20,
     },
   },
 };

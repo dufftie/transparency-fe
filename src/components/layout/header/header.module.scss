@@ -21,7 +21,7 @@
 
       &::before {
         border-radius: 0;
-        padding-bottom: 50px;
+        padding-bottom: 25px;
         height: 100px;
 
         /* Add mask image with vendor prefixes and fallback */
@@ -84,7 +84,7 @@
 
   :global {
     .ant-btn {
-      font-size: 1.5rem;
+      font-size: 1.25rem;
       text-transform: uppercase;
       transition: all 0.3s ease;
     }
