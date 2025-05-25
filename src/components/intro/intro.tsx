@@ -35,7 +35,7 @@ const Intro = () => {
     );
 
     gsap.to(prismRef.current, {
-      opacity: 0.5,
+      opacity: 0.8,
       duration: 0.5,
       delay: 0.5
     });

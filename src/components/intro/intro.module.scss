@@ -48,10 +48,14 @@
     background-color: var(--color-background);
     width: 50vw;
     aspect-ratio: 1 / 1;
-    mix-blend-mode: multiply;
     transform: rotate(-160deg);
     top: 18vh;
     left: -10vh;
     z-index: -1;
+
+    @include tablet {
+      top: 40vh;
+      left: -5vh;
+    }
   }
 }

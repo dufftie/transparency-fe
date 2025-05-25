@@ -19,7 +19,7 @@ export default function Card({ label, children, primary, borderless, hint, class
     })}>
       <div className={styles.header}>
         {label && <div className={styles.label}>{label}</div>}
-        {hint && <Hint title={hint} />}
+        {hint && <Hint content={hint} />}
       </div>
       {children}
     </div>

@@ -23,7 +23,7 @@ const MediaSelectDetail = ({ media }: MediaSelectDetailProps) => {
   }
 
   const { title, editors, description, analyzed_count, total_count } = media;
-  const editor = (editors && editors[editors?.length - 1]) || null;
+  const editor = (editors && editors[0]) || null;
   return (
     <div className={styles.detail}>
       <div className={styles.header}>
