@@ -96,13 +96,17 @@
   padding: var(--spacing-lg);
   border-radius: var(--border-radius);
   overflow-x: auto;
-  margin: var(--spacing-lg) 0;
+  margin: var(--spacing-lg) 0 var(--spacing-layout);
 
   code {
     font-family: var(--font-family-display);
     font-size: 0.9rem;
     line-height: 1.5;
     color: var(--color-green);
+
+    @include mobile {
+      font-size: 0.8rem;
+    }
   }
 }
 
