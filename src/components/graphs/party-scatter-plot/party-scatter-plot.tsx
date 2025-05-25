@@ -130,7 +130,7 @@ const PartyScatterPlotGraph = ({ media_id, party }: PartyScatterPlotGraphProps) 
         const endTimestamp = dayjs(domainEnd).valueOf();
 
         return (
-          <ScatterChart margin={{ left: 0, right: 0, top: 30, bottom: 50 }}>
+          <ScatterChart margin={{ left: 0, right: 0, top: 30, bottom: 20 }}>
             <XAxis
               dataKey="timestamp"
               type="number"
