@@ -151,7 +151,7 @@ const PartyAreaChart = ({
         const ticks = calculateTicks(startTimestamp, endTimestamp);
 
         return (
-          <AreaChart data={data} margin={{ left: 0, right: 0, top: 0, bottom: 0 }}>
+          <AreaChart data={data} margin={{ left: 0, right: 0, top: 0, bottom: 15 }}>
             <defs>
               <linearGradient id="negative" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="10%" stopColor="#EA2525" stopOpacity={1} />

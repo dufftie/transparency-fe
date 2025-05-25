@@ -18,6 +18,7 @@ export default function PartiesMonthlySentimentsAreaChart({ media_id }: PartiesM
       title="Sentiment area chart"
       description="This area chart shows how sentiment for a specific party changes over time, expressed as a percentage of total mentions."
       extra={<PartySelect value={party} onChange={setParty} />}
+      legend="Negative ≤3; Neutral 4-6; Positive ≥7"
     >
       <PartyAreaChart
         media_id={media_id}
