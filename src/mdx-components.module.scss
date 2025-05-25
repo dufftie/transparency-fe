@@ -1,4 +1,4 @@
-@import '@/app/styles/breakpoints';
+@use '@/app/styles/breakpoints' as *;
 
 .a {
   text-decoration: underline;

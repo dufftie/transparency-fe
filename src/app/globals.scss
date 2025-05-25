@@ -1,5 +1,5 @@
+@use '@/app/styles/breakpoints' as *;
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Mulish:wght@400;500;600;700&display=swap');
-@import '@/app/styles/breakpoints';
 
 :root {
   /* Colors */
@@ -123,12 +123,11 @@ main {
   max-width: 1600px;
   padding: var(--spacing-layout) var(--spacing-xxl);
   margin-top: var(--spacing-layout);
+  overflow-x: hidden;
 
   @include mobile {
     padding: var(--spacing-xxl) var(--spacing-md);
   }
-
-  overflow-x: hidden;
 }
 
 /* Ant Design custom styles */
