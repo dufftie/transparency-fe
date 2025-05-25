@@ -7,6 +7,7 @@
   justify-content: space-between;
   font-family: var(--font-family-display);
   min-height: 50vh;
+  align-items: start;
 
   @include mobile {
     min-height: initial;
@@ -61,7 +62,6 @@
 
 .input {
   position: sticky;
-  top: 130px;
   z-index: 1000;
   border-radius: 10px;
   transition: 1s ease-out;
