@@ -27,6 +27,20 @@ const fonts = [montserrat.className, mulish.className, ibmPlexMono.className];
 export const metadata: Metadata = {
   title: 'MTÜ Läbipaistvus',
   description: 'Läbipaistvus projekt',
+  openGraph: {
+    images: [
+      {
+        url: '/OG.png',
+        width: 1200,
+        height: 630,
+        alt: 'MTÜ Läbipaistvus',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    images: ['/OG.png'],
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
