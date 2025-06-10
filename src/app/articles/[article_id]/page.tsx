@@ -6,6 +6,11 @@ import { Metadata } from 'next';
 import ErrorResult from '@/src/components/error/error-result';
 import { generatePageMetadata } from '@/src/lib/utils/metadata';
 
+const ensureHttpsUrl = (url: string) => {
+  if (!url) return '';
+  return url.startsWith('//') ? `https:${url}` : url;
+};
+
 const getArticleData = cache(async (article_id: string) => {
   return fetchData<{
     article: ArticleData;
@@ -22,9 +27,10 @@ export async function generateMetadata({ params }: {
   try {
     const { article } = await getArticleData(resolvedParams.article_id);
     if (!article) return {};
-
+  
     return generatePageMetadata({
       title: article.title,
+      image: ensureHttpsUrl(article.preview_url),
     });
   } catch (error) {
     console.error('Error fetching article data for metadata:', error);
