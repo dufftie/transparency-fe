@@ -14,7 +14,6 @@
   --color-blue: #bbdbf5;
 
   --background-color: white;
-
   --text-color: black;
   --text-color-secondary: #00000073;
   --text-color-light: var(--color-gray);
@@ -46,6 +45,7 @@
   /* Animations */
   --transition-standard: 0.3s ease;
   --transition-fast: 0.2s ease;
+  --transition-theme: 0.5s ease;
 
   /* Ant Design overrides */
   --ant-primary-color: var(--color-white);
@@ -68,16 +68,7 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-}
-
-body {
-  font-family: var(--font-family-base);
-  color: var(--text-color);
-  min-height: 100vh !important;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: var(--color-light-gray);
+  transition: background-color var(--transition-theme), color var(--transition-theme), border-color var(--transition-theme);
 }
 
 h1 {
@@ -115,18 +106,6 @@ a {
 
 a:hover {
   text-decoration: underline;
-}
-
-main {
-  width: 100%;
-  max-width: 1600px;
-  padding: var(--spacing-layout) var(--spacing-xxl);
-  margin-top: var(--spacing-layout);
-  overflow-x: hidden;
-
-  @include mobile {
-    padding: var(--spacing-xxl) var(--spacing-md);
-  }
 }
 
 /* Ant Design custom styles */

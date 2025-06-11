@@ -8,6 +8,7 @@
   font-family: var(--font-family-display);
   min-height: 50vh;
   align-items: start;
+  color: var(--text-color);
 
   @include mobile {
     min-height: initial;

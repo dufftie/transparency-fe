@@ -3,6 +3,8 @@
   display: flex;
   flex-direction: column;
   gap: var(--spacing-layout);
+  min-height: 100vh;
+  z-index: 1;
 }
 
 .silk {
@@ -12,4 +14,6 @@
   top: 0;
   left: 0;
   z-index: -1;
+  opacity: 0.8;
+  mix-blend-mode: overlay;
 }

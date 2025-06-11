@@ -4,12 +4,12 @@ import type { Metadata } from 'next';
 import classNames from 'classnames';
 import { Mulish, IBM_Plex_Mono, Montserrat } from 'next/font/google';
 import { AntdRegistry } from '@ant-design/nextjs-registry';
-import { ConfigProvider } from 'antd';
-import antDesignTheme from '@/src/config/antDesignTheme';
 import Header from '@/components/layout/header';
 import Footer from '@/components/layout/footer';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
+import { ThemeProvider } from '@/src/contexts/theme-context';
+import ThemeWrapper from '@/components/theme-wrapper';
 
 const mulish = Mulish({
   subsets: ['latin', 'cyrillic'],
@@ -49,13 +49,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <Analytics />
         <SpeedInsights />
-        <ConfigProvider theme={antDesignTheme}>
-          <AntdRegistry>
-            <Header />
-            <main>{children}</main>
-            <Footer />
-          </AntdRegistry>
-        </ConfigProvider>
+        <ThemeProvider>
+          <ThemeWrapper>
+            <AntdRegistry>
+              <Header />
+              <main>{children}</main>
+              <Footer />
+            </AntdRegistry>
+          </ThemeWrapper>
+        </ThemeProvider>
       </body>
     </html>
   );

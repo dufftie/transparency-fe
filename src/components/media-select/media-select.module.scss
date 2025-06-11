@@ -5,6 +5,7 @@
   font-family: var(--font-family-display);
   column-gap: 100px;
   min-height: 50vh;
+  color: var(--text-color);
 
   @include mobile {
     flex-direction: column;
