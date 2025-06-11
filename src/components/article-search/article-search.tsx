@@ -118,9 +118,12 @@ export default function ArticleSearch({
           loading={isLoading}
         />
         <div className={styles.results} ref={scopeRef}>
-          {articles.map(article => (
-            <ArticleSearchResult key={article.id} article={article} />
-          ))}
+          {isLoading && <div className={styles.loading}>Loading...</div>}
+          {!isLoading &&
+            articles.map(article => <ArticleSearchResult key={article.id} article={article} />)}
+          {!isLoading && searchValue && searchValue.length >= 3 && articles.length === 0 && (
+            <div className={styles.noResults}>No results found</div>
+          )}
         </div>
         {!isEmpty(articles) && isWidget && (
           <a href={`/articles?search=${searchValue}`} className={styles.link}>
