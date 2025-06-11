@@ -20,9 +20,6 @@
     font-size: 5.75rem;
     font-weight: 900;
     text-transform: uppercase;
-    background: linear-gradient(180deg, #666666 18.7%, #000000 80%);
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
 
     @include tablet {
       font-size: 2.75rem;
@@ -33,29 +30,10 @@
     font-size: 1.25rem;
     font-weight: 300;
     max-width: 750px;
+    justify-content: center;
 
     @include mobile {
       font-size: 1rem;
-    }
-  }
-
-
-  .prism {
-    position: absolute;
-    background-image: url('/assets/prism.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-color: var(--color-background);
-    width: 50vw;
-    aspect-ratio: 1 / 1;
-    transform: rotate(-160deg);
-    top: 18vh;
-    left: -10vh;
-    z-index: -1;
-
-    @include tablet {
-      top: 40vh;
-      left: -5vh;
     }
   }
 }
