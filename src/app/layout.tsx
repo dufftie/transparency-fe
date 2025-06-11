@@ -9,7 +9,8 @@ import Footer from '@/components/layout/footer';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { ThemeProvider } from '@/src/contexts/theme-context';
-import ThemeWrapper from '@/components/theme-wrapper';
+import ThemeWrapper from '@/src/components/theme-wrapper/theme-wrapper';
+import BackgroundWrapper from '@/components/background-wrapper';
 
 const mulish = Mulish({
   subsets: ['latin', 'cyrillic'],
@@ -52,6 +53,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <ThemeProvider>
           <ThemeWrapper>
             <AntdRegistry>
+              <BackgroundWrapper />
               <Header />
               <main>{children}</main>
               <Footer />

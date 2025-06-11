@@ -1,14 +1,13 @@
 @use '@/app/styles/breakpoints' as *;
 
 .themeWrapper {
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   font-family: var(--font-family-base);
   color: var(--text-color);
-  background-color: var(--background-color);
   transition: background-color 0.5s ease, color 0.5s ease;
+  overflow-y: hidden;
 
   &.light {
     background-color: var(--color-light-gray);
@@ -23,10 +22,11 @@
       --background-color: #121212;
       --text-color: #e2f2ff;
       --text-color-light: #5d6a75;
-      --text-color-secondary: #5d6a75;
+      --text-color-secondary: #e2f2ff;
       --border-color: #333333;
       --border-color-dark: #ffffff;
       --tooltip-bg: #1f1f1f;
+      --color-secondary: black;
     }
   }
 

@@ -24,6 +24,7 @@
     font-size: 1.15rem;
     font-family: var(--font-family-display);
     gap: var(--spacing-md);
+    z-index: 1;
 
     @include mobile {
       order: 1;

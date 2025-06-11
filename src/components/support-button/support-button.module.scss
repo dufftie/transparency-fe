@@ -1,15 +1,12 @@
 @use '@/app/styles/breakpoints' as *;
 
 .button {
-  color: var(--color-white) !important;
-  padding: var(--spacing-md) !important;
-  height: auto !important;
-  font-size: 1.25rem;
-  line-height: 1.5rem;
   text-transform: uppercase;
-
-  &:hover {
-    transform: scale(1.05);
+  height: 100%;
+ 
+  * {
+    font-size: 1.25rem !important;
+    color: var(--color-white) !important;
   }
 
   @include mobile {

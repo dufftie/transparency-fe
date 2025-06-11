@@ -20,17 +20,6 @@ const LandingLayout = ({ stats, media }: LandingLayoutProps) => {
       <Intro />
       <ArticleSearch {...stats} isWidget />
       <MediaSelect media={media} />
-
-      <div className={styles.silk}>
-        <Beams
-          beamWidth={15}
-          beamHeight={15}
-          beamNumber={5}
-          lightColor="#bbdbf5"
-          speed={4}
-          rotation={260}
-        />
-      </div>
     </div>
   );
 };

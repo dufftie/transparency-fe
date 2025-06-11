@@ -9,7 +9,7 @@ const darkTheme: ThemeConfig = {
     colorError: '#ea5753',
     fontFamily: "'Mulish', sans-serif",
     colorBgBase: '#121212',
-    colorTextBase: '#e2f2ff',
+    colorTextBase: '#bcd1e3',
   },
   components: {
     Button: {
